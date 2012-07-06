@@ -1,0 +1,12 @@
+/* Print Document Styles */
+
+body,a .color-blue,#contentColWide h1 a:link, #contentColWide h1 a:visited, #contentColWide.content h1 a:active,#contentCol2 h2,#contentColWide h2,h3 { background: none; color:#000; }
+#header, #headerNav, #upperHeaderBanner, #bottomHeaderBanner, #wideColBanner, #contentCol1, #contentCol3, #contentNarrow, #footerWrapper, .inlineWidget, #pageIcons, #googlemap, #SwfLocationsMapWrapper,form, #bottomWrapper, .wp-post-image, #smShare {display: none !important; }
+#contentWrapper {display:block;}
+.centerDivWrapper{ width:100%; }
+#contentCol2, #contentColWide, #printHeader, #printFooter { display:block; width:95%; margin:auto; float:none !important; pdadding:20px;}
+#printHeader { margin-bottom:20px; }
+#printFooter { margin-top:20px; }
+#printFooter p { font-size:11px; }
+.disclosures {display:block!important; }
+

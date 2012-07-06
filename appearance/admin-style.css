@@ -1,0 +1,10 @@
+/* Custom wp-admin pages CSS style to get rid of pesky plugin ads */
+#wlcms-vum-promo, .download_monitor .spsn-container{ display: none; }
+
+.appearance_page_themes_site_options form h4 { margin-bottom:0; }
+.appearance_page_themes_site_options table.form-table { margin-top:0; margin-bottom:25px; }
+.appearance_page_themes_site_options form a.switch { display:block; height:30px; width:70px; background: url(images/admin/theme-options-panel/bg-checkbox.gif) no-repeat; }
+.appearance_page_themes_site_options form .off { background-position: 0 0!important; }
+.appearance_page_themes_site_options form .on { background-position: 0 -31px!important; } 
+
+#ui-datepicker-div { display:none; }

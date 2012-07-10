@@ -1,4 +1,5 @@
 <?php
+if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'WLFW' );
 
 //adding support for custom header image
 //by default it controls the image area to the right of the logo area on the left.
@@ -8,15 +9,6 @@ if(!defined('HEADER_IMAGE')) define('HEADER_IMAGE', trailingslashit( get_stylesh
 if(!defined('HEADER_IMAGE_ALT')) define('HEADER_IMAGE_ALT', 'header banner image');
 if(!defined('HEADER_IMAGE_WIDTH')) define('HEADER_IMAGE_WIDTH', apply_filters( 'wlfw_header_image_width', 580 ));
 if(!defined('HEADER_IMAGE_HEIGHT')) define('HEADER_IMAGE_HEIGHT', apply_filters( 'wlfw_header_image_height', 80 ));
-
-//turning on all the theme options by default
-//simply set any of these to false to turn them off, 
-//keep in mind there may be dependecies between these modules to consider
-if(!defined('WHITELABEL_SITEOPTIONS')) define('WHITELABEL_SITEOPTIONS', TRUE );
-if(!defined('WHITELABEL_CONFIG')) define('WHITELABEL_CONFIG', TRUE );
-if(!defined('WHITELABEL_CORE')) define('WHITELABEL_CORE', TRUE );
-if(!defined('WHITELABEL_WPBUILTINS')) define('WHITELABEL_WPBUILTINS', TRUE );
-if(!defined('WHITELABEL_FLOATING_SOCIAL')) define('WHITELABEL_FLOATING_SOCIAL', TRUE );
 
 //TODO: Create an activation function so it only runs 1 time
 update_option('wpm_o_user_id', 1); //turn off whitelabel plugin advertisement
@@ -92,3 +84,4 @@ function setup_scripts_and_styles_enqueue() {
 	wp_enqueue_style('reset');
 	wp_enqueue_style('960gs');
 }
+

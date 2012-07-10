@@ -26,51 +26,43 @@ define('THEME_VERSION', $theme_data['Version']);
 //that we are using actions to load these functions
 if(FALSE) { wp_head(); wp_footer(); }
 
-if(defined('WHITELABEL_SITEOPTIONS')) $whitelabelConfigFlag = WHITELABEL_SITEOPTIONS;
-if(!defined('WHITELABEL_SITEOPTIONS') || $whitelabelConfigFlag != false) {
-	if(!class_exists('sm_options_container'))  
-	get_template_part('part', 'siteoptions_builder.class');
-	get_template_part('part.theme', 'siteoptions.inc');
+
+function wlfw_include_core_files() { 
+
+	$wlfw_parts = array(
+		'WHITELABEL_SITEOPTIONS_BUILDER' => array( 'slug' => 'part', 'name' => 'siteoptions_builder.class'),
+		'WHITELABEL_SITEOPTIONS' => array( 'slug' => 'part.theme', 'name' => 'siteoptions.inc' ),
+		//mobile redirection tool
+		//you can use this utility to redirect mobile visitors to your mobile domain
+		//name by providing the redirection URL in the Appearance Customization menu
+		'WHITELABEL_MOBILE' => array( 'slug' => 'part.mobile', 'name' => 'redirect.devices.inc' ),
+		//build out the website based on the config options
+		//this section controls which styles and scripts are enqueued
+		//as well as all of the theme options as defined by WordPress core
+		
+		//allow core functions to be completely removed, or overwritten by child them template part
+		'WHITELABEL_CORE' => array( 'slug' => 'part.theme', 'name' => 'functions.inc' ),
+		'WHITELABEL_WPBUILTINS' => array( 'slug' => 'part.theme', 'name' => 'wpbuiltins.inc' ),
+		'WHITELABEL_SHORTCODES' => array( 'slug' => 'part.theme', 'name' => 'shortcodes.inc' ),
+		'WHITELABEL_WIDGETS' => array( 'slug' => 'part.widgets.inc', 'name' => '' ),
+		'WHITELABEL_FLOATING_SOCIAL' => array( 'slug' => 'part.floating', 'name' => 'social.inc' ),
+	);
+	
+	$wlfw_parts = apply_filters('wlfw_include_core_files', $wlfw_parts);
+	
+	// remove site options builder if its already being added elsewhere
+	if(class_exists('sm_options_container') ) 
+		unset($wlfw_parts['WHITELABEL_SITEOPTIONS_BUILDER']);
+
+	$wlfw_parts = array_merge(array('WHITELABEL_CONFIG' => array( 'slug' => 'part.theme', 'name' => 'config.inc' )), $wlfw_parts );
+		
+	foreach($wlfw_parts as $constant => $template_part) {
+		if(defined($constant)) $value = constant($constant);
+		if(!defined($constant) || $value != false)
+		get_template_part($template_part['slug'], $template_part['name']);	
+	}
 }
-
-//mobile redirection tool
-//you can use this utility to redirect mobile visitors to your mobile domain
-//name by providing the redirection URL in the Appearance Customization menu
-if(defined('WHITELABEL_MOBILE')) $whitelabelMobile = WHITELABEL_CONFIG;
-if(!defined('WHITELABEL_MOBILE') || $whitelabelMobile != false)
-	get_template_part('part.mobile', 'redirect.devices.inc');
-
-//build out the website based on the config options
-//this section controls which styles and scripts are enqueued
-//as well as all of the theme options as defined by WordPress core
-if(defined('WHITELABEL_CONFIG')) $whitelabelConfigFlag = WHITELABEL_CONFIG;
-if(!defined('WHITELABEL_CONFIG') || $whitelabelConfigFlag != false)
-	get_template_part('part.theme', 'config.inc');
-
-//allow core functions to be completely removed, or overwritten by child them template part
-if(defined('WHITELABEL_CORE')) $whitelabelCoreFlag = WHITELABEL_CORE;
-if(!defined('WHITELABEL_CORE') || $whitelabelCoreFlag != false)
-	get_template_part('part.theme', 'functions.inc');
-
-//allow core fucntions to be completely removed, or overwritten by child them template part
-if(defined('WHITELABEL_WPBUILTINS')) $whitelabelBuiltinsFlag = WHITELABEL_WPBUILTINS;
-if(!defined('WHITELABEL_WPBUILTINS') || $whitelabelBuiltinsFlag != false) 
-	get_template_part('part.theme', 'wpbuiltins.inc');	
-	
-//allow core fucntions to be completely removed, or overwritten by child them template part
-if(defined('WHITELABEL_SHORTCODES')) $whitelabelBuiltinsFlag = WHITELABEL_SHORTCODES;
-if(!defined('WHITELABEL_SHORTCODES') || $whitelabelBuiltinsFlag != false) 
-	get_template_part('part.theme', 'shortcodes.inc');	
-	
-//allow widgets to be completely removed, or overwritten by child them template part
-if(defined('WHITELABEL_WIDGETS')) $whitelabelWidgetsFlag = WHITELABEL_WIDGETS;
-if(!defined('WHITELABEL_WIDGETS') || $whitelabelWidgetsFlag != false)
-	get_template_part('part.widgets.inc');		
-
-//allow floating social to be completely removed, or overwritten by child them template part
-if(defined('WHITELABEL_FLOATING_SOCIAL')) $floatingSocialFlag = WHITELABEL_FLOATING_SOCIAL;
-if(!defined('WHITELABEL_FLOATING_SOCIAL') || $floatingSocialFlag != false)
-	get_template_part('part.floating', 'social.inc');
+add_action('after_setup_theme', 'wlfw_include_core_files');
 
 //enable use of sm-debug-bar without requiring the function to be activated.
 if(!function_exists('dbug')) { function dbug(){} }

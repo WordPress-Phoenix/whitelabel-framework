@@ -83,15 +83,21 @@ function get_wlfw_subpages_html() {
 	global $post;
 	$output = '<ul>';
 	
-	$parent = get_post_ancestors( $post->ID );
+	// if no post id for this page use front page id
+	if(!$post)
+		$post_id = get_option('page_on_front');
+	else
+		$post_id = $post->ID;
+	
+	$parent = get_post_ancestors( $post_id );
 	if(isset($parent[0]))
     	$output .= '<li class="parent-link"><a href="'.get_permalink( $parent[0] ).'">'.get_the_title($parent[0] ).'<span>&uarr;</span></a></li>';
 	elseif(!is_front_page())
 		$output .= '<li class="parent-link"><a href="'.get_home_url().'">Home<span>&uarr;</span></a></li>';
 	
 	//if (is_page( )) {
-	  $page = $post->ID;
-	  if ($post->post_parent) {
+	  $page = $post_id;
+	  if ($post && $post->post_parent) {
 		$page = $post->post_parent;
 	  }
 	  $children=wp_list_pages( 'echo=0&child_of=' . $page . '&title_li=' );

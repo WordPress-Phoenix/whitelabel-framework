@@ -54,8 +54,8 @@ function wlfw_inline_social_bar($content = '') { wlfw_display_like_it_bar(); ?>
 
 
 
-function wlfw_display_like_it_bar() { ?>
-
+function wlfw_display_like_it_bar() { 
+?>
 <style>
 /*styles for wlfw_display_like_it_bar */
 #container-fluid {width: 100%;}
@@ -147,6 +147,11 @@ body .floatbutton .stBubble_count, body .floatbutton .stBubble_count {
     </div>
 </div>
 <div class="floatbuttonEndCap"></div>
+
+<?php
+$st_key =  get_option(SM_SITEOP_PREFIX.'share_this_key');
+if( !empty($st_key) ) { echo '<script type="text/javascript">jQuery(document).ready(function() { stLight.options({publisher: "'.$st_key.'"}); }); </script>'; }
+?>
 
 <!-- end wlfw_display_like_it_bar --> 
 <script type="text/javascript">

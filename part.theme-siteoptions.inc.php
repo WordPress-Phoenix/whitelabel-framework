@@ -17,9 +17,9 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 		$texturize->add_part($texturize_comments = new sm_checkbox('texturize_comments', array('label'=>'Comments', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
 				
 	$whiteLabelOptions->add_part($scriptSrources = new sm_section('script_sources', array('title'=>'Script Sources')) );
-		$scriptSrources->add_part($jQuery = new sm_radio_buttons('jquery_source', array('Local'=>get_template_directory_uri().'/js/jquery.min.js', 'Google Ajax API CDN'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js', 'Microsoft CDN'=>'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.4.min.js', 'jQuery CDN'=>'http://code.jquery.com/jquery-1.6.4.min.js' )));
+		$scriptSrources->add_part($jQuery = new sm_radio_buttons('jquery_source', array('Default (local but can be overridden by plugins)'=>'default', 'Local (cannot be overridden by plugins)'=>'local', 'Google Ajax API CDN'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js', 'Microsoft CDN'=>'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.4.min.js', 'jQuery CDN'=>'http://code.jquery.com/jquery-1.6.4.min.js' )));
 			$jQuery->label ='jQuery';
-			$jQuery->default_value = get_template_directory_uri().'/js/jquery.min.js';
+			$jQuery->default_value = 'default';
 			
 	$whiteLabelOptions->add_part($fourOFourPage = new sm_section('404', array('title'=>'404 Page')) );
 		$fourOFourPage->add_part($autoSearch = new sm_checkbox('autosearch', array('label'=>'Auto Search', 'value'=>'true', 'classes'=>array('onOffSwitch'))));

@@ -98,15 +98,17 @@ function upgrader_source_selection_filter($source, $remote_source=NULL, $upgrade
 		Github delivers zip files as <Username>-<TagName>-<Hash>.zip
 		must rename this zip file to the accurate theme folder
 	*/
-	$upgrader->skin->feedback("Trying to customize theme folder name...");
-	if(isset($source, $remote_source)){
-		$corrected_source = $remote_source . '/whitelabel-framework/';
-		if(@rename($source, $corrected_source)){
-			$upgrader->skin->feedback("Theme folder name corrected to: whitelabel-framework");
-			return $corrected_source;
-		} else {
-			$upgrader->skin->feedback("Unable to rename downloaded theme.");
-			return new WP_Error();
+	if( isset($_GET['action']) && stristr($_GET['action'], 'theme') ){
+		$upgrader->skin->feedback("Trying to customize theme folder name...");
+		if( isset($source, $remote_source) && stristr($source, 'whitelabel-framework') ){
+			$corrected_source = $remote_source . '/whitelabel-framework/';
+			if(@rename($source, $corrected_source)){
+				$upgrader->skin->feedback("Theme folder name corrected to: whitelabel-framework");
+				return $corrected_source;
+			} else {
+				$upgrader->skin->feedback("Unable to rename downloaded theme.");
+				return new WP_Error();
+			}
 		}
 	}
 	return $source;

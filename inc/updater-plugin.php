@@ -15,9 +15,10 @@ require_once('updater-assets.php');
 add_filter('site_transient_update_themes', 'transient_update_themes_filter');
 function transient_update_themes_filter($data){
 	
-	$theme_data = wp_get_theme( );
+	$theme_data = wp_get_theme();
+	$theme_key = $theme_data->template;
+	if(!empty($theme_key))  $theme_data = wp_get_theme($theme_key);
 	$theme = $theme_data;
-	$theme_key = $theme->template;
 	$github_username = 'scarstens';
 	$github_repo = 'whitelabel-framework';
 	$github_theme_uri = 'https://github.com/scarstens/whitelabel-framework.git';
@@ -72,9 +73,10 @@ function transient_update_themes_filter($data){
 	
 	// check and generate download link
 	$newest_tag = array_pop($tags);
-	if(version_compare($theme['Version'],  $newest_tag, '>=')){
+	if(version_compare($theme->version,  $newest_tag, '>=')){
 		// up-to-date!
 		$data->up_to_date[$theme_key]['rollback'] = $tags;
+		return $data;
 	}
 	
 	

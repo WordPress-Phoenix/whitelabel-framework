@@ -20,6 +20,11 @@ if( function_exists('wp_get_theme') )
 else
 	$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
 
+// load the theme updater core script
+// this checks for theme updates using the public GitHub repository
+if(is_admin() && file_exists(dirname(__FILE__).'/inc/updater-plugin.php')) 
+	include_once(dirname(__FILE__).'/inc/updater-plugin.php');
+
 define('THEME_VERSION', $theme_data['Version']);
 
 //setup feaux head and foot calls since the script is not detecting

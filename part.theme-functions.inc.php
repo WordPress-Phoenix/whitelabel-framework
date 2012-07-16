@@ -51,6 +51,24 @@ function add_subpage_set_page_parent( $data, $postarr ) {
 	return $data;
 }
 
+// Add Theme Options link to New menu in admin bar
+add_action( 'wp_before_admin_bar_render', 'add_theme_options_menu_item' );
+function add_theme_options_menu_item() {
+	global $wp_admin_bar, $wp_version;	
+	$args = array(
+		'parent' => 'site-name',
+		'id' => 'theme-options',
+		'title' => __('Theme Options', 'wlfw'),
+		'href' => admin_url( "themes.php?page=whitelabel-appearance-options"),
+	);
+	
+	if ( version_compare( $wp_version, '3.3', '<' ) ) {
+		$wp_admin_bar->add_node('new-content', &$wp_admin_bar->menu, $args);
+	} else {
+		$wp_admin_bar->add_node($args);
+	}
+}
+
 //uses the same arguments as WordPress "checked()" function
 //but adds the argument submitted and "default"to allow you 
 //to set the default checked value of the checkbox

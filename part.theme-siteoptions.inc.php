@@ -2,7 +2,7 @@
 //Get options using this example: get_option(SM_SITEOP_PREFIX.'my_field')
 
 // create admin page
-$whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id' => 'themes.php', 'page_title' => 'Configure Theme Customizations', 'menu_title' => 'Customizations','id' => 'whitelabel-appearance-options'));
+$whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id' => 'themes.php', 'page_title' => 'Configure Theme Customizations', 'menu_title' => 'Theme Options','id' => 'whitelabel-appearance-options'));
 	$whiteLabelOptions->add_part($pageMeta = new sm_section('page_meta', array('title'=>'Page Meta')) );
 		$pageMeta->add_part($genTag = new sm_checkbox('page_meta_generator', array('label'=>'Include Generator Meta Tag', 'value'=>'true', 'classes'=>array('onOffSwitch') )));
 		
@@ -71,4 +71,3 @@ function sm_modify_texturize_options() {
 	if (get_option(SM_SITEOP_PREFIX.'sm_texturize_comments') == 'false') { remove_filter('comment_text', 'wptexturize'); }
 }
 add_action('init', 'sm_modify_texturize_options');
-?>

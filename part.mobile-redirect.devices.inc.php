@@ -6,18 +6,32 @@
  
 global $maybe_redirect_mobile_devices;
 $maybe_redirect_mobile_devices = get_option(SM_SITEOP_PREFIX.'redirect_mobile_devices');
-$maybe_redirect_mobile_devices = apply_filters('maybe_redirect_mobile_devices', $maybe_redirect_mobile_devices);
 
 //make sure its not empty and not false (when option is not in the database)
-//also make sure we didn't already redirect, so that mobile redirection can 
-//be set to a location on the same domain as the desktop website
-if(!is_admin() && !empty($maybe_redirect_mobile_devices) && $maybe_redirect_mobile_devices && (!isset($_COOKIE['mobile_redirected']) || $_COOKIE['mobile_redirected'] != true) ) {
-	redirect_mobile_devices(get_option(SM_SITEOP_PREFIX.'redirect_mobile_devices')); 
+//turn off redirection based on URL of Mobile Website
+if(!is_admin() && !empty($maybe_redirect_mobile_devices) && $maybe_redirect_mobile_devices && (!isset($_COOKIE['mobile_viewfullsite']) || $_COOKIE['mobile_viewfullsite'] != true) ) {
+	
+	// get url of mobile page and break down into parts
+	$mobile_redirect_url = apply_filters('wlfw_mobile_redirect_url', esc_url($maybe_redirect_mobile_devices));
+	$mobile_redirect_url_parts = parse_url($mobile_redirect_url);
+	
+	// determine if the mobile redirection page is local or an external site
+	$local_redirect=false;
+	if( !isset($mobile_redirect_url_parts['host']) || stristr($mobile_redirect_url_parts['host'], $_SERVER['HTTP_HOST']) ) {
+		$local_redirect=true;
+	}
+	// if redirection page is local and we are already on it or a subpage of it do not redirect
+	if($local_redirect && stristr( $_SERVER['REQUEST_URI'], $mobile_redirect_url_parts['path']));
+	
+	// call redirect function
+	else
+		redirect_mobile_devices(); 
 }
 
 
 /*
  * Begin Mobile Redirection Functions
+ * Turn off redirection based on Redrection Disabled URL Parameter
  */
 
 function redirect_mobile_devices($args = array()) {
@@ -28,25 +42,22 @@ function redirect_mobile_devices($args = array()) {
 	
 	//allow mobile_redirect_disabler paramenter to cancel out the redirection
 	$mobile_redirect_disabler_value = get_option(SM_SITEOP_PREFIX.'mobile_redirect_disabler');
-	if(isset($_GET[$mobile_redirect_disabler_value]) && (!empty($_GET[$mobile_redirect_disabler_value]) || $_GET[$mobile_redirect_disabler_value] == 'false') )
+	if(isset($_GET[$mobile_redirect_disabler_value]) && (!empty($_GET[$mobile_redirect_disabler_value]) || $_GET[$mobile_redirect_disabler_value] == 'false') ) {
 		$mobile_detector = false;
+		$_COOKIE['mobile_viewfullsite'] = true;
+		setcookie('mobile_viewfullsite', $_COOKIE['mobile_viewfullsite'], 0);
+	}
 
 	//redirect mobile device visitors to this URL
 	//$mobile_redirect_url = 'm.'.$_SERVER['HTTP_HOST'];
 	//$mobile_redirect_url = $_SERVER['HTTP_HOST'].'/mobile/';
 	$mobile_redirect_url = apply_filters('wlfw_mobile_redirect_url', esc_url($maybe_redirect_mobile_devices));
-	$mobile_redirect_url_parts = parse_url($mobile_redirect_url);
 
 	//on error, display the error
 	if(is_array($mobile_detector) && isset($mobile_detector['error'])) echo $mobile_detector['error'];
 	
 	//mobile browser is detected, redirect to mobile website using HTML meta tag
 	elseif($mobile_detector) {
-		//set the cookie only if the redirection is NOT an external website
-		if(!isset($mobile_redirect_url_parts['host'])) {
-			$_COOKIE['mobile_redirected'] = true;
-			setcookie('mobile_redirected', $_COOKIE['mobile_redirected'], time()+60*60*24*30);
-		}
 		echo( '<html><head><meta http-equiv="Refresh" content="1;url='.$mobile_redirect_url.'" /><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>Mobile Device Detected, redirecting you to the mobile website at '.$mobile_redirect_url.'.</body></html>' );
 		exit;
 	}

@@ -74,6 +74,15 @@ function wlfw_widgets_init() {
 		'after_title' => '</h5>',
 	) );
 	*/
+	// Area 1, located at the top of the page to the right of logo.
+	register_sidebar( array(
+		'name' => __( 'Logo Aside', 'wlfw' ),
+		'id' => 'logo-aside',
+		'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+		'after_widget' => '<div class="clear"></div></div>',
+	) );
 	// Area 2, located at the top of the page sidebar.
 	register_sidebar( array(
 		'name' => __( 'Primary Page Sidebar', 'wlfw' ),

@@ -4,7 +4,6 @@
 //by default it controls the image area to the right of the logo area on the left.
 if(!defined('NO_HEADER_TEXT')) define('NO_HEADER_TEXT', TRUE );
 if(!defined('HEADER_TEXTCOLOR')) define('HEADER_TEXTCOLOR', '');
-if(!defined('HEADER_IMAGE')) define('HEADER_IMAGE', trailingslashit( get_stylesheet_directory_uri() ).'appearance/images/banner.jpg');
 if(!defined('HEADER_IMAGE_ALT')) define('HEADER_IMAGE_ALT', 'header banner image');
 if(!defined('HEADER_IMAGE_WIDTH')) define('HEADER_IMAGE_WIDTH', apply_filters( 'wlfw_header_image_width', 580 ));
 if(!defined('HEADER_IMAGE_HEIGHT')) define('HEADER_IMAGE_HEIGHT', apply_filters( 'wlfw_header_image_height', 80 ));

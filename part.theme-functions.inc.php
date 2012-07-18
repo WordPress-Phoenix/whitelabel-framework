@@ -177,3 +177,32 @@ function wlfw_comment( $comment, $args, $depth ) {
 			break;
 	endswitch;
 }
+
+// do stuff when theme is activated for the first time
+function wlfw_first_activation() {	
+
+	// if on themes page and theme has been activated
+	if ( stristr($_SERVER['REQUEST_URI'], 'themes.php') && isset($_GET['activated']) )  {
+		
+		// get theme data
+		if( function_exists('wp_get_theme') ) $theme_data = wp_get_theme();
+		else $theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
+		// create option name for check name based on theme name
+		$option_name = sanitize_key($theme_data['Name'].'_first_activation_check');
+	
+		if ( get_option($option_name) != "set" ) {
+			// do stuff if its the first time being activated
+			do_action('wlfw_first_activation');
+			// set option so it doesn't run in future
+			add_option($option_name, "set");
+		}
+	}
+}
+add_action( 'after_setup_theme','wlfw_first_activation', 1 );
+
+// prevent wordpress from auto populating sidebars with default widgets
+function remove_wp_widget_autopopulate() {
+	do_action( 'widgets_init' );
+	remove_action( 'init', 'wp_widgets_init', 1 );
+}
+add_action('wlfw_first_activation', 'remove_wp_widget_autopopulate' );

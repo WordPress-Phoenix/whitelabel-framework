@@ -1,4 +1,25 @@
 <?php
+//function: wlfw_errors_in_footer_admin
+//description: used with admin_notices to display global errors
+//optional parameters: none  
+function wlfw_admin_display_global_errors ($original_value) {
+	global $errors;
+	if(is_wp_error($errors)) {
+		if( count($errors->errors) > 0 ) {
+			echo '<div id="message" class="error">';
+			foreach($errors->errors as $error_code => $error) {
+				echo '<p><strong>'.$error_code.':</strong> ';
+				foreach($error as $i => $message)
+					 echo $message;
+				echo '</p>';
+			}
+			echo '</div>'.PHP_EOL.'<!-- end of error admin notice -->';
+		}
+		//echo '<div id="message" class="error"><p>' . $errors->get_error_message() . '</p></div>';
+	}
+}
+
+
 //function: sm_topmost_parent
 //description: returns the top most parent of a page
 //optional parameters: post_id  

@@ -13,6 +13,10 @@
  * functions below this section
  */
 
+//setup global errors for use with admin notices
+global $errors;
+if(!is_wp_error($errors)) $errors = new WP_Error();
+
 // theme version # constant for appending to  script and style enqueue
 // theme options created with the GPL "siteoptions_builder" class
 if( function_exists('wp_get_theme') )
@@ -24,6 +28,12 @@ else
 // this checks for theme updates using the public GitHub repository
 if(is_admin() && file_exists(dirname(__FILE__).'/inc/updater-plugin.php')) 
 	include_once(dirname(__FILE__).'/inc/updater-plugin.php');
+	
+// load and activate the child theme generator. only if the URL is loaded with this GET action
+// the file thats included does a check to make sure user has proper permissions to create themes
+// ex: http://whitelabelframework.com/wp-admin/themes.php?action=wlfw-create-child-theme
+if(is_admin() && file_exists(dirname(__FILE__).'/inc/child-theme-oneclick.php') && $_GET['action'] == 'wlfw-create-child-theme') 
+	include_once(dirname(__FILE__).'/inc/child-theme-oneclick.php');
 
 define('THEME_VERSION', $theme_data['Version']);
 

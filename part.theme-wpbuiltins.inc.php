@@ -18,15 +18,16 @@ add_theme_support( 'custom-header', array(
 function wlfw_header_style() {}
 function wlfw_admin_header_style() {}
 function wlfw_admin_header_image() {
-	echo '
-	<div class="grid_10 logo-sibling right">
-      <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
-        <div class="clear"></div>
-      </div>
-    </div>
-	<div style="clear:both;"></div>
-	<div class="notice">*NOTE: To customize the site logo, please visit the theme <a href="'.admin_url('themes.php?page=whitelabel-appearance-options').'">Customizations</a> page.</div>
-	';
+	if(get_header_image()) {
+		echo '
+		<div class="grid_10 logo-sibling right">
+		  <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
+			<div class="clear"></div>
+		  </div>
+		</div>
+		<div style="clear:both;"></div>
+		';
+	}
 }
 
 //setup custom-menu feature
@@ -73,6 +74,15 @@ function wlfw_widgets_init() {
 		'after_title' => '</h5>',
 	) );
 	*/
+	// Area 1, located at the top of the page to the right of logo.
+	register_sidebar( array(
+		'name' => __( 'Logo Aside', 'wlfw' ),
+		'id' => 'logo-aside',
+		'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+		'after_widget' => '<div class="clear"></div></div>',
+	) );
 	// Area 2, located at the top of the page sidebar.
 	register_sidebar( array(
 		'name' => __( 'Primary Page Sidebar', 'wlfw' ),

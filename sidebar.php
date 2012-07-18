@@ -15,7 +15,7 @@
 	if ( ! dynamic_sidebar( 'primary-page-widget-area' ) ) : ?>
     <div class="widget-container widget_wlfw_menu" id="wlfw_menu">
     	<h3 class="widget-title">Learn More</h3>
-    	<?php if(function_exists('get_wlfw_menu_html')) echo get_wlfw_menu_html(); ?>
+    	<?php if(function_exists('get_wlfw_subpages_html')) echo get_wlfw_subpages_html(); ?>
     	<div class="clear"></div>
     </div>
 	

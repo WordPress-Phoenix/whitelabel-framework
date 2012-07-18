@@ -4,7 +4,7 @@ Theme URI: http://whitelabelframework.com/?github=updater_installed
 Author: Sethmatics
 Author URI: http://sethmatics.com/
 Tags: white, black, orange, two-columns, left-sidebar, fixed-width, blavatar, custom-background, custom-header, custom-menu, editor-style, featured-image-header, featured-images, full-width-template, post-formats, sticky-post, theme-options, threaded-comments
-Version: 1.1.0
+Version: 1.1.1
 License: GNU General Public License v2.0 GITHUB
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Github: https://github.com/scarstens/whitelabel-framework.git
@@ -86,6 +86,21 @@ h2, .widget-container h5, h3.widget-title {
 	font-size: 42px;
 	text-shadow: 1px 1px #FFF;
 }
+
+.logo-sibling .inner {
+	background-color: white;
+}
+.logo-sibling .inner > * {
+	padding:10px;
+}
+.logo-sibling .inner > img, .logo-sibling .inner > div.clear {
+	padding:0;
+}
+.logo-sibling .widget-container {
+	margin-bottom:0;
+}
+	
+
 /* Nav
 ----------------------------------------------- */
 

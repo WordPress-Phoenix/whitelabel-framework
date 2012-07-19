@@ -1,4 +1,7 @@
 <?php
+//setting up the themes global prefix
+if(!defined('THEME_PREFIX')) define('THEME_PREFIX', 'WLFW_' );
+
 //adding support for custom header image
 //by default it controls the image area to the right of the logo area on the left.
 if(!defined('NO_HEADER_TEXT')) define('NO_HEADER_TEXT', TRUE );
@@ -56,7 +59,7 @@ else {
 	global $errors;
 	//enable error notice in admin is theme framework is activated instead of using a child theme
 	if(get_template_directory() == get_stylesheet_directory()) {
-		$all_themes = get_themes();
+		$all_themes = wp_get_themes();
 		foreach($all_themes as $theme_title => $theme_ob) {
 			if($theme_ob->get_template() == 'whitelabel-framework' && $theme_ob->get_stylesheet() != 'whitelabel-framework') {
 				$child_exists = true;
@@ -64,12 +67,20 @@ else {
 			}
 		}
 		if(!empty($child_exists)) 
-			$errors->add('Theme Error', __(sprintf('You are currently using a theme framework as your primary theme. A child theme was detected in your themes list, please activate it now.'), SM_SITEOP_PREFIX));
+			$errors->add('Theme Error', __(sprintf('You are currently using a theme framework as your primary theme. A child theme was detected in your themes list, please activate it now.'), THEME_PREFIX));
 		else
-			$errors->add('Theme Error', __(sprintf('You are currently using a theme framework as your primary theme. Please use our <a href="%1$s">One Click Child Theme Builder</a> to create and activate your child theme right now!', get_admin_url().'themes.php?action=wlfw-create-child-theme'), SM_SITEOP_PREFIX));	
-		//turn on admin notices which properly prints the global $errors objects detected errors
-		add_action('admin_notices', 'wlfw_admin_display_global_errors');
+			$errors->add('Theme Error', __(sprintf('You are currently using a theme framework as your primary theme. Please use our <a href="%1$s">One Click Child Theme Builder</a> to create and activate your child theme right now!', get_admin_url().'themes.php?action=wlfw-create-child-theme'), THEME_PREFIX));	
 	}
+
+	//turn on admin notices which properly prints the global $errors objects detected errors
+	add_action('admin_notices', 'wlfw_admin_display_global_errors');
+	
+	//init theme activation actions
+	add_action( 'after_switch_theme','wlfw_first_activation' );
+	
+	//add a defaults to the theme upon first activation
+	add_action( 'wlfw_first_activation','wlfw_set_theme_defaults' );
+	//add_action( 'after_switch_theme','wlfw_set_theme_defaults' );	
 }
 function load_head_closing() { get_template_part('part.head', 'analytics.inc'); }
 function load_theme_stylesheet_last() { wp_enqueue_style('style', get_stylesheet_directory_uri().'/style.css', '', THEME_VERSION); }

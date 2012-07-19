@@ -200,18 +200,16 @@ function wlfw_comment( $comment, $args, $depth ) {
 }
 
 // do stuff when theme is activated for the first time
-function wlfw_first_activation() {	
-
+function wlfw_first_activation() {
 	// if on themes page and theme has been activated
 	if ( stristr($_SERVER['REQUEST_URI'], 'themes.php') && isset($_GET['activated']) )  {
-		
 		// get theme data
 		if( function_exists('wp_get_theme') ) $theme_data = wp_get_theme();
 		else $theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
 		// create option name for check name based on theme name
 		$option_name = sanitize_key($theme_data['Name'].'_first_activation_check');
 	
-		if ( get_option($option_name) != "set" ) {
+		if (get_option($option_name) != "set" ) {
 			// do stuff if its the first time being activated
 			do_action('wlfw_first_activation');
 			// set option so it doesn't run in future
@@ -219,11 +217,30 @@ function wlfw_first_activation() {
 		}
 	}
 }
-add_action( 'after_setup_theme','wlfw_first_activation', 1 );
 
-// prevent wordpress from auto populating sidebars with default widgets
-function remove_wp_widget_autopopulate() {
-	do_action( 'widgets_init' );
-	remove_action( 'init', 'wp_widgets_init', 1 );
+// setup theme defaults for whitelabel themes
+function wlfw_set_theme_defaults() {
+	$add_to_text_widgets = get_option('widget_text');
+	$next_text_widget_key = array_keys($add_to_text_widgets);
+	$next_text_widget_key = $next_text_widget_key[count($next_text_widget_key)-2]+1;
+	$wlwp_demo_text_widget = array (
+		'title' => '',
+		'text' => '
+			<div class="inner">
+				<img class="right clear colorbox-manual" src="http://s.wordpress.org/about/images/wordpressicon-hanttula3.jpg">
+				<div class="clear"></div>
+			</div>',
+			'filter' => false,
+	);
+	$add_to_text_widgets[$next_text_widget_key] = $wlwp_demo_text_widget;
+	ksort($add_to_text_widgets, SORT_STRING);	
+	update_option('widget_text', $add_to_text_widgets);
+
+	$default_sidebar_widgets = array (
+	  'logo-aside' => 
+	  array ( 0 => 'text-'.$next_text_widget_key),
+	  'array_version' => 3,
+	);
+
+	update_option('sidebars_widgets', $default_sidebar_widgets);	
 }
-add_action('wlfw_first_activation', 'remove_wp_widget_autopopulate' );

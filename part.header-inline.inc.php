@@ -1,15 +1,10 @@
 <?php $header_image = get_header_image(); ?>
 <div id="topWrapper">
   <div id="header" class="container_16">
-    <div class="grid_6"><a href="/" class="logo"><?php if(empty($header_image)) { bloginfo('name'); } else{ ?><img class="clear" src="<?php echo $header_image; ?>" alt="<?php if(defined('HEADER_IMAGE_ALT')) echo HEADER_IMAGE_ALT; ?>" /><?php } ?></a></div>
+    <div class="grid_6 logo"><a href="/"><?php if(empty($header_image)) { bloginfo('name'); } else{ ?><img class="clear" src="<?php echo $header_image; ?>" alt="<?php if(defined('HEADER_IMAGE_ALT')) echo HEADER_IMAGE_ALT; ?>" /><?php } ?></a></div>
     <div class="grid_10 logo-sibling right">
-      <div class="inner">
-      	<?php if ( ! dynamic_sidebar( 'logo-aside' ) ) : ?>
-        <img class="right clear" src="http://s.wordpress.org/about/images/wordpressicon-hanttula3.jpg" />
-        <div class="clear"></div>
-         <?php endif; // logo-aside ?>
-      </div>
-      
+  	<?php if ( ! dynamic_sidebar( 'logo-aside' ) ) : ?>
+    <?php endif; // logo-aside ?>
     </div>
     <div class="clear"></div>
     <div class="grid_16" id="nav_below_header">

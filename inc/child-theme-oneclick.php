@@ -25,9 +25,9 @@ if(current_user_can('install_themes')) {
 function wlfw_make_child_theme( $new_theme_title, $new_theme_description, $new_theme_author ) {
 	$parent_theme = wp_get_theme();
 	if($parent_theme->parent()) 
-		return new WP_Error( 'Theme Error', __('WordPress does not currently support theme building on children of children, ie Grandchildren themes.', SM_SITEOP_PREFIX) );
+		return new WP_Error( 'Theme Error', __('WordPress does not currently support theme building on children of children, ie Grandchildren themes.', THEME_PREFIX) );
 
-	$parent_theme_title = get_current_theme();
+	$parent_theme_title = wp_get_theme();
 	$parent_theme_template = get_template(); //Doesn't play nice with the grandkids
 	$parent_theme_name = get_stylesheet();
 

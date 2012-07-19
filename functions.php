@@ -32,7 +32,7 @@ if(is_admin() && file_exists(dirname(__FILE__).'/inc/updater-plugin.php'))
 // load and activate the child theme generator. only if the URL is loaded with this GET action
 // the file thats included does a check to make sure user has proper permissions to create themes
 // ex: http://whitelabelframework.com/wp-admin/themes.php?action=wlfw-create-child-theme
-if(is_admin() && file_exists(dirname(__FILE__).'/inc/child-theme-oneclick.php') && $_GET['action'] == 'wlfw-create-child-theme') 
+if(is_admin() && file_exists(dirname(__FILE__).'/inc/child-theme-oneclick.php') && !empty($_GET['action']) && $_GET['action'] == 'wlfw-create-child-theme') 
 	include_once(dirname(__FILE__).'/inc/child-theme-oneclick.php');
 
 define('THEME_VERSION', $theme_data['Version']);

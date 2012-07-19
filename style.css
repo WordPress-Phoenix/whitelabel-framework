@@ -81,10 +81,14 @@ h2, .widget-container h5, h3.widget-title {
 	height: 125px;
 	padding: 16px 0;
 }
-#header .logo {
+#header .logo a {
 	font-family: 'Open Sans Condensed', Verdana, Arial, Helvetica, sans-serif;
 	font-size: 42px;
 	text-shadow: 1px 1px #FFF;
+}
+
+#header div.logo {
+	min-height: 80px;
 }
 
 .logo-sibling .inner {

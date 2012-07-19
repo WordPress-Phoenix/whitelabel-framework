@@ -1,4 +1,4 @@
-= WHITELABEL FRAMEWORK (FOR DEVELOEPRS)=
+= WHITELABEL FRAMEWORK (FOR DEVELOEPRS) INSTALLER=
 
 * by the Sethmatics team, http://sethmatics.com/
 

@@ -4,18 +4,23 @@
 //optional parameters: none  
 function wlfw_admin_display_global_errors ($original_value) {
 	global $errors;
+	//display errors if they exist, fail if your on the users page, it already displays errors
 	if(is_wp_error($errors)) {
 		if( count($errors->errors) > 0 ) {
-			echo '<div id="message" class="error">';
+			//echo'<pre>';var_export($errors->errors);exit;
+			echo '<div id="message" class="error wlfw">';
 			foreach($errors->errors as $error_code => $error) {
 				echo '<p><strong>'.$error_code.':</strong> ';
 				foreach($error as $i => $message)
 					 echo $message;
 				echo '</p>';
 			}
-			echo '</div>'.PHP_EOL.'<!-- end of error admin notice -->';
+			echo '</div>';
 		}
-		//echo '<div id="message" class="error"><p>' . $errors->get_error_message() . '</p></div>';
+		//hide users default errors section that is a duplicate of what we create here, users page 
+		//detects zero errors as an error object and prints red box, making hiding it the only option
+		echo '<style>div.error{display:none;}div.error.wlfw{display:block;}</style>';
+		echo PHP_EOL.'<!-- end of error admin notice -->';
 	}
 }
 

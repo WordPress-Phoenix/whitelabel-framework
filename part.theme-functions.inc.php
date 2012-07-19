@@ -244,3 +244,37 @@ function wlfw_set_theme_defaults() {
 
 	update_option('sidebars_widgets', $default_sidebar_widgets);	
 }
+
+// removes h1 tag from page content
+function wlfw_remove_page_title_h1s($title) {
+	return '';
+}
+
+// add exclude page titles check box to punlish box
+function wlfw_add_exclude() { 
+	global $post;
+	$wlfw_exclude_title = get_post_meta($post->ID, '_wlfw_exclude_title', true);
+	$checked='';
+	if($wlfw_exclude_title=='true') $checked =' checked="checked"';
+	echo '<p style="margin-left:10px;"><input name="_wlfw_exclude_title" id="_wlfw_exclude_title" type="checkbox" value="true"'. $checked. ' /> Exclude page title from content</p>';
+}
+
+// save exclude page titles option
+function wlfw_page_attributes_save_post( $post_id ) {
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+	  return;
+	  
+	if ( 'page' == $_POST['post_type'] ) {
+		if ( !current_user_can( 'edit_page', $post_id ) ) return;
+	} 
+	else {
+		if ( !current_user_can( 'edit_post', $post_id ) )return;
+	}
+	
+	if(isset($_POST['_wlfw_exclude_title']))
+		update_post_meta( $post_id, '_wlfw_exclude_title', $_POST['_wlfw_exclude_title'] );
+	else
+		delete_post_meta( $post_id, '_wlfw_exclude_title');	
+
+return $post_id;
+}

@@ -202,6 +202,9 @@ h2, .widget-container h5, h3.widget-title {
 
 /* Content
 ----------------------------------------------- */
+#contentColWide h1 {
+	color:#D54E21;
+}
 #contentColWide #floatingbuttons .floatbutton {
   margin: 10px 20px;
 }

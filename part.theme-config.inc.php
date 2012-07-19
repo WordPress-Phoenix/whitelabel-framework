@@ -80,7 +80,10 @@ else {
 	
 	//add a defaults to the theme upon first activation
 	add_action( 'wlfw_first_activation','wlfw_set_theme_defaults' );
-	//add_action( 'after_switch_theme','wlfw_set_theme_defaults' );	
+	
+	//add exclude page titles option
+	add_action( 'post_submitbox_misc_actions', 'wlfw_add_exclude' );
+	add_action( 'save_post', 'wlfw_page_attributes_save_post' );
 }
 function load_head_closing() { get_template_part('part.head', 'analytics.inc'); }
 function load_theme_stylesheet_last() { wp_enqueue_style('style', get_stylesheet_directory_uri().'/style.css', '', THEME_VERSION); }

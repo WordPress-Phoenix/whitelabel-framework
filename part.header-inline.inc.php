@@ -1,7 +1,7 @@
 <?php $header_image = get_header_image(); ?>
 <div id="topWrapper">
   <div id="header" class="container_16">
-    <div class="grid_6 logo"><a href="/"><?php if(empty($header_image)) { bloginfo('name'); } else{ ?><img class="clear" src="<?php echo $header_image; ?>" alt="<?php if(defined('HEADER_IMAGE_ALT')) echo HEADER_IMAGE_ALT; ?>" /><?php } ?></a></div>
+    <div class="grid_6 logo"><a href="<?php echo site_url(); ?>"><?php if(empty($header_image)) { bloginfo('name'); } else{ ?><img class="clear" src="<?php echo $header_image; ?>" alt="<?php if(defined('HEADER_IMAGE_ALT')) echo HEADER_IMAGE_ALT; ?>" /><?php } ?></a></div>
     <div class="grid_10 logo-sibling right">
   	<?php if ( ! dynamic_sidebar( 'logo-aside' ) ) : ?>
     <?php endif; // logo-aside ?>

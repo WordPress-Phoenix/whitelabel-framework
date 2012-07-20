@@ -15,7 +15,11 @@ require_once('updater-assets.php');
 add_filter('site_transient_update_themes', 'transient_update_themes_filter');
 function transient_update_themes_filter($data){
 	
-	$theme_data = wp_get_theme();
+	if( function_exists('wp_get_theme') )
+		$theme_data = wp_get_theme();
+	else
+		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
+	
 	$theme_key = $theme_data->template;
 	if(!empty($theme_key))  $theme_data = wp_get_theme($theme_key);
 	$theme = $theme_data;

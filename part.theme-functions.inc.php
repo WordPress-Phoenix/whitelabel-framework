@@ -89,7 +89,7 @@ function add_theme_options_menu_item() {
 	);
 	
 	if ( version_compare( $wp_version, '3.3', '<' ) ) {
-		$wp_admin_bar->add_node('new-content', &$wp_admin_bar->menu, $args);
+		$wp_admin_bar->add_node('new-content', $wp_admin_bar->menu, $args);
 	} else {
 		$wp_admin_bar->add_node($args);
 	}

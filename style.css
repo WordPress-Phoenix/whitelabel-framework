@@ -18,16 +18,6 @@ You should not need to add any styles to this framwork css file, instead create 
 
 /* Typography
 ----------------------------------------------- */
-
-/*CSS3 Global Hover Transitions*/
-* {
-	opacity: 1;
-	-moz-transition: height 1s ease-out, opacity 1s ease;
-	-webkit-transition: height 1s ease-out, opacity 1s ease;
-	-o-transition: height 1s ease-out, opacity 1s ease;
-	transition: height 1s ease-out, opacity 1s ease;
-}
-
 body {
 	border-top: 4px solid #D54E21;
 	background-color: #F6F6F6;

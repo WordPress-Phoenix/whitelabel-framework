@@ -23,9 +23,9 @@ function transient_update_themes_filter($data){
 	$theme_key = $theme_data->template;
 	if(!empty($theme_key))  $theme_data = wp_get_theme($theme_key);
 	$theme = $theme_data;
-	$github_username = 'scarstens';
+	$github_username = 'WordPress-Phoenix';
 	$github_repo = 'whitelabel-framework';
-	$github_theme_uri = 'https://github.com/scarstens/whitelabel-framework.git';
+	$github_theme_uri = 'https://github.com/'.$github_username.'/'.$github_repo.'.git';
 	$github_api_repo_uri =  'https://api.github.com/repos/'.$github_username.'/'.$github_repo;
 		
 	// Add Github Theme Updater to return $data and hook into admin
@@ -53,9 +53,10 @@ function transient_update_themes_filter($data){
 		var_export($data); exit;
 	}
 	
-	if(!isset($response) || count($response) < 1){
+	if(!isset($response) || count($response) < 1 || $response->message == 'Not Found'){
 		$data->response[$theme_key]['error'] = "Github theme does not have any tags";
-		var_export($data); exit;
+		return $data;
+		//var_export($data); exit;
 	}
 	
 	//set cache, just 60 seconds

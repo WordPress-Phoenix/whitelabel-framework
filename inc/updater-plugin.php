@@ -3,7 +3,7 @@
 Current Theme Addon: Theme Updater for Whitelabel Framework on GitHub
 Original Plugin Name: Theme Updater
 Original Plugin URI: https://github.com/UCF/Theme-Updater
-Description: A theme updater for GitHub hosted Wordpress themes.  This Wordpress plugin automatically checks GitHub for theme updates and enables automatic install.  For more information read <a href="https://github.com/UCF/Theme-Updater/blob/master/readme.markdown">plugin documentation</a>.
+Description: A theme updater for GitHub hosted Wordpress themes.  This Wordpress plugin automatically checks GitHub for theme updates and enables automatic install. For more information read <a href="https://github.com/UCF/Theme-Updater/blob/master/readme.markdown">plugin documentation</a>.
 Original Author: Douglas Beck
 Original Version: 1.3.4
 Modified: 7/12/2012
@@ -19,9 +19,9 @@ function transient_update_themes_filter($data){
 	$theme_key = $theme_data->template;
 	if(!empty($theme_key))  $theme_data = wp_get_theme($theme_key);
 	$theme = $theme_data;
-	$github_username = 'scarstens';
+	$github_username = 'WordPress-Phoenix';
 	$github_repo = 'whitelabel-framework';
-	$github_theme_uri = 'https://github.com/scarstens/whitelabel-framework.git';
+	$github_theme_uri = 'https://github.com/'.$github_username.'/'.$github_repo.'.git';
 	$github_api_repo_uri =  'https://api.github.com/repos/'.$github_username.'/'.$github_repo;
 		
 	// Add Github Theme Updater to return $data and hook into admin
@@ -49,9 +49,10 @@ function transient_update_themes_filter($data){
 		var_export($data); exit;
 	}
 	
-	if(!isset($response) || count($response) < 1){
+	if(!isset($response) || count($response) < 1 || $response->message == 'Not Found'){
 		$data->response[$theme_key]['error'] = "Github theme does not have any tags";
-		var_export($data); exit;
+		return $data;
+		//var_export($data); exit;
 	}
 	
 	//set cache, just 60 seconds

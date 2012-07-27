@@ -23,11 +23,10 @@ if(is_admin() && file_exists(dirname(__FILE__).'/inc/updater-plugin.php'))
 	include_once(dirname(__FILE__).'/inc/updater-plugin.php');
 	
 
-
 if ( is_multisite() && !current_user_can('manage_network_themes') ) {
 	switch_theme( WP_DEFAULT_THEME, WP_DEFAULT_THEME );	
 }
-else {
+elseif(basename($_SERVER['REQUEST_URI'], '?'.$_SERVER['QUERY_STRING']) != 'themes.php' || isset($_GET['activated'])) {
 	$theme = wp_get_theme();
 	$stylesheet = $theme->get_stylesheet();
 	$redirect_url = wp_nonce_url('update.php?action=upgrade-theme&theme=' . urlencode($stylesheet), 'upgrade-theme_' . $stylesheet);

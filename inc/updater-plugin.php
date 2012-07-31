@@ -3,19 +3,28 @@
 Current Theme Addon: Theme Updater for Whitelabel Framework on GitHub
 Original Plugin Name: Theme Updater
 Original Plugin URI: https://github.com/UCF/Theme-Updater
-Description: A theme updater for GitHub hosted Wordpress themes.  This Wordpress plugin automatically checks GitHub for theme updates and enables automatic install. For more information read <a href="https://github.com/UCF/Theme-Updater/blob/master/readme.markdown">plugin documentation</a>.
+Description: A theme updater for GitHub hosted Wordpress themes.  This Wordpress plugin automatically checks GitHub for theme updates and enables automatic install.  For more information read <a href="https://github.com/UCF/Theme-Updater/blob/master/readme.markdown">plugin documentation</a>.
 Original Author: Douglas Beck
 Original Version: 1.3.4
 Modified: 7/12/2012
-*/
+*/ 
 
-//MODIFIED
-require_once('updater-assets.php');
+global $WLFW_UPDATE_DATA;
+if(!empty($_GET['action']) && $_GET['action'] == 'do-core-reinstall'); else {
+	if(!function_exists('github_theme_update_row'))require_once('updater-assets.php');
+	add_filter('site_transient_update_themes', 'wlfw_transient_update_themes_filter');
+}
 
-add_filter('site_transient_update_themes', 'transient_update_themes_filter');
-function transient_update_themes_filter($data){
+function wlfw_transient_update_themes_filter($data){
+
+	global $WLFW_UPDATE_DATA;
+	if(!empty($WLFW_UPDATE_DATA)) return $WLFW_UPDATE_DATA;
 	
-	$theme_data = wp_get_theme();
+	if( function_exists('wp_get_theme') )
+		$theme_data = wp_get_theme();
+	else
+		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
+	
 	$theme_key = $theme_data->template;
 	if(!empty($theme_key))  $theme_data = wp_get_theme($theme_key);
 	$theme = $theme_data;
@@ -46,10 +55,10 @@ function transient_update_themes_filter($data){
 			$errors = print_r($response->error, true);
 		}
 		$data->response[$theme_key]['error'] = sprintf('While <a href="%s">fetching tags</a> api error</a>: <span class="error">%s</span>', $url, $errors);
-		var_export($data); exit;
+		return $data;
 	}
-	
-	if(!isset($response) || count($response) < 1 || $response->message == 'Not Found'){
+
+	if( !isset($response) || count($response) < 1 || (!empty($response->message) && $response->message == 'Not Found') ){
 		$data->response[$theme_key]['error'] = "Github theme does not have any tags";
 		return $data;
 		//var_export($data); exit;
@@ -88,13 +97,14 @@ function transient_update_themes_filter($data){
 	$update['url']         = $github_theme_uri;
 	$update['package']     = $download_link;
 	$data->response[$theme_key] = $update;
-
-	return $data;
+	
+	$WLFW_UPDATE_DATA = $data;
+	return $WLFW_UPDATE_DATA;
 }
 
 
-add_filter('upgrader_source_selection', 'upgrader_source_selection_filter', 10, 3);
-function upgrader_source_selection_filter($source, $remote_source=NULL, $upgrader=NULL){
+add_filter('upgrader_source_selection', 'wlfw_upgrader_source_selection_filter', 10, 3);
+function wlfw_upgrader_source_selection_filter($source, $remote_source=NULL, $upgrader=NULL){
 	/*
 		Github delivers zip files as <Username>-<TagName>-<Hash>.zip
 		must rename this zip file to the accurate theme folder
@@ -120,8 +130,8 @@ function upgrader_source_selection_filter($source, $remote_source=NULL, $upgrade
    were receiving SSL errors and were unable to install themes.
    https://github.com/UCF/Theme-Updater/issues/3
 */
-add_action('http_request_args', 'no_ssl_http_request_args', 10, 2);
-function no_ssl_http_request_args($args, $url) {
+add_action('http_request_args', 'wlfw_no_ssl_http_request_args', 10, 2);
+function wlfw_no_ssl_http_request_args($args, $url) {
 	$args['sslverify'] = false;
 	return $args;
 }

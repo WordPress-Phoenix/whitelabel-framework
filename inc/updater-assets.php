@@ -79,7 +79,7 @@ function theme_upgrader_stylesheet() {
 	Most of this code is pulled directly from the WP source
 	modifications are noted.
 \******************************************************************************/
-include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+if(!class_exists('Theme_Upgrader')) include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 class Github_Theme_Upgrader extends Theme_Upgrader {
 	function download_url( $url ) {
 		/*

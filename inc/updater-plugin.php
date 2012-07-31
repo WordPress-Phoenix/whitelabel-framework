@@ -9,11 +9,17 @@ Original Version: 1.3.4
 Modified: 7/12/2012
 */
 
+global $WLFW_UPDATE_DATA;
 //MODIFIED
-require_once('updater-assets.php');
+if(!empty($_GET['action']) && $_GET['action'] == 'do-core-reinstall'); else {
+	require_once('updater-assets.php');
+	add_filter('site_transient_update_themes', 'transient_update_themes_filter');
+}
 
-add_filter('site_transient_update_themes', 'transient_update_themes_filter');
 function transient_update_themes_filter($data){
+
+	global $WLFW_UPDATE_DATA;
+	if(!empty($WLFW_UPDATE_DATA)) return $WLFW_UPDATE_DATA;
 	
 	if( function_exists('wp_get_theme') )
 		$theme_data = wp_get_theme();
@@ -50,10 +56,10 @@ function transient_update_themes_filter($data){
 			$errors = print_r($response->error, true);
 		}
 		$data->response[$theme_key]['error'] = sprintf('While <a href="%s">fetching tags</a> api error</a>: <span class="error">%s</span>', $url, $errors);
-		var_export($data); exit;
+		return $data;
 	}
-	
-	if(!isset($response) || count($response) < 1 || $response->message == 'Not Found'){
+
+	if( !isset($response) || count($response) < 1 || (!empty($response->message) && $response->message == 'Not Found') ){
 		$data->response[$theme_key]['error'] = "Github theme does not have any tags";
 		return $data;
 		//var_export($data); exit;
@@ -92,8 +98,9 @@ function transient_update_themes_filter($data){
 	$update['url']         = $github_theme_uri;
 	$update['package']     = $download_link;
 	$data->response[$theme_key] = $update;
-
-	return $data;
+	
+	$WLFW_UPDATE_DATA = $data;
+	return $WLFW_UPDATE_DATA;
 }
 
 

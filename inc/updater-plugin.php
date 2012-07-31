@@ -10,13 +10,12 @@ Modified: 7/12/2012
 */
 
 global $WLFW_UPDATE_DATA;
-//MODIFIED
 if(!empty($_GET['action']) && $_GET['action'] == 'do-core-reinstall'); else {
-	require_once('updater-assets.php');
-	add_filter('site_transient_update_themes', 'transient_update_themes_filter');
+	if(!function_exists('github_theme_update_row'))require_once('updater-assets.php');
+	add_filter('site_transient_update_themes', 'wlfw_transient_update_themes_filter');
 }
 
-function transient_update_themes_filter($data){
+function wlfw_transient_update_themes_filter($data){
 
 	global $WLFW_UPDATE_DATA;
 	if(!empty($WLFW_UPDATE_DATA)) return $WLFW_UPDATE_DATA;
@@ -104,8 +103,8 @@ function transient_update_themes_filter($data){
 }
 
 
-add_filter('upgrader_source_selection', 'upgrader_source_selection_filter', 10, 3);
-function upgrader_source_selection_filter($source, $remote_source=NULL, $upgrader=NULL){
+add_filter('upgrader_source_selection', 'wlfw_upgrader_source_selection_filter', 10, 3);
+function wlfw_upgrader_source_selection_filter($source, $remote_source=NULL, $upgrader=NULL){
 	/*
 		Github delivers zip files as <Username>-<TagName>-<Hash>.zip
 		must rename this zip file to the accurate theme folder
@@ -131,8 +130,8 @@ function upgrader_source_selection_filter($source, $remote_source=NULL, $upgrade
    were receiving SSL errors and were unable to install themes.
    https://github.com/UCF/Theme-Updater/issues/3
 */
-add_action('http_request_args', 'no_ssl_http_request_args', 10, 2);
-function no_ssl_http_request_args($args, $url) {
+add_action('http_request_args', 'wlfw_no_ssl_http_request_args', 10, 2);
+function wlfw_no_ssl_http_request_args($args, $url) {
 	$args['sslverify'] = false;
 	return $args;
 }

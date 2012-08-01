@@ -283,3 +283,24 @@ function wlfw_page_title_exclude_save( $post_id ) {
 
 return $post_id;
 }
+
+
+// out puts or returns row class for slected grid system
+function wlfw_grid_row_class($width = 16, $return=false ) {
+	// set row class based on grid system selected in theme options pannel
+	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) $row_class = 'grids';
+	else $row_class = 'container_'.$width;
+	// return or print
+	if($return) return $row_class;
+	echo $row_class;
+}
+
+// out puts or returns col class for slected grid system
+function wlfw_grid_col_class($width = 16, $return=false ) {
+	// set col class based on grid system selected in theme options pannel
+	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) $col_class = 'grid-'.$width;
+	else $col_class = 'grid_'.$width;
+	// return or print
+	if($return) return $col_class;
+	echo $col_class;
+}

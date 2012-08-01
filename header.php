@@ -16,6 +16,6 @@
 <?php do_action('build_theme_head', 'part.head', 'meta.inc'); ?>
 </head>
 <body <?php body_class(); ?>>
-<?php echo apply_filters('page_container_div', '<div id="container-fluid">'); ?>
+<?php echo apply_filters('page_container_div', '<div id="container-fluid" class="wrapper">'); ?>
 <?php do_action('body_enqueue', 'part.body', 'entry.inc'); ?>
 <?php do_action('build_theme_header', 'part.header', 'inline.inc'); ?>

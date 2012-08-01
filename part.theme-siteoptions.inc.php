@@ -41,6 +41,12 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 			$mobile_redirect_disabler_desc = 'Add the name of the parameter and then use this link to allow mobile visitors to view the "desktop website": <a href="http://'.$_SERVER['HTTP_HOST'].'/?'.$mobile_redirect_disabler_value.'=true">http://'.$_SERVER['HTTP_HOST'].'/?'.$mobile_redirect_disabler_value.'=true</a>';
 		else $mobile_redirect_disabler_desc = 'Recommended that you use <strong>viewFullSite</strong>. This is usefull when you want to offer a link on the mobile site to "view the full desktop site". After you save a paramter name in this field, this discription will give you an example link for use with your site.';
 		$mobile->add_part($mobile_redirect_disabler = new sm_textfield('mobile_redirect_disabler', array('label'=>'Redrection Disabled URL Parameter', 'description'=>$mobile_redirect_disabler_desc)));
+	
+	$whiteLabelOptions->add_part($layout = new sm_section('layout', array('title'=>'Layout')) );
+		$layout->add_part($grid_system = new sm_radio_buttons('grid_system', array( '960.gs (static) <a href="http://960.gs/" target="_blank">Documentation</a>'=>'960gs', 'Inuit (responsive) <a href="http://csswizardry.com/inuitcss/" target="_blank">Documentation</a>'=>'inuit' )));
+		$grid_system->label ='Grid System';
+		$grid_system->default_value = '960gs';
+		$grid_system->description = 'Grid Systems streamline web development work flow by providing a structural framework of commonly used dimensions. Whitelable Framework provides you with 2 grid options. 960.gs, a static width 12 or 16 column grid and Inuit, a fluid 16 column grid. This allows you to make your website responsive by simply selecting the Inuit option above.';
 		
 //build the options menu!
 $whiteLabelOptions->build();

@@ -481,11 +481,12 @@ class sm_radio_buttons extends sm_option
 				
 			if($selectedVal == $value) { $checked=" checked=\"checked\""; } else { $checked=""; }
 			
-      		$html .= "<label class=\"option-label\"><input type=\"radio\" name=\"$this->id\" value=\"$value\" id=\"$this->id\" $checked />$radioLabel</label>";
+      		$html .= "<label class=\"option-label\"><input type=\"radio\" name=\"$this->id\" value=\"$value\" id=\"$this->id\" $checked /> $radioLabel</label>";
 			$html .= "<div class=\"clear\"></div>";
 		}
 		$html .= "</div>";
 		$html .= "<div class=\"clear\"></div>";
+		if($this->description) $html .= '<br /><div class="description clear">'.$this->description.'</div>';
 		$html .= $this->wrapper[1];
 		return $html;
 	}

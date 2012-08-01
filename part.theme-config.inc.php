@@ -119,8 +119,18 @@ function setup_scripts_and_styles_enqueue() {
 	wp_enqueue_script( 'whitelabel-uix', array('jquery') );
 	
 	//register the grid system
-	wp_register_style('reset', get_template_directory_uri().'/appearance/960.gs/css/reset.css', '', THEME_VERSION);
-	wp_register_style('960gs', get_template_directory_uri().'/appearance/960.gs/css/960.css', '', THEME_VERSION);
+	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) {
+		wp_register_style('inuit-core', get_template_directory_uri().'/appearance/inuit.css/core/css/inuit.css', '', THEME_VERSION);
+		wp_register_style('inuit-grid', get_template_directory_uri().'/appearance/inuit.css/core/css/grid.inuit-percentage.css', array('inuit-core'), THEME_VERSION);
+		wp_enqueue_style('inuit-core');
+		wp_enqueue_style('inuit-grid');
+	}
+	else {
+		wp_register_style('reset', get_template_directory_uri().'/appearance/960.gs/css/reset.css', '', THEME_VERSION);
+		wp_register_style('960gs', get_template_directory_uri().'/appearance/960.gs/css/960.css', '', THEME_VERSION);
+		wp_enqueue_style('reset');
+		wp_enqueue_style('960gs');
+	}
 	
 	//register nivo slider and jQuery-UI
 	wp_register_style('nivo', get_template_directory_uri().'/appearance/nivo-slider.css', '', THEME_VERSION);
@@ -128,6 +138,5 @@ function setup_scripts_and_styles_enqueue() {
 	
 	wp_enqueue_style('nivo');
 	wp_enqueue_style('jquery-ui');
-	wp_enqueue_style('reset');
-	wp_enqueue_style('960gs');
+	
 }

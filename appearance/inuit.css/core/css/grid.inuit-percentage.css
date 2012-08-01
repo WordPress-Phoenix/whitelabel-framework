@@ -1,0 +1,75 @@
+/*------------------------------------*\
+	GRID.INUIT.CSS
+\*------------------------------------*/
+
+
+
+
+
+/*
+grid.inuit.css is an inuit.css igloo
+igloos are CSS plugins which extend the inuit.css framework
+They are released under the Apache License, Version 2.0 -- http://www.apache.org/licenses/LICENSE-2.0
+
+@inuitcss
+inuitcss.com
+*/
+
+
+
+
+
+/*------------------------------------*\
+	GRIDS
+\*------------------------------------*/
+/*
+Page wrapper. Apply to the body where possible, as per: http://csswizardry.com/2011/01/using-the-body-element-as-a-wrapper/
+*/
+.wrapper{
+	max-width:940px;
+	margin:0 auto;
+	padding:0 10px;
+}
+
+/*
+Most frameworks rely on class="end" or similar to remove the margin from the last column in a row of grids. We don't want to do that so we use a combination of margin- and negative margin-left. It's clever...
+We also allow you to use grid items as stand alone columns or in a series of columns. To use a series just wrap them all in <div class="grids">...</div>
+*/
+.grids{
+	clear:both;
+	max-width:960px;
+	margin:0 0 0 -2.083%;
+	list-style:none; /* So we can make grids out of lists */
+}
+
+/*
+Here we are using an attribute selector to detect the string 'grid-' in an element's class.
+This works by assuming that anything we call grid-<n> we also want to be a grid item. It means less code and less for you to remember!
+
+Ensure any grid item's FIRST class is a grid-<n> class. e.g.
+VALID: class="grid-4 text-centre"
+INVALID: class="left grid-4"
+*/
+[class^="grid-"]{
+	float:left;
+	margin:0 2.083% 0 0;
+}
+.grids [class^="grid-"]{
+	margin:0 0 0 2.083%;
+}
+.grid-1{ width:4.167% }
+.grid-2{ width:10.417% }
+.grid-3{ width:16.667% }
+.grid-4{ width:22.917% }
+.grid-5{ width:29.167% }
+.grid-6{ width:35.417% }
+.grid-7{ width:41.667% }
+.grid-8{ width:47.917% }
+.grid-9{ width:54.167% }
+.grid-10{ width:60.417% }
+.grid-11{ width:66.667% }
+.grid-12{ width:72.917% }
+.grid-13{ width:79.167% }
+.grid-14{ width:85.417% }
+.grid-15{ width:91.667% }
+.grid-16{ width:97.917%; margin:0 }

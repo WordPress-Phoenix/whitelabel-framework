@@ -20,7 +20,7 @@ function wlfw_admin_header_style() {}
 function wlfw_admin_header_image() {
 	if(get_header_image()) {
 		echo '
-		<div class="grid_10 logo-sibling right">
+		<div class="'.wlfw_grid_col_class(10).' logo-sibling right">
 		  <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
 			<div class="clear"></div>
 		  </div>

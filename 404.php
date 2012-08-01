@@ -9,11 +9,11 @@ header("Status: 404 Not Found");
 get_header(); 
 ?>
 <div id="middleWrapper">
-    <div id="middleContainer" class="container_16">
-        <div id="middleSidebar" class="grid_5">
+    <div id="middleContainer" class="<?php wlfw_grid_row_class(16); ?>">
+        <div id="middleSidebar" class="<?php wlfw_grid_col_class(5); ?>">
 			<?php get_sidebar('middle'); ?>
         </div>
-        <div id="contentColWide" class="grid_11">
+        <div id="contentColWide" class="<?php wlfw_grid_col_class(11); ?>">
             <div id="post-0" class="post error404 not-found">
                 <h1 class="entry-title"><?php _e( 'We are sorry but the page you requested does not exist.', 'wlfw' ); ?></h1>
                 <div class="entry-content">

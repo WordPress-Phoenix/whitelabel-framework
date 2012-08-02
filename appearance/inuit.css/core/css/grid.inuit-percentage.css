@@ -38,7 +38,7 @@ We also allow you to use grid items as stand alone columns or in a series of col
 .grids{
 	clear:both;
 	max-width:960px;
-	margin:0 0 0 -2.083%;
+	margin:0 auto;
 	list-style:none; /* So we can make grids out of lists */
 }
 
@@ -82,16 +82,16 @@ MOBILE Nav Styles
 @media screen and (max-width: 480px) {
 
 	/* nav-wrap */
-	.js_on #menu-header {
-		position: relative;
+	.js_on .menu-header {
+		font-size:1.125em;
 	}
 
 	/* menu icon */
 	.js_on #menu-icon {
 		color: #fff;
 		height: 30px;
-		line-height:26px;
-		background: #666 url(../../../images/menu-icon.png) no-repeat 10px center;
+		line-height:24px;
+		background: url(../../../images/menu-icon.png) no-repeat 10px center;
 		padding: 8px 10px 0 42px;
 		cursor: pointer;
 		border: solid 1px #666;
@@ -110,7 +110,7 @@ MOBILE Nav Styles
 		top: 38px;
 		z-index: 10000;
 		padding: 5px 0;
-		background: #666;
+		background: #464646;
 		border-top: solid 1px #999;
 		display: none; /* visibility will be toggled with jquery */
 	}
@@ -129,9 +129,12 @@ MOBILE Nav Styles
 		color: #fff;
 		border: none;
 	}
+	#nav_below_header.js_on  a:hover, 
+	#nav_below_header.js_on  li:hover, 
+	#nav_below_header.js_on  .sub-menu,
 	.js_on #menu-primary a:hover, 
 	.js_on #menu-primary ul a:hover {
-		background: none;
+		background: #464646;
 		color: #ccc;
 	}
 	

@@ -48,6 +48,10 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 		$grid_system->default_value = '960gs';
 		$grid_system->description = 'Grid Systems streamline web development work flow by providing a structural framework of commonly used dimensions. Whitelable Framework provides you with 2 grid options. 960.gs, a static width 12 or 16 column grid and Inuit, a fluid 16 column grid. This allows you to make your website responsive by simply selecting the Inuit option above.';
 		
+		$layout->add_part($sidebar_position = new sm_radio_buttons('sidebar_position', array( 'Left'=>'left', 'Right'=>'right' )));
+		$sidebar_position->label ='Sidebar Position';
+		$sidebar_position->default_value = 'left';
+		
 //build the options menu!
 $whiteLabelOptions->build();
 

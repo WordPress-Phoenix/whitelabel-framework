@@ -43,33 +43,127 @@ We also allow you to use grid items as stand alone columns or in a series of col
 }
 
 /*
-Here we are using an attribute selector to detect the string 'grid-' in an element's class.
-This works by assuming that anything we call grid-<n> we also want to be a grid item. It means less code and less for you to remember!
+Here we are using an attribute selector to detect the string 'grid_' in an element's class.
+This works by assuming that anything we call grid_<n> we also want to be a grid item. It means less code and less for you to remember!
 
-Ensure any grid item's FIRST class is a grid-<n> class. e.g.
-VALID: class="grid-4 text-centre"
-INVALID: class="left grid-4"
+Ensure any grid item's FIRST class is a grid_<n> class. e.g.
+VALID: class="grid_4 text-centre"
+INVALID: class="left grid_4"
 */
-[class^="grid-"]{
+[class^="grid_"]{
 	float:left;
 	margin:0 2.083% 0 0;
 }
-.grids [class^="grid-"]{
+.grids [class^="grid_"]{
 	margin:0 0 0 2.083%;
 }
-.grid-1{ width:4.167% }
-.grid-2{ width:10.417% }
-.grid-3{ width:16.667% }
-.grid-4{ width:22.917% }
-.grid-5{ width:29.167% }
-.grid-6{ width:35.417% }
-.grid-7{ width:41.667% }
-.grid-8{ width:47.917% }
-.grid-9{ width:54.167% }
-.grid-10{ width:60.417% }
-.grid-11{ width:66.667% }
-.grid-12{ width:72.917% }
-.grid-13{ width:79.167% }
-.grid-14{ width:85.417% }
-.grid-15{ width:91.667% }
-.grid-16{ width:97.917%; margin:0 }
+.grid_1{ width:4.167% }
+.grid_2{ width:10.417% }
+.grid_3{ width:16.667% }
+.grid_4{ width:22.917% }
+.grid_5{ width:29.167% }
+.grid_6{ width:35.417% }
+.grid_7{ width:41.667% }
+.grid_8{ width:47.917% }
+.grid_9{ width:54.167% }
+.grid_10{ width:60.417% }
+.grid_11{ width:66.667% }
+.grid_12{ width:72.917% }
+.grid_13{ width:79.167% }
+.grid_14{ width:85.417% }
+.grid_15{ width:91.667% }
+.grid_16{ width:97.917%; margin:0 }
+
+
+
+/************************************************************************************
+MOBILE Nav Styles
+*************************************************************************************/
+@media screen and (max-width: 480px) {
+
+	/* nav-wrap */
+	.js_on #menu-header {
+		position: relative;
+	}
+
+	/* menu icon */
+	.js_on #menu-icon {
+		color: #fff;
+		height: 30px;
+		line-height:26px;
+		background: #666 url(../../../images/menu-icon.png) no-repeat 10px center;
+		padding: 8px 10px 0 42px;
+		cursor: pointer;
+		border: solid 1px #666;
+		display: block; /* show menu icon */
+	}
+	
+	.js_on #nav_below_header {
+		background: none;
+	}
+	
+	/* main nav */
+	.js_on #menu-primary {
+		clear: both;
+		position: absolute;
+		width:100%;
+		top: 38px;
+		z-index: 10000;
+		padding: 5px 0;
+		background: #666;
+		border-top: solid 1px #999;
+		display: none; /* visibility will be toggled with jquery */
+	}
+	.js_on #menu-primary li {
+		clear: both;
+		float: none;
+		margin: 15px 0 5px 10px;
+		padding:0 5px;
+	}
+	.js_on #menu-primary a, 
+	.js_on #menu-primary ul a {
+		font: inherit;
+		background: none;
+		display: inline;
+		padding: 0;
+		color: #fff;
+		border: none;
+	}
+	.js_on #menu-primary a:hover, 
+	.js_on #menu-primary ul a:hover {
+		background: none;
+		color: #ccc;
+	}
+	
+	/* dropdown */
+	.js_on #menu-primary ul {
+		width: auto;
+		position: static;
+		display: block;
+		border: none;
+		background: inherit;
+	}
+	
+	.js_on #menu-primary ul li {
+		margin: 15px 0 3px 15px;
+	}
+	
+	/* Don't show sub sub menus on mobile */
+	.js_on #menu-primary ul ul {
+		display:none;
+	}
+	
+	.js_on #menu-primary ul li:hover > ul {
+	display:none; /* show dropdown on hover */
+}
+
+}
+
+@media screen and (min-width: 480px) {
+
+	/* ensure #nav is visible on desktop version */
+	#menu-primary {
+		display: block !important;
+	}
+
+}

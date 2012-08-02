@@ -298,9 +298,16 @@ function wlfw_grid_row_class($width = 16, $return=false ) {
 // out puts or returns col class for slected grid system
 function wlfw_grid_col_class($width = 16, $return=false ) {
 	// set col class based on grid system selected in theme options pannel
-	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) $col_class = 'grid-'.$width;
+	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) $col_class = 'grid_'.$width;
 	else $col_class = 'grid_'.$width;
 	// return or print
 	if($return) return $col_class;
 	echo $col_class;
+}
+
+// returns class to add to content div (#contentColWide)
+function wlfw_get_content_class() {
+	if( $grid_system = get_option(SM_SITEOP_PREFIX.'sidebar_position') && get_option(SM_SITEOP_PREFIX.'sidebar_position') == 'left' )
+		return 'right';
+	return '';
 }

@@ -1,8 +1,13 @@
 jQuery(document).ready(function($) {
-  	jQuery('.menu-header .menu > li').live('mouseover', function() {
-		jQuery(this).children('.sub-menu').show();
-	});
-	jQuery('.menu-header .menu > li').live('mouseout', function() {
-		jQuery(this).children('.sub-menu').hide();
+	/* prepend menu icon */
+	jQuery('.menu-header').prepend('<div id="menu-icon">Navigation</div>');
+	
+	/* add class to indicate js is enabled */
+	jQuery('#nav_below_header').addClass('js_on');
+	
+	/* toggle nav */
+	jQuery("#menu-icon").on("click", function(){
+		jQuery("#menu-primary").slideToggle();
+		jQuery(this).toggleClass("active");
 	});
 });

@@ -5,7 +5,7 @@ Github Theme URI: https://github.com/WordPress-Phoenix/whitelabel-framework
 Author: Sethmatics
 Author URI: http://sethmatics.com/
 Tags: white, black, orange, two-columns, left-sidebar, fixed-width, blavatar, custom-background, custom-header, custom-menu, editor-style, featured-image-header, featured-images, full-width-template, post-formats, sticky-post, theme-options, threaded-comments
-Version: 1.2.4
+Version: 1.3
 License: GNU General Public License v2.0 GITHUB
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Description: Whitelabel Framework is designed to be the ideal Parent Theme for child theme development, and for use by freelancers and web developers to easily convert PSD to WordPress child themes. The theme options were built as modules, so turning off theme functionality is easy when you prefer to use a plugin instead.
@@ -68,7 +68,6 @@ h2, .widget-container h5, h3.widget-title {
 /* Header
 ----------------------------------------------- */
 #header {
-	height: 125px;
 	padding: 16px 0;
 }
 #header .logo a {
@@ -102,21 +101,37 @@ h2, .widget-container h5, h3.widget-title {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
 #nav_below_header {
-	background: #464646 repeat-x;
+	background: #464646;
 	list-style: none;
 	font-weight: normal;
 	padding: 0;
 	position: relative;
 	font-family: 'BebasNeueRegular', Verdana, Geneva, sans-serif;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 	clear: both;
 	z-index: 1001;
 }
-#nav_below_header div {
-/* use to build custom dropdown menus */
+
+/* menu icon */
+#menu-icon {
+	display: none; /* hide menu icon initially */
 }
-#nav_below_header a {
+
+#menu-primary, 
+#menu-primary li {
+	margin: 0;
+	padding: 0;
+}
+#menu-primary li {
+	list-style: none;
+	float: left;
+	margin-right: 5px;
+}
+
+/* nav link */
+#menu-primary a {
 	font-family: 'BebasNeueRegular', Verdana, Geneva, sans-serif;
 	font-weight: normal;
 	font-size: 20px;
@@ -128,67 +143,40 @@ h2, .widget-container h5, h3.widget-title {
 	line-height: 20px;
 	font-size: 20px;
 	color: #e6e6e6;
-	-webkit-transition:all 200ms ease-in;
-	-o-transition:all 200ms ease-in;
-	-moz-transition:all 200ms ease-in;
 	text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.33);
 	letter-spacing: 0.2px;
 	text-transform: uppercase;
-	opacity: 0.8;
-}
-#nav_below_header a:hover {
-	color: #fff;
-	background: #505050;
-	opacity: 1.0;
-}
-#nav_below_header ul {
-	height: 50px;
-	margin: 0;
-	list-style-type: none;
-	font-style: normal;
-	letter-spacing: normal;
-}
-#nav_below_header ul li {
-	position: relative;
-	display: inline;
-	float: left;
-	padding: 0;
-/*	background: transparent url(style/images/menu-line.png) repeat-y right center; */
-	padding-right: 2px;
-	margin-left: -1px;
-	position: relative;
-	z-index: 101;
-}
-#nav_below_header ul li:first-child {
-	margin: 0;
-	z-index: 1;
-}
-/* hiding subnavigation, unhide with css/js */
-#nav_below_header ul li ul {
-	display: none;
+
+	
 }
 
-/* dropdown nav styles*/
-#nav_below_header ul {
-	height: auto;
-}
-#nav_below_header a {
-	color: #FFF;
-}
 #nav_below_header a:hover, #nav_below_header li:hover, #nav_below_header .sub-menu {
-	background: #666;
+    background: #666666;
 }
 
-#nav_below_header .sub-menu { 
+/* nav dropdown */
+#menu-primary ul {
+	background: #666;
 	position: absolute;
-	top: 52px;
+	display: none; /* hide dropdown */
 	padding: 2px;
-	min-width: 200px;
+	width: 200px;
+	
 }
-#nav_below_header .sub-menu li { 
-	clear: both;
-	width: auto;
+#menu-primary ul ul {
+	left:200px;
+	margin-top:-54px;
 }
+#menu-primary ul li {
+	float: none;
+	margin: 0;
+	padding: 0;
+}
+#menu-primary li:hover > ul {
+	display: block; /* show dropdown on hover */
+}
+
+
 
 /* Content
 ----------------------------------------------- */
@@ -228,12 +216,12 @@ h2, .widget-container h5, h3.widget-title {
 	height: 16px;
 }
 
-.widget_wlfw_subpages li {
+.widget_wlfw_menu li {
 	list-style: none;
 	margin: 0.5em 0;
 }
 
-.widget_wlfw_subpages li.parent-link span {
+.widget_wlfw_menu li.parent-link span {
 	margin-left:5px;
 }
 
@@ -276,7 +264,7 @@ a.hover-show-image img:hover, a.hover-show-image:hover img {
 /* Footer
 ----------------------------------------------- */
 
-#footer {
+#bottomWrapper {
 	background-color: #e5e5e6;
 }
 #footer div p {
@@ -436,7 +424,7 @@ div.spacer {
 	border-radius: 0.6em;
 }
 
-.grey-frame {
+.inner {
 	border: solid 10px #E5E5E6;
 	padding: 6px;
 }

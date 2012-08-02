@@ -130,64 +130,11 @@ textarea{
 }
 
 
-
-
-
-/*------------------------------------*\
-	$SHARED
-\*------------------------------------*/
-/*
-Rather than repeating declarations over and over, let’s make a shared section.
-*/
-h1,h2,h3,h4,h5,h6,
-ul,ol,dl,p,address,figure,pre,fieldset,table,hr,
-.nav,.island,.media{
-	margin-bottom:24px;
-	margin-bottom:1.5rem;
-}
-figcaption,small{
-	font-size:12px;
-	font-size:0.75rem;
-}
-ul,ol,dd{
-	margin-left:3em;
-}
-small,code{
-	line-height:1;
-}
-pre,code,
-input,textarea{
-	font:inherit;
-}
-
-
-
-
-
-/*------------------------------------*\
-	$MAIN
-\*------------------------------------*/
-html{
-	overflow-y:scroll; /* Force scrollbars 100% of the time */
-	font-size:100%; /* Use 16px as per informationarchitects.jp/en/100e2r/ and wilsonminer.com/posts/2008/oct/20/relative-readability/ */
-	line-height:1.5; /* A safe default for type of any size. */
-	/* You should always specify a colour and background, override these in your own stylesheet if desired. */
-	background-color:#fff;
-	color:#333;
-}
-body{
-	min-height:100%;
-}
-
-
-
-
-
 /*------------------------------------*\
 	$GRIDS
 \*------------------------------------*/
 /*
-Build a custom grid-system igloo at inuitcss.com
+Build a custom grid_system igloo at inuitcss.com
 Include this igloo in igloos.css
 */
 
@@ -263,37 +210,6 @@ Based on @stubbornella’s media object: stubbornella.org/content/2010/06/25/the
 		overflow:hidden;
 		margin-bottom:0;
 	}
-
-
-
-
-
-/*------------------------------------*\
-	$LOGO
-\*------------------------------------*/
-/*
-Your logo is an image, not a h1: csswizardry.com/2010/10/your-logo-is-an-image-not-a-h1/
-*/
-.logo,
-.logo img{
-	display:block;
-	width:auto; /* Width of your logo in pixels (ideally a round grid-number) */
-	height:auto; /* Height of your logo in pixels */
-}
-/* Based on the fact that we need to use an <img /> in our markup, let’s hide the actual image and use a background on the <a>--this gives us semantically sound markup and the ability to use sprites for hover effects! */
-.logo{
-	background:url(/path/to/logo);
-}
-	.logo:hover{
-		/* Hover states */
-		background-position:0 -00px;
-	}
-.logo img{
-	position:absolute;
-	left:-99999px;
-}
-
-
 
 
 
@@ -786,8 +702,8 @@ body{
 	margin:0;
 	width:auto;
 }
-[class^="grid-"],
-.grids [class^="grid-"]{
+[class^="grid_"],
+.grids [class^="grid_"]{
 	width:auto;
 	float:none;
 	margin:0;
@@ -804,22 +720,6 @@ body{
 	margin-left:auto;
 	margin-right:auto;
 }
-
-
-
-
-
-/*------------------------------------*\
-	TYPE
-\*------------------------------------*/
-/*--- LISTS ---*/
-ul,
-ol,
-dl{
-	margin-left:1.5em;
-}
-
-
 
 
 
@@ -879,7 +779,7 @@ Linearise
 .grids{
 	width:auto;
 }
-[class^="grid-"]{
+[class^="grid_"]{
 	width:auto;
 	float:none;
 	clear:both;

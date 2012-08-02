@@ -6,7 +6,7 @@
   	<?php if ( ! dynamic_sidebar( 'logo-aside' ) ) : ?>
     <?php endif; // logo-aside ?>
     </div>
-    <div class="clear"></div>
+    <div class="clear after_logo_aside"></div>
     <div class="<?php wlfw_grid_col_class(16); ?>" id="nav_below_header">
         <?php
 			wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary_nav',  'fallback_cb' => 'wlfw_wp_list_top_pages' ) );
@@ -15,13 +15,13 @@
 				echo '<div class="menu-header"><ul id="menu-primary" class="menu">'.$wlfw_list_pages.'</ul></div>';
 			}
 		?>
-      <div class="clear"></div>
+      <div class="clear after_nav"></div>
     </div>
   </div>
   <div id="printHeader" class="<?php wlfw_grid_row_class(16); ?> print">
     <div>Print White Label Header</div>
-    <div class="clear"></div>
+    <div class="clear after_print_header_content"></div>
   </div>
-  <div class="clear"></div>
+  <div class="clear after_print_header"></div>
 </div>
 <!-- topWrapper -->

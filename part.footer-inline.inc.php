@@ -1,7 +1,7 @@
 <div id="bottomWrapper">
     <div id="footer" class="<?php wlfw_grid_row_class(16); ?>">
     	<div class="<?php wlfw_grid_col_class(16); ?>">
-        	<div class="grey-frame">
+        	<div class="inner">
 				<div class="<?php wlfw_grid_col_class(6); ?>"><?php bloginfo('name'); ?><br  />Copyright &copy; <?php echo date('Y'); ?></div>
                 <div class="<?php wlfw_grid_col_class(6); ?> alignright">
 				<?php

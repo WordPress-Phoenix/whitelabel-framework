@@ -264,8 +264,9 @@ a.hover-show-image img:hover, a.hover-show-image:hover img {
 /* Footer
 ----------------------------------------------- */
 
-#bottomWrapper {
+#footer .inner {
 	background-color: #e5e5e6;
+	padding: 6px;
 }
 #footer div p {
 	margin: 5px;
@@ -347,6 +348,15 @@ dl.gallery-item, dt.gallery-icon {
 	display: block;
 	text-align: center;
 }
+.text-left { 
+	text-align:left;
+}
+.text-right { 
+	text-align:right;
+}
+.text-center, .text-centre {
+	text-align:center; 
+}
 .grid_spacer {
 	height: 1em;
 }
@@ -422,11 +432,6 @@ div.spacer {
 .dashed {
 	border: #CCC 1px dashed;
 	border-radius: 0.6em;
-}
-
-.inner {
-	border: solid 10px #E5E5E6;
-	padding: 6px;
 }
 
 .clear {

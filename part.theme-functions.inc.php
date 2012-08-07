@@ -311,3 +311,17 @@ function wlfw_get_content_class() {
 		return 'right';
 	return '';
 }
+
+// returns jQuery version number used by WP core
+function wlfw_get_jquery_version() {
+	global $wp_scripts, $errors;
+	$registered_scripts = $wp_scripts->registered;
+	$jquery_version = $registered_scripts['jquery']->ver;
+	
+	// shwo warning if you will be changing versions of jQuery
+	if( !stristr( get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version  )) {
+		$errors->add('Warning', __(sprintf('You are currently using an older version of jQuery. Setting an option in the script sources tab will cause your site to start loading the most recent version ('.$jquery_version.')'), THEME_PREFIX));
+	}
+	
+	return $jquery_version;
+}

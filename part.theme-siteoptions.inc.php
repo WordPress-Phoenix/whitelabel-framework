@@ -1,16 +1,10 @@
 <?php 
 //Get options using this example: get_option(SM_SITEOP_PREFIX.'my_field')
 global $jquery_version;
-function wlfw_get_jquery_version() {
-	global $wp_scripts, $jquery_version;
-	$registered_scripts = $wp_scripts->registered;
-	$jquery_version = $registered_scripts['jquery']->ver;
+function wlfw_theme_options_builder() {
 	
-	// shwo warning if you will be changing versions of jQuery
-	if( !stristr( get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version  )) {
-		global $errors;
-		$errors->add('Warning', __(sprintf('You are currently using an older version of jQuery. Setting an option in the script sources tab will cause your site to start loading the most recent version ('.$jquery_version.')'), THEME_PREFIX));
-	}
+	if($_GET['page'] =='whitelabel-appearance-options')
+		$jquery_version = wlfw_get_jquery_version();
 	
 	// create admin page
 $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id' => 'themes.php', 'page_title' => 'Configure Theme Customizations', 'menu_title' => 'Theme Options','id' => 'whitelabel-appearance-options'));
@@ -66,7 +60,8 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 //build the options menu!
 $whiteLabelOptions->build();
 }
-add_action('init', 'wlfw_get_jquery_version');
+if( is_admin() )
+	add_action('init', 'wlfw_theme_options_builder');
 
 
 

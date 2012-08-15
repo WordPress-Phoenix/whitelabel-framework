@@ -51,6 +51,7 @@ if (!is_admin()) {
 	add_action('build_theme_head', 'get_template_part', 10, 2);
 	add_action('build_theme_head', 'wp_head', 20);
 	add_action('build_theme_head', 'load_head_closing', 90);
+	add_action('append_meta_tags', 'wlfw_mobile_meta' );
 	add_action('body_enqueue', 'get_template_part', 10, 2);
 	add_action('build_theme_header', 'get_template_part', 10, 2);
 	add_action('build_theme_footer', 'get_template_part', 10, 2);
@@ -79,6 +80,7 @@ else {
 	
 	//init theme activation actions
 	add_action( 'after_switch_theme','wlfw_first_activation' );
+	add_action( 'after_switch_theme','wlfw_update_scripts' );
 	
 	//add a defaults to the theme upon first activation
 	add_action( 'wlfw_first_activation','wlfw_set_theme_defaults' );

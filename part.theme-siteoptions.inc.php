@@ -2,9 +2,11 @@
 //Get options using this example: get_option(SM_SITEOP_PREFIX.'my_field')
 global $jquery_version;
 function wlfw_theme_options_builder() {
-	
-	if($_GET['page'] =='whitelabel-appearance-options')
+	global $wp_scripts;
+	$jquery_version = '';
+	if( isset($_GET['page']) && $_GET['page'] == 'whitelabel-appearance-options')
 		$jquery_version = wlfw_get_jquery_version();
+
 	
 	// create admin page
 $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id' => 'themes.php', 'page_title' => 'Configure Theme Customizations', 'menu_title' => 'Theme Options','id' => 'whitelabel-appearance-options'));
@@ -59,9 +61,15 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 		
 //build the options menu!
 $whiteLabelOptions->build();
+
+if( isset($_GET['page']) && $_GET['page'] == 'whitelabel-appearance-options')
+	$jquery_version = wlfw_get_jquery_version( array(1=>1) );
+	
 }
-if( is_admin() )
+
+if( is_admin() ) {
 	add_action('init', 'wlfw_theme_options_builder');
+}
 
 
 

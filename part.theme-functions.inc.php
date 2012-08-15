@@ -313,15 +313,50 @@ function wlfw_get_content_class() {
 }
 
 // returns jQuery version number used by WP core
-function wlfw_get_jquery_version() {
-	global $wp_scripts, $errors;
-	$registered_scripts = $wp_scripts->registered;
-	$jquery_version = $registered_scripts['jquery']->ver;
-	
-	// shwo warning if you will be changing versions of jQuery
-	if( !stristr( get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version  )) {
+function wlfw_get_jquery_version($args = array()) {
+	global $wp_scripts;
+	$jquery_version = $wp_scripts->registered['jquery']->ver;
+
+	if (empty($args))
+		return $jquery_version;
+		
+	global $errors;
+
+	// show warning if you will be changing versions of jQuery
+  if( stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), 'http') && !stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version) ) {
 		$errors->add('Warning', __(sprintf('You are currently using an older version of jQuery. Setting an option in the script sources tab will cause your site to start loading the most recent version ('.$jquery_version.')'), THEME_PREFIX));
 	}
 	
 	return $jquery_version;
+}
+
+// add viewport meta tag when responsive grid is activated
+function wlfw_mobile_meta() {
+if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' )
+	echo '<meta content="width=device-width, initial- scale=1.0" name="viewport">';	
+}
+
+
+/* Things to do when WLFW is updated oe activated */
+function wlfw_update_scripts() {
+		
+		$jquery_source = get_option(SM_SITEOP_PREFIX.'jquery_source');
+		$jquery_version = wlfw_get_jquery_version();
+		
+		// check to see if jQuery option needs updated
+		if( stristr($jquery_source, 'http') && !stristr($jquery_source, $jquery_version) ) {
+			
+			//Google CDN
+			if( stristr($jquery_source, 'ajax.googleapis.com') )
+				update_option( SM_SITEOP_PREFIX.'jquery_source', 'http://ajax.googleapis.com/ajax/libs/jquery/'.$jquery_version.'/jquery.min.js' );
+			
+			//Microsoft CDN
+			elseif( stristr($jquery_source, 'ajax.aspnetcdn.com') )
+				update_option( SM_SITEOP_PREFIX.'jquery_source', 'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-'.$jquery_version.'.min.js' );
+			
+			//jQuery CDN
+			elseif( stristr($jquery_source, 'code.jquery.com') )
+				update_option( SM_SITEOP_PREFIX.'jquery_source', 'http://code.jquery.com/jquery-'.$jquery_version.'.min.js' );
+		
+	}
 }

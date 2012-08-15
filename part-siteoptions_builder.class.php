@@ -47,6 +47,8 @@ class sm_options_container
 	}
 	
 	public function echo_notifications() {
+				do_action('wlfw_after_option_save', $this);
+
 		if(defined('SM_SITEOP_DEBUG') && SM_SITEOP_DEBUG) dbug($this->notifications);
 		foreach ($this->notifications as $notify_html) echo $notify_html;
 	}
@@ -86,6 +88,8 @@ class sm_options_page extends sm_options_container
 		add_action('admin_print_scripts', array($this, 'media_upload_scripts'));
 		add_action('admin_print_styles', array($this, 'media_upload_styles'));
 		//TODO - add if statement to determine if media uploader scripts should be enqueued or not
+		if(isset($_POST['submit']) && $_POST['submit'] )
+			$this->save_options();
 		
 	}	
 	
@@ -115,7 +119,7 @@ class sm_options_page extends sm_options_container
 			echo '</ul></div>';
 		}
 		
-		if(isset($_POST['submit']) && $_POST['submit'] && $this->save_options())
+		if(isset($_POST['submit']) && $_POST['submit'])
 			$this->echo_notifications();
 		echo '<div id="smOptions"><form method="post" onReset="return confirm(\'Do you really want to reset ALL site options? (You will still need to click save changes)\')"><ul style="list-style: none;">';
 		//build the content parts
@@ -346,6 +350,11 @@ class sm_option
 	public function update_option() {
 		//delete_option('sm_option_');
 		//delete_option('sm_option_ground_to_user');
+		
+		//echo'<pre>';
+		//print_r($_POST);
+		//die();
+		
 		if(!isset($_POST[$this->id])) $_POST[$this->id] = '';
 		
 		if($_POST[$this->id] == '') 

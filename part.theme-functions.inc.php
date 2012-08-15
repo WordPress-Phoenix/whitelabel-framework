@@ -338,7 +338,7 @@ if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_S
 
 
 /* Things to do when WLFW is updated oe activated */
-function wlfw_update_scripts() {
+function wlfw_post_upgrade_functions($a='') {
 		
 		$jquery_source = get_option(SM_SITEOP_PREFIX.'jquery_source');
 		$jquery_version = wlfw_get_jquery_version();
@@ -359,4 +359,5 @@ function wlfw_update_scripts() {
 				update_option( SM_SITEOP_PREFIX.'jquery_source', 'http://code.jquery.com/jquery-'.$jquery_version.'.min.js' );
 		
 	}
+	return $a;
 }

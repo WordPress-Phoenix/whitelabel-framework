@@ -6,14 +6,14 @@ else :
 <?php
 /*
 Official SiteOptions builder file
-Version 1.1.1
+Version 1.1.2
 */
 if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 define('SM_SITEOP_DEBUG', FALSE);
 
 //stop dbug calls from throwing errors when the sm-debug-bar plugin is not active
 if(!function_exists('dbug')){function dbug(){}}
-dbug('Version 1.1.1');
+dbug('Version 1.1.2');
 
 class sm_options_container
 {

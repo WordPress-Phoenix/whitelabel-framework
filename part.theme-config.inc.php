@@ -81,10 +81,6 @@ else {
 	//init theme activation actions
 	add_action( 'after_switch_theme','wlfw_first_activation' );
 	
-	// run post update functions
-	add_action( 'after_switch_theme', 'wlfw_post_upgrade_functions' );
-	add_filter( 'install_theme_complete_actions', 'wlfw_post_upgrade_functions', 20 );
-	
 	//add a defaults to the theme upon first activation
 	add_action( 'wlfw_first_activation','wlfw_set_theme_defaults' );
 	

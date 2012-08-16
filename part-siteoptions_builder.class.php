@@ -6,14 +6,14 @@ else :
 <?php
 /*
 Official SiteOptions builder file
-Version 1.1.2
+Version 1.1.3
 */
 if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 define('SM_SITEOP_DEBUG', FALSE);
 
 //stop dbug calls from throwing errors when the sm-debug-bar plugin is not active
 if(!function_exists('dbug')){function dbug(){}}
-dbug('Version 1.1.2');
+dbug('Version 1.1.3');
 
 class sm_options_container
 {
@@ -47,8 +47,7 @@ class sm_options_container
 	}
 	
 	public function echo_notifications() {
-				do_action('wlfw_after_option_save', $this);
-
+		do_action('wlfw_after_option_save', $this);
 		if(defined('SM_SITEOP_DEBUG') && SM_SITEOP_DEBUG) dbug($this->notifications);
 		foreach ($this->notifications as $notify_html) echo $notify_html;
 	}
@@ -95,7 +94,7 @@ class sm_options_page extends sm_options_container
 	
 	public function build_page() {
 		if($this->theme_page) add_theme_page($this->page_title, $this->menu_title, $this->capability, $this->id, array($this, 'build_parts'));
-		//else add_submenu_page( $this->parent_id, $this->page_title, $this->menu_title, $this->capability, $this->id, array($this, 'build_parts') );	
+		else add_submenu_page( $this->parent_id, $this->page_title, $this->menu_title, $this->capability, $this->id, array($this, 'build_parts') );	
 	}
 	
 	public function build_parts() {
@@ -584,6 +583,5 @@ class sm_color_picker extends sm_option
 		echo apply_filters('echo_html_option', $html);
 	}	
 }
-
 
 endif;

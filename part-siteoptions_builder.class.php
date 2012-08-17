@@ -6,21 +6,21 @@ else :
 <?php
 /*
 Official SiteOptions builder file
-Version 1.1.3
+Version 1.2.0
 */
 if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 define('SM_SITEOP_DEBUG', FALSE);
 
 //stop dbug calls from throwing errors when the sm-debug-bar plugin is not active
 if(!function_exists('dbug')){function dbug(){}}
-dbug('Version 1.1.3');
+dbug('Version 1.2.0');
 
 class sm_options_container
 {
     // property declaration
     public $parts;			public $parent_id;
 	public $capability;		public $id;
-	public $notifications;	
+	public $notifications;	public $security_check;
 	
 	public function __construct($i, $args = array()) {
 		$this->id = preg_replace('/_/','-',$i);
@@ -28,6 +28,7 @@ class sm_options_container
 		$this->parent_id = '';
 		$this->capability = 'read';
 		$this->notifications = array();
+		$this->security_check = false;
 	}
 	
 	public function add_part($part) {
@@ -36,8 +37,19 @@ class sm_options_container
 	
 	public function save_options() {
 		$any_updated = false;
+		
+		//make sure that a nonce was passed or do not save options
+		if(!empty($_REQUEST['_wpnonce'])) $nonce = $_REQUEST['_wpnonce'];
+		else return false;
+		
+		//check the nonce for security and save it to the class object or end function
+		if($this->security_check || wp_verify_nonce($nonce, $this->id)) $this->security_check = true;
+		else return false;
+		
+		//verified to save options, continue saving
 		foreach($this->parts as $part) {
-			if(is_a($part, 'sm_option')) $updated = $part->update_option(); 
+			$part->security_check = $this->security_check;
+			if(is_a($part, 'sm_option')) $updated = $part->update_option();
 			else $updated = $part->save_options();
 			if($updated) $any_updated = true;
 		}
@@ -88,8 +100,7 @@ class sm_options_page extends sm_options_container
 		add_action('admin_print_styles', array($this, 'media_upload_styles'));
 		//TODO - add if statement to determine if media uploader scripts should be enqueued or not
 		if(isset($_POST['submit']) && $_POST['submit'] )
-			$this->save_options();
-		
+			add_action('admin_init', array($this, 'save_options'));	
 	}	
 	
 	public function build_page() {
@@ -127,9 +138,8 @@ class sm_options_page extends sm_options_container
 			if(defined('SM_SITEOP_DEBUG') && SM_SITEOP_DEBUG) echo $part->id.'[$part->echo_html()]->['.__CLASS__.'->echo_html()]<br />';
 			$part->echo_html();	
 		}
-		
 		echo '<li><p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="submit"><input type="reset" value="Reset" class="button-primary" name="reset"></p>'
-			. '</li></ul></form></div>';
+			.wp_nonce_field($this->id, '_wpnonce', true, false).'</li>'.'</ul></form></div>';
 		echo '<div class="clear"></div></div>';//end of #smOptionsContent
 		echo '</div>';//end of #smSiteOptions;
 	}

@@ -269,7 +269,7 @@ function wlfw_page_title_exclude_save( $post_id ) {
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 	  return;
 	  
-	if ( 'page' == $_POST['post_type'] ) {
+	if ( isset($_POST['post_type']) && 'page' == $_POST['post_type'] ) {
 		if ( !current_user_can( 'edit_page', $post_id ) ) return;
 	} 
 	else {

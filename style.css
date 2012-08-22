@@ -46,6 +46,8 @@ p#headlineText {
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'BebasNeueRegular', Verdana, Geneva, sans-serif;
 	font-weight: normal;
+	margin: .2em 0 .6em 0;
+	font-size: 1em;
 }
 
 h1 {
@@ -53,16 +55,34 @@ h1 {
 	margin: .2em 0;
 }
 
-a {
-	color: #d54e21;
-	text-decoration: none;
-}
-
 h2, .widget-container h5, h3.widget-title {
 	font-size: 1.4em;
 	margin: .2em 0 .6em 0;
 	border-bottom: 1px dotted #ccc;
 }
+h3 {
+	font-size: 1.25em;
+}
+
+h4 {
+	font-size: 1.1em;
+}
+
+a {
+	color: #d54e21;
+	text-decoration: none;
+}
+
+blockquote {
+	color: #D54E21;
+	font-style: italic;
+	margin: .75em 1.75em;
+	font-size: 1.4em;
+	}
+blockquote p:before {
+	content: '"'; }
+blockquote p:after {
+	content: '"'; }
 
 /* Header
 ----------------------------------------------- */
@@ -242,22 +262,34 @@ a.hover-show-image img:hover, a.hover-show-image:hover img {
 /* Lists
 ----------------------------------------------- */
 
-.post ol, div.page ol {
+.post ol, .page ol {
 	margin-left: 36px;
+	margin-bottom:16px;
 }
-.post ol li, div.page ol li {
+.post ol li, .page ol li {
 	list-style: outside;
 	list-style-type: decimal;
 	margin: 8px 0;
 	line-height: 1.1em;
 }
-.page .hentry ul, .page .hentry li {
+.post ol ol, .page ol ol {
+	list-style-type: lower-roman;
+	margin-left:16px;
+}
+.post ol ol li, .page ol ol li {
+	list-style-type: lower-roman;
+}
+.post ul, .page ul {
+	margin-left: 10px;
+	margin-bottom:16px;
+}
+.post ul li, .page ul li {
 	list-style: inside disc;
 	margin: 10px 10px
 }
-.page .hentry ul ul li {
+.post ul ul li, .page ul ul li {
 	list-style-type: circle;
-	margin-left: 10px 16px;
+	margin-left: 10px;
 }
 
 /* Footer

@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
 	
 	/* toggle nav */
 	jQuery("#menu-icon").on("click", function(){
-		jQuery("#menu-primary").slideToggle();
+		jQuery("#nav_below_header .menu").slideToggle();
 		jQuery(this).toggleClass("active");
 	});
 });

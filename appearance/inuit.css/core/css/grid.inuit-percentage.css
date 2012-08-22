@@ -98,12 +98,12 @@ MOBILE Nav Styles
 		display: block; /* show menu icon */
 	}
 	
-	.js_on #nav_below_header {
-		background: none;
+	#nav_below_header.js_on {
+		margin-right:5px;
 	}
 	
 	/* main nav */
-	.js_on #menu-primary {
+	.js_on  ul.menu {
 		clear: both;
 		position: absolute;
 		width:100%;
@@ -114,14 +114,14 @@ MOBILE Nav Styles
 		border-top: solid 1px #999;
 		display: none; /* visibility will be toggled with jquery */
 	}
-	.js_on #menu-primary li {
+	.js_on ul.menu li {
 		clear: both;
 		float: none;
 		margin: 15px 0 5px 10px;
 		padding:0 5px;
 	}
-	.js_on #menu-primary a, 
-	.js_on #menu-primary ul a {
+	.js_on ul.menu a, 
+	.js_on ul.menuul a {
 		font: inherit;
 		background: none;
 		display: inline;
@@ -132,14 +132,14 @@ MOBILE Nav Styles
 	#nav_below_header.js_on  a:hover, 
 	#nav_below_header.js_on  li:hover, 
 	#nav_below_header.js_on  .sub-menu,
-	.js_on #menu-primary a:hover, 
-	.js_on #menu-primary ul a:hover {
+	.js_on ul.menu a:hover, 
+	.js_on ul.menu ul a:hover {
 		background: #464646;
 		color: #ccc;
 	}
 	
 	/* dropdown */
-	.js_on #menu-primary ul {
+	.js_on ul.menu ul {
 		width: auto;
 		position: static;
 		display: block;
@@ -147,16 +147,16 @@ MOBILE Nav Styles
 		background: inherit;
 	}
 	
-	.js_on #menu-primary ul li {
+	.js_on ul.menu ul li {
 		margin: 15px 0 3px 15px;
 	}
 	
 	/* Don't show sub sub menus on mobile */
-	.js_on #menu-primary ul ul {
+	.js_on ul.menu ul ul {
 		display:none;
 	}
 	
-	.js_on #menu-primary ul li:hover > ul {
+	.js_on ul.menu ul li:hover > ul {
 	display:none; /* show dropdown on hover */
 }
 
@@ -165,7 +165,7 @@ MOBILE Nav Styles
 @media screen and (min-width: 480px) {
 
 	/* ensure #nav is visible on desktop version */
-	#menu-primary {
+	ul.menu {
 		display: block !important;
 	}
 

@@ -118,19 +118,19 @@ h2, .widget-container h5, h3.widget-title {
 	display: none; /* hide menu icon initially */
 }
 
-#menu-primary, 
-#menu-primary li {
+#nav_below_header .menu, 
+#nav_below_header .menu li {
 	margin: 0;
 	padding: 0;
 }
-#menu-primary li {
+#nav_below_header .menu li {
 	list-style: none;
 	float: left;
 	margin-right: 5px;
 }
 
 /* nav link */
-#menu-primary a {
+#nav_below_header .menu a {
 	font-family: 'BebasNeueRegular', Verdana, Geneva, sans-serif;
 	font-weight: normal;
 	font-size: 20px;
@@ -154,7 +154,7 @@ h2, .widget-container h5, h3.widget-title {
 }
 
 /* nav dropdown */
-#menu-primary ul {
+#nav_below_header .menu ul {
 	background: #666;
 	position: absolute;
 	display: none; /* hide dropdown */
@@ -162,16 +162,16 @@ h2, .widget-container h5, h3.widget-title {
 	width: 200px;
 	
 }
-#menu-primary ul ul {
+#nav_below_header .menu ul ul {
 	left:200px;
 	margin-top:-54px;
 }
-#menu-primary ul li {
+#nav_below_header .menu ul li {
 	float: none;
 	margin: 0;
 	padding: 0;
 }
-#menu-primary li:hover > ul {
+#nav_below_header .menu li:hover > ul {
 	display: block; /* show dropdown on hover */
 }
 

@@ -114,14 +114,14 @@ MOBILE Nav Styles
 		border-top: solid 1px #999;
 		display: none; /* visibility will be toggled with jquery */
 	}
-	.js_on ul.menu li {
+	#nav_below_header.js_on ul.menu li {
 		clear: both;
 		float: none;
 		margin: 15px 0 5px 10px;
 		padding:0 5px;
 	}
-	.js_on ul.menu a, 
-	.js_on ul.menuul a {
+	#nav_below_header.js_on ul.menu a, 
+	#nav_below_header.js_on ul.menuul a {
 		font: inherit;
 		background: none;
 		display: inline;
@@ -132,31 +132,31 @@ MOBILE Nav Styles
 	#nav_below_header.js_on  a:hover, 
 	#nav_below_header.js_on  li:hover, 
 	#nav_below_header.js_on  .sub-menu,
-	.js_on ul.menu a:hover, 
-	.js_on ul.menu ul a:hover {
+	#nav_below_header.js_on ul.menu a:hover, 
+	#nav_below_header.js_on ul.menu ul a:hover {
 		background: #464646;
 		color: #ccc;
 	}
 	
 	/* dropdown */
-	.js_on ul.menu ul {
+	#nav_below_header.js_on ul.menu ul {
 		width: auto;
 		position: static;
-		display: block;
+		display: block!important;
 		border: none;
 		background: inherit;
 	}
 	
-	.js_on ul.menu ul li {
+	#nav_below_header.js_on ul.menu ul li {
 		margin: 15px 0 3px 15px;
 	}
 	
 	/* Don't show sub sub menus on mobile */
-	.js_on ul.menu ul ul {
-		display:none;
+	#nav_below_header.js_on ul.menu ul ul {
+		display:none!important;
 	}
 	
-	.js_on ul.menu ul li:hover > ul {
+	#nav_below_header.js_on ul.menu ul li:hover > ul {
 	display:none; /* show dropdown on hover */
 }
 

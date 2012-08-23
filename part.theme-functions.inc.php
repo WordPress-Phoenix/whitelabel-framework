@@ -333,7 +333,7 @@ function wlfw_get_jquery_version($args = array()) {
 // add viewport meta tag when responsive grid is activated
 function wlfw_mobile_meta() {
 if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' )
-	echo '<meta content="width=device-width, initial- scale=1.0" name="viewport">';	
+	echo '<meta content="width=device-width" name="viewport">';	
 }
 
 // include theme updater file

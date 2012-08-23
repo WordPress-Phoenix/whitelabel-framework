@@ -5,6 +5,8 @@
 // add_floating_social(array('position' => 'the_content'));
 
 add_shortcode( 'floating_social', 'add_floating_social' );
+global $old_ie;
+if(preg_match('/(?i)msie [1-8]/',$_SERVER['HTTP_USER_AGENT'])) $old_ie = true;	
 
 function add_floating_social($args = array()) {
 	global $floating_social_flag, $post_id, $post_meta;
@@ -30,23 +32,28 @@ function add_floating_social($args = array()) {
 	elseif( isset($args['position']) && ( $args['position'] ==  'widget'  && isset($floating_social_flag) && $floating_social_flag=='widget' ) ) { wlfw_inline_social_bar(); }
 	elseif( !is_active_widget( 'wlfw_floating_social', NULL, 'wlfw_floating_social' )  && !isset($floating_social_flag) ) { 
 		if(!$floating_social_auto && (isset($post_meta['_wlfw_floating_social']) && $post_meta['_wlfw_floating_social'][0] == 'enabled'))
-			add_action('body_enqueue', 'wlfw_display_like_it_bar'); 
+			add_action('build_theme_footer', 'wlfw_deterimine_floating_social_bar', 5); 
 		elseif($floating_social_auto && (!isset($post_meta['_wlfw_floating_social'])) )
-			add_action('body_enqueue', 'wlfw_display_like_it_bar'); 
+			add_action('build_theme_footer', 'wlfw_deterimine_floating_social_bar', 5); 
 	}
 }
 
 
-function wlfw_inline_social_bar($content = '') { wlfw_display_like_it_bar(); ?>
+function wlfw_inline_social_bar($content = '', $media_query=false) { wlfw_display_like_it_bar(); global $old_ie;?>
 <style>
-#floatingbuttonsWrapper, .admin-bar.page #floatingbuttonsWrapper {
-	float: left;
-	position: relative;
-	top: 0px;
-	margin-bottom: 20px;
-}
-#floatingbuttons .floatbutton {margin:10px 23px 10px 24px; clear:none;}
-#floatingbuttons {border-radius:5px;}
+#floatingbuttonsWrapper.container_16, .container_16 #floatingbuttons.grid_16 { width:auto; max-width:940px; }
+.container_16 #floatingbuttons.grid_16 { margin:0; }
+<?php if($media_query && !$old_ie) echo '@media screen and (max-width: 1100px) {';?>
+	#floatingbuttonsWrapper, .admin-bar.page #floatingbuttonsWrapper {
+		float: left;
+		position: relative;
+		top: 0px;
+		margin-bottom: 20px;
+	}
+	#middleContainer #floatingbuttons { margin-left:0; width:100% }
+	#floatingbuttons .floatbutton {margin:10px 23px 10px 24px; clear:none;}
+	#floatingbuttons {border-radius:5px;}
+<?php if($media_query && !$old_ie) echo '}';?>
 </style>
 <?php 
 	return $content;
@@ -57,6 +64,7 @@ function wlfw_inline_social_bar($content = '') { wlfw_display_like_it_bar(); ?>
 function wlfw_display_like_it_bar() { 
 ?>
 <style>
+
 /*styles for wlfw_display_like_it_bar */
 #container-fluid {width: 100%;}
 #floatingbuttonsWrapper {  
@@ -133,11 +141,12 @@ body .floatbutton .stBubble_count, body .floatbutton .stBubble_count {
 #floatingbuttons .chicklets.stumbleupon, .inline_sharing .chicklets.stumbleupon {
 	background-position: 0 -86px;
 }
+
 </style>
 <noscript><style>#floatingbuttons{display: none;}</style></noscript>
 
-<div id="floatingbuttonsWrapper">
-    <div id='floatingbuttons' title="Share this post!">   
+<div id="floatingbuttonsWrapper" class="<?php wlfw_grid_row_class(16); ?>">
+    <div id='floatingbuttons' title="Share this post!" class="<?php wlfw_grid_col_class(16); ?>">   
     <span class='floatbutton st_facebook_vcount' displayText='Facebook'></span>
     <span class='floatbutton st_twitter_vcount' displayText='Tweet'></span>
     <span class='floatbutton st_plusone_vcount' displayText='Google'></span>
@@ -169,6 +178,21 @@ jQuery(document).ready(function() {
 	);
 });
 </script>
+<?php }
+
+function wlfw_deterimine_floating_social_bar() { wlfw_inline_social_bar('', true); global $old_ie; ?>
+<style>
+
+<?php 
+	if(!$old_ie) echo '@media screen and (max-width: 1100px) {'; ?>
+	#floatingbuttonsWrapper { float:none!important; background:none; }
+	#floatingbuttons { background: -moz-linear-gradient(center top , #FFFFFF, #F9F9F9) repeat scroll 0 0 transparent; }
+	#floatingbuttonsWrapper.container_16, .container_16 #floatingbuttons.grid_16 { width: inherit; }
+	
+	.container_16 #floatingbuttons.grid_16 { margin-bottom:20px; }
+<?php if(!$old_ie) echo '}'; ?>
+</style>
+
 <?php }
 
 

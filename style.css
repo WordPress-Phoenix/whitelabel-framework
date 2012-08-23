@@ -5,7 +5,7 @@ Github Theme URI: https://github.com/WordPress-Phoenix/whitelabel-framework
 Author: Sethmatics
 Author URI: http://sethmatics.com/
 Tags: white, black, orange, two-columns, left-sidebar, fixed-width, blavatar, custom-background, custom-header, custom-menu, editor-style, featured-image-header, featured-images, full-width-template, post-formats, sticky-post, theme-options, threaded-comments
-Version: 1.3.7
+Version: 1.4.0
 License: GNU General Public License v2.0 GITHUB
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Description: Whitelabel Framework is designed to be the ideal Parent Theme for child theme development, and for use by freelancers and web developers to easily convert PSD to WordPress child themes. The theme options were built as modules, so turning off theme functionality is easy when you prefer to use a plugin instead.
@@ -199,6 +199,11 @@ blockquote p:after {
 
 /* Content
 ----------------------------------------------- */
+
+#middleContainer {
+	z-index:2;
+	position:relative;
+}
 #contentColWide h1 {
 	color:#D54E21;
 }
@@ -262,32 +267,32 @@ a.hover-show-image img:hover, a.hover-show-image:hover img {
 /* Lists
 ----------------------------------------------- */
 
-.post ol, .page ol {
+.post ol, div.page ol {
 	margin-left: 36px;
 	margin-bottom:16px;
 }
-.post ol li, .page ol li {
+.post ol li, div.page ol li {
 	list-style: outside;
 	list-style-type: decimal;
 	margin: 8px 0;
 	line-height: 1.1em;
 }
-.post ol ol, .page ol ol {
+.post ol ol, div.page ol ol {
 	list-style-type: lower-roman;
 	margin-left:16px;
 }
-.post ol ol li, .page ol ol li {
+.post ol ol li, div.page ol ol li {
 	list-style-type: lower-roman;
 }
-.post ul, .page ul {
+.post ul, div.page ul {
 	margin-left: 10px;
 	margin-bottom:16px;
 }
-.post ul li, .page ul li {
+.post ul li, div.page ul li {
 	list-style: inside disc;
 	margin: 10px 10px
 }
-.post ul ul li, .page ul ul li {
+.post ul ul li, div.page ul ul li {
 	list-style-type: circle;
 	margin-left: 10px;
 }

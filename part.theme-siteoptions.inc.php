@@ -51,13 +51,16 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 	
 	$whiteLabelOptions->add_part($layout = new sm_section('layout', array('title'=>'Layout')) );
 		$layout->add_part($grid_system = new sm_radio_buttons('grid_system', array( '960.gs <a href="http://960.gs/" target="_blank">Documentation</a>'=>'960gs', '960.gs Responsive <a href="http://csswizardry.com/inuitcss/#grid-builder" target="_blank">Documentation</a>'=>'inuit' )));
-		$grid_system->label ='Grid System';
-		$grid_system->default_value = '960gs';
-		$grid_system->description = 'Grid Systems streamline web development work flow by providing a structural framework of commonly used dimensions. Whitelable Framework provides you with 2 grid options. 960.gs, a static width 16 column grid and a modified version of Inuit, a fluid 16 column grid. This allows you to make your website responsive by simply selecting the 960.gs Responsive option above.';
+			$grid_system->label ='Grid System';
+			$grid_system->default_value = '960gs';
+			$grid_system->description = 'Grid Systems streamline web development work flow by providing a structural framework of commonly used dimensions. Whitelable Framework provides you with 2 grid options. 960.gs, a static width 16 column grid and a modified version of Inuit, a fluid 16 column grid. This allows you to make your website responsive by simply selecting the 960.gs Responsive option above.';
 		
 		$layout->add_part($sidebar_position = new sm_radio_buttons('sidebar_position', array( 'Left'=>'left', 'Right'=>'right' )));
-		$sidebar_position->label ='Sidebar Position';
-		$sidebar_position->default_value = 'left';
+			$sidebar_position->label ='Sidebar Position';
+			$sidebar_position->default_value = 'left';
+		
+	$whiteLabelOptions->add_part($widgetOptions = new sm_section('widget_options', array('title'=>'Widget Options')) );
+		$widgetOptions->add_part($enable_shortcodes = new sm_checkbox('enable_shortcodes', array('label'=>'Enable Shortcodes', 'value'=>'true', 'classes'=>array('onOffSwitch') )));
 		
 //build the options menu!
 $whiteLabelOptions->build();
@@ -83,6 +86,7 @@ if(get_option(SM_SITEOP_PREFIX.'page_meta_generator') != 'true' ) {
 if(get_option(SM_SITEOP_PREFIX.'insensitive_urls') == 'true' ) {
 	add_action('init', 'desensitize_url');
 }
+
 function desensitize_url() {
     if (preg_match('/[A-Z]/', $_SERVER['REQUEST_URI'])) {
         $_SERVER['REQUEST_URI'] = strtolower($_SERVER['REQUEST_URI']);
@@ -99,3 +103,8 @@ function sm_modify_texturize_options() {
 	if (get_option(SM_SITEOP_PREFIX.'sm_texturize_comments') == 'false') { remove_filter('comment_text', 'wptexturize'); }
 }
 add_action('init', 'sm_modify_texturize_options');
+
+
+// add shortcode functionality to widgets
+if(!is_admin() && get_option(SM_SITEOP_PREFIX.'enable_shortcodes') == 'true' )
+	add_filter('widget_text', 'do_shortcode');

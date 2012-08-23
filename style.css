@@ -221,6 +221,22 @@ blockquote p:after {
 	display:block;
 }
 
+/*Multiple Post Lists Styles */
+.home .post, .blog .post, .archive .post {
+	padding-bottom: 10px;
+	margin-bottom: 26px;
+	border-bottom: 4px solid #FFF;
+}
+
+/* sticky content styles */
+.sticky {
+	border-right: 4px solid #D54E21;
+}
+/* meta styles */
+.entry-meta {
+	padding-top: 8px;
+	border-top: 4px solid #fff;
+}
 
 /* Sidebar
 ----------------------------------------------- */
@@ -497,19 +513,5 @@ div.spacer {
 	padding-left: 20px;
 }
 
-/*Multiple Post Lists Styles */
-.home .post, .archive .post {
-	padding-bottom: 10px;
-	margin-bottom: 26px;
-	border-bottom: 4px solid #FFF;
-}
-
-/* sticky content styles */
-.sticky {
-	border-right: 4px solid #D54E21;
-}
-/* meta styles */
-.entry-meta {
-	padding-top: 8px;
-	border-top: 4px solid #fff;
-}
+/* admin bar adjustments */
+#wpadminbar { min-width:960px; }

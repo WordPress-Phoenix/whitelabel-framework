@@ -116,6 +116,13 @@ blockquote p:after {
 /* Nav
 ----------------------------------------------- */
 
+#breadCrumbs { 
+	margin-bottom:20px;
+	font-family: 'BebasNeueRegular', Verdana, Geneva, sans-serif;
+	font-size:18px;
+	}
+.page #breadCrumbs, #breadCrumbs .crumbsStart { display:none; }
+
 #nav_below_header, div.spacer {
 	margin-top: 10px;
 	margin-bottom: 10px;

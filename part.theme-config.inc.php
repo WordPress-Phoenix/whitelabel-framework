@@ -62,7 +62,7 @@ if (!is_admin()) {
 }
 else {
 	global $errors;
-	//enable error notice in admin is theme framework is activated instead of using a child theme
+	//enable error notice in admin if theme framework is activated instead of using a child theme
 	if(get_template_directory() == get_stylesheet_directory()) {
 		$all_themes = wp_get_themes();
 		foreach($all_themes as $theme_title => $theme_ob) {
@@ -71,9 +71,9 @@ else {
 				break;
 			}
 		}
-		if(!empty($child_exists)) 
+		if(is_wp_error($errors) && !empty($child_exists)) 
 			$errors->add('Theme Error', __(sprintf('You are currently using a theme framework as your primary theme. A child theme was detected in your themes list, please activate it now.'), THEME_PREFIX));
-		else
+		elseif(is_wp_error($errors))
 			$errors->add('Theme Error', __(sprintf('You are currently using a theme framework as your primary theme. Please use our <a href="%1$s">One Click Child Theme Builder</a> to create and activate your child theme right now!', get_admin_url().'themes.php?action=wlfw-create-child-theme'), THEME_PREFIX));	
 	}
 

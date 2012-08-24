@@ -10,6 +10,7 @@ if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow==
 //optional parameters: none  
 function wlfw_admin_display_global_errors ($original_value) {
 	global $errors;
+//echo'<pre>';var_export($errors);
 	//display errors if they exist, fail if your on the users page, it already displays errors
 	if(is_wp_error($errors)) {
 		if( count($errors->errors) > 0 ) {
@@ -27,6 +28,7 @@ function wlfw_admin_display_global_errors ($original_value) {
 		//detects zero errors as an error object and prints red box, making hiding it the only option
 		echo '<style>div.error{display:none;}div.error.wlfw{display:block;}</style>';
 		echo PHP_EOL.'<!-- end of error admin notice -->';
+		unset($errors);
 	}
 }
 
@@ -329,7 +331,7 @@ function wlfw_get_jquery_version($args = array()) {
 	global $errors;
 
 	// show warning if you will be changing versions of jQuery
-  if( stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), 'http') && !stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version) ) {
+  if( is_wp_error($errors) && stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), 'http') && !stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version) ) {
 		$errors->add('Warning', __(sprintf('You are currently using an older version of jQuery. Setting an option in the script sources tab will cause your site to start loading the most recent version ('.$jquery_version.')'), THEME_PREFIX));
 	}
 	

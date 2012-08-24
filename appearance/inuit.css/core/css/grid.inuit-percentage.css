@@ -142,9 +142,13 @@ MOBILE Nav Styles
 	#nav_below_header.js_on ul.menu ul {
 		width: auto;
 		position: static;
-		display: block!important;
+		display: none;
 		border: none;
 		background: inherit;
+	}
+	
+	#nav_below_header.js_on .menu li:hover > ul {
+		display: none; /* show dropdown on hover */
 	}
 	
 	#nav_below_header.js_on ul.menu ul li {
@@ -158,7 +162,25 @@ MOBILE Nav Styles
 	
 	#nav_below_header.js_on ul.menu ul li:hover > ul {
 	display:none; /* show dropdown on hover */
-}
+	}
+	
+	#nav_below_header.js_on ul.menu li .handle {
+		background:url(../../../images/mobile_nav_handle.png) no-repeat;
+		width:20px; height:20px;
+		margin-right:10px;
+		float:right;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+	}
+	
+	#nav_below_header.js_on ul.menu li .handle.active {
+		-moz-transform: rotate(180deg);
+		-webkit-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+	}
+	
 
 }
 

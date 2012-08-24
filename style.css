@@ -330,6 +330,9 @@ a.hover-show-image img:hover, a.hover-show-image:hover img {
 #footer div p {
 	margin: 5px;
 }
+#footer .widget {
+	margin-bottom: 20px;
+}
 
 /* Gallery
 ----------------------------------------------- */

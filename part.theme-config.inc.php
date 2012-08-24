@@ -33,7 +33,6 @@ add_theme_support( 'custom-background', array(
 );
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
-
 add_filter('wlfw_content_class', 'wlfw_get_content_class');
 
 //as required by wordpress.org
@@ -42,6 +41,9 @@ if ( ! isset( $content_width ) ) $content_width = 960;
 //load scripts only if not in the wordpress admin dashbaord area
 //organized by top of page to bottom of page in loading order
 if (!is_admin()) {
+	//this adds a class to all widgets identifying incrementally
+	add_filter('dynamic_sidebar_params', 'wlfw_number_widgets_by_class');
+	
 	//fix ubillboard from overwriting scripts
 	remove_action('wp_print_scripts', 'uds_billboard_scripts');
 	if(function_exists('uds_billboard_scripts')) add_action('wp_enqueue_scripts', 'uds_billboard_scripts', 10);

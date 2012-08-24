@@ -1,6 +1,6 @@
 <div id="bottomWrapper">
     <div id="footer" class="<?php wlfw_grid_row_class(16); ?>">
-
+  	<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : ?>
         	<div class="<?php wlfw_grid_col_class(16); ?> inner">
 				<div class="<?php wlfw_grid_col_class(8); ?>"><?php bloginfo('name'); ?><br  />Copyright &copy; <?php echo date('Y'); ?></div>
                 <div class="<?php wlfw_grid_col_class(8); ?>">
@@ -12,7 +12,7 @@
 				</div>
                 <div class="clear"></div>
             </div>
-
+    <?php endif; // logo-aside ?>
     </div><!--/footer -->
     <div class="clear"></div>
 </div><!--/bottomWrapper -->

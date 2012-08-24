@@ -42,6 +42,8 @@ function add_floating_social($args = array()) {
 function wlfw_inline_social_bar($content = '', $media_query=false) { wlfw_display_like_it_bar(); global $old_ie;?>
 <style>
 #floatingbuttonsWrapper.container_16, .container_16 #floatingbuttons.grid_16 { width:auto; max-width:940px; }
+#footer #floatingbuttons { margin-left: 0px; }
+#footer #floatingbuttons .floatbutton { margin: 10px 4px 10px 24px;}
 .container_16 #floatingbuttons.grid_16 { margin:0; }
 <?php if($media_query && !$old_ie) echo '@media screen and (max-width: 1100px) {';?>
 	#floatingbuttonsWrapper, .admin-bar.page #floatingbuttonsWrapper {

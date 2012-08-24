@@ -38,7 +38,7 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 	$whiteLabelOptions->add_part($social = new sm_section('social', array('title'=>'Social Media')) );
 		$social->add_part($floating_social = new sm_checkbox('floating_social', array('label'=>'Enable Floating Social Bar', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
 		$social->add_part($floating_social_embed = new sm_checkbox('floating_social_embed', array('label'=>'Auto-Embed Floating Social Bar', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
-		$social->add_part($share_this_key = new sm_textfield('share_this_key', array('label'=>'ShareThis Publisher Key', 'description'=>'Get your key here <a href="http://sharethis.com/" target="_blank">sharethis.com</a>' )));
+		$social->add_part($share_this_key = new sm_textfield('share_this_key', array('label'=>'ShareThis Publisher Key', 'description'=>'Get your key here <a href="http://sharethis.com/" target="_blank">sharethis.com</a><br/><br /><a href="https://github.com/WordPress-Phoenix/whitelabel-framework/wiki/Floating-social" target="_blank">Floating Social Documentation</a>' )));
 	
 	$whiteLabelOptions->add_part($mobile = new sm_section('mobile', array('title'=>'Mobile Redirection')) );
 		$mobile->add_part($mobile_redirect = new sm_textfield('redirect_mobile_devices', array('label'=>'URL of Mobile Website', 'description'=>'Enter the URL of your mobile website to automatically redirect mobile users to the URL. Leave blank to turn off mobile redirection.')));

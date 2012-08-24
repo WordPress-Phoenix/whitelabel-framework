@@ -202,6 +202,7 @@ blockquote p:after {
 	display: block; /* show dropdown on hover */
 }
 
+#nav_below_header .menu a.handle { display:none; }
 
 
 /* Content

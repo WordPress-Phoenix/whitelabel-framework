@@ -92,5 +92,15 @@ function wlfw_widgets_init() {
 		'after_title' => '</h3>',
 		'after_widget' => '<div class="clear"></div></div>',
 	) );
+	// Area 3, located at the bottom of the page
+	register_sidebar(array(
+	'name' => __( 'Footer Sidebar', 'wlfw' ),
+	'id' => 'footer-sidebar',
+	'description' => __( 'Widgets in this area will be shown on the footer.' ),
+	'before_widget' => '<div id="%1$s" class="grid_4 widget %2$s">',
+	'after_widget' => '</div>',
+	'before_title' => '<h4 class="widgettitle">',
+	'after_title' => '</h4>'
+));
 }
 add_action( 'widgets_init', 'wlfw_widgets_init' );

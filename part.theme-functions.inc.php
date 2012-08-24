@@ -1,4 +1,10 @@
 <?php
+// include theme updater file
+global $pagenow;
+if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow=='update-core.php') && file_exists(dirname(__FILE__).'/inc/theme_upgrade.php') ) {
+	include_once(dirname(__FILE__).'/inc/theme_upgrade.php'); 
+}
+
 //function: wlfw_errors_in_footer_admin
 //description: used with admin_notices to display global errors
 //optional parameters: none  
@@ -336,8 +342,12 @@ if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_S
 	echo '<meta content="width=device-width" name="viewport">';	
 }
 
-// include theme updater file
-global $pagenow;
-if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow=='update-core.php') && file_exists(dirname(__FILE__).'/inc/theme_upgrade.php') ) {
-	include_once(dirname(__FILE__).'/inc/theme_upgrade.php'); 
+function wlfw_number_widgets_by_class($instance ='', $this='', $args=''){
+	global $sidebars_widgets;
+	$sidebars_widgets_flip = array_flip($sidebars_widgets[$instance[0]['id']]);
+	if(isset($instance[0]) && isset($instance[0]['widget_id'])) {
+		$current_count = $sidebars_widgets_flip[$instance[0]['widget_id']];
+		$instance[0]['before_widget'] = preg_replace('~(.*?class\=\")(.*?)(\".*)~',"$1$2 ".'widget_'.($current_count+1)."$3",$instance[0]['before_widget']);
+	}
+	return $instance;
 }

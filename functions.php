@@ -16,7 +16,7 @@
 //setup global errors for use with admin notices
 //do not load on media page because core uses an array for errors for some reason...
 global $errors, $pagenow;
-if($pagenow != 'media.php' && !is_wp_error($errors)) $errors = new WP_Error();
+if($pagenow != 'media.php' && $pagenow != 'uploader.php' && !is_wp_error($errors)) $errors = new WP_Error();
 
 // theme version # constant for appending to  script and style enqueue
 // theme options created with the GPL "siteoptions_builder" class

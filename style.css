@@ -154,6 +154,7 @@ blockquote p:after {
 	list-style: none;
 	float: left;
 	margin-right: 5px;
+	position: relative;
 }
 
 /* nav link */
@@ -201,7 +202,16 @@ blockquote p:after {
 #nav_below_header .menu li:hover > ul {
 	display: block; /* show dropdown on hover */
 }
-
+#nav_below_header .menu > li:last-child a {
+	text-align: right;
+}
+#nav_below_header .menu > li:last-child ul ul {
+	left: auto;
+	right: 200px;	
+}
+#nav_below_header .menu > li:last-child ul {
+	right: 0px;
+}
 #nav_below_header .menu a.handle { display:none; }
 
 

@@ -277,14 +277,14 @@ function wlfw_floating_social_options_form(){
 
 function wlfw_floating_social_options_save() {
 	global $post_id;
-	if(!isset($post_id) || empty($post_id)) $post_id = $_POST['post_ID'];
+	if( (!isset($post_id) || empty($post_id)) && isset($_POST['post_ID']) ) $post_id = $_POST['post_ID'];
 	
 	$floating_social_auto = get_option(SM_SITEOP_PREFIX.'floating_social_embed');
 		
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	
 	// verify
-	if ( !wp_verify_nonce( $_POST['wlfw_floating_social_nonce'], 'wlfw_floating_social' ) ) return;
+	if ( !isset($_POST['wlfw_floating_social_nonce']) || !wp_verify_nonce( $_POST['wlfw_floating_social_nonce'], 'wlfw_floating_social' ) ) return;
 	if ( !current_user_can( 'edit_page', $post_id ) ) return;
 	else if ( !current_user_can( 'edit_post', $post_id ) ) return;
 	

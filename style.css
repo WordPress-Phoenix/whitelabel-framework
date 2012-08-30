@@ -217,11 +217,14 @@ blockquote p:after {
 
 /* Content
 ----------------------------------------------- */
-
 #middleContainer {
 	z-index:2;
 	position:relative;
 }
+#contentColWide {
+	margin-bottom: 30px;
+}
+
 #contentColWide h1 {
 	color:#D54E21;
 }
@@ -251,9 +254,9 @@ blockquote p:after {
 
 /* Sidebar
 ----------------------------------------------- */
-
-#contentColWide {
-	margin-bottom: 30px;
+#middleSidebar ul ul {
+	margin-left: 10px;
+	margin-bottom: 6px;
 }
 
 .widget-container {

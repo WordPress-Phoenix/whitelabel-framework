@@ -128,8 +128,12 @@ if(get_option(SM_SITEOP_PREFIX.'disable_404_permalink_guessing')=='true') { wlfw
 
 // check the current post for the existence of a short code
 function wlfw_post_has_shortcode($shortcode = '') {
-
+	global $post;
+	
+	// don't try to get post id if there is no post
+	if( !isset($post) ) return false;
 	$post_to_check = get_post(get_the_ID());
+		
 	// false because we have to search through the post content first
 	$found = false;
 	// if no short code was provided, return false

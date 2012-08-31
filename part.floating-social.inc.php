@@ -14,7 +14,10 @@ function add_floating_social($args = array()) {
 	//check for positioning (allow for inline social bars)
 	
 	$floating_social_auto = get_option(SM_SITEOP_PREFIX.'floating_social_embed');
-	$post_meta = get_post_custom($post_id);
+	
+	// don't try to get post custom if there is no post id
+	if(!empty($post_id))
+		$post_meta = get_post_custom($post_id);
 	
 	if( isset($args['position']) && $args['position'] == 'the_content' ) {
 		$floating_social_flag='the_content';
@@ -202,7 +205,12 @@ function wlfw_deterimine_floating_social_bar() { wlfw_inline_social_bar('', true
 function display_floating_social() {
 	global $post;
 	$floating_social_auto = get_option(SM_SITEOP_PREFIX.'floating_social_embed');
+	
+	
+	// dont try to check post custom if there is no post
+	if( !isset($post) ) return false;
 	$post_meta = get_post_custom($post->ID);
+		
 	//dbug('$floating_social_auto: '.$floating_social_auto);
 	//dbug('_wlfw_floating_social: '.$post_meta['_wlfw_floating_social'][0]);
 	

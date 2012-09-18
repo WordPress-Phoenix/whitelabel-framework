@@ -10,7 +10,7 @@ First Modified: 7/12/2012
 */
 
 global $WLFW_UPDATE_DATA;
-if(!empty($_GET['action']) && $_GET['action'] == 'do-core-reinstall'); else {
+if(!empty($_GET['action']) && ($_GET['action'] == 'do-core-reinstall' || $_GET['action'] == 'do-core-upgrade')); else {
 	if(!function_exists('github_theme_update_row'))require_once('updater-assets.php');
 	add_filter('site_transient_update_themes', 'wlfw_transient_update_themes_filter');
 }

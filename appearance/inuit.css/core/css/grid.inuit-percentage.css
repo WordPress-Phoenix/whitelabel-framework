@@ -183,12 +183,3 @@ MOBILE Nav Styles
 	
 
 }
-
-@media screen and (min-width: 480px) {
-
-	/* ensure #nav is visible on desktop version */
-	ul.menu {
-		display: block !important;
-	}
-
-}

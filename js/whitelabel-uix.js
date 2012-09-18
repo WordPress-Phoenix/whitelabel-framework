@@ -5,21 +5,17 @@ jQuery(document).ready(function($) {
 	/* add class to indicate js is enabled */
 	jQuery('#nav_below_header').addClass('js_on');
 	
-	/* toggle nav */
-	jQuery("#menu-icon").on("click", function(){
-		jQuery("#nav_below_header .menu").slideToggle();
-		jQuery(this).toggleClass("active");
-	});
-	
 	/* Add Handles to nav items with submenus */
 	jQuery('#nav_below_header ul.menu > li:has(ul)').each(function(index) {
 		jQuery(this).children('a').after('<a href="#" class="handle"></a>');
 	});
 	
-	jQuery("a.handle").live("click", function(e){
+	jQuery("#menu-icon, a.handle").live("click", function(e){
 		e.preventDefault();
 		if(jQuery(this).next('ul').hasClass('visible')) {
-			jQuery(this).next('ul').removeClass('visible').slideUp(300);
+			jQuery(this).next('ul').removeClass('visible').slideUp(300, function() {
+			 	jQuery(this).css('display', '');
+			});
 			jQuery(this).removeClass('active');
 		}
 		else {

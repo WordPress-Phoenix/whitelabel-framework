@@ -188,6 +188,7 @@ blockquote p:after {
 	display: none; /* hide dropdown */
 	padding: 2px;
 	width: 200px;
+	z-index:3;
 	
 }
 #nav_below_header .menu ul ul {

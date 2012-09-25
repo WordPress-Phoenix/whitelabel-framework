@@ -126,6 +126,12 @@ if ( is_singular() ) wp_enqueue_script( "comment-reply" );
 		<p class="nocomments"><?php _e( 'Comments are closed.', 'wlfw' ); ?></p>
 	<?php endif; ?>
 
-	<?php comment_form(); ?>
+	<?php 
+	comment_form( apply_filters('wlfw_comment_form_options', 
+		array(
+			'title_reply' => '<span class="theme_color">Add</span> comment')
+		)
+	);
+	?>
 
 </div><!-- #comments -->

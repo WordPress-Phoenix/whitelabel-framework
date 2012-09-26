@@ -171,8 +171,8 @@ function wlfw_comment( $comment, $args, $depth ) {
 			break;
 		default :
 	?>
-	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-		<article id="comment-<?php comment_ID(); ?>" class="comment">
+<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
+  <article id="comment-<?php comment_ID(); ?>" class="comment">
 			<footer class="comment-meta">
 				<div class="comment-author vcard">
 					<?php
@@ -209,9 +209,9 @@ function wlfw_comment( $comment, $args, $depth ) {
 			<div class="reply">
 				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'wlfw' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
-		</article><!-- #comment-## -->
+	</article><!-- #comment-## -->
 
-	<?php
+<?php
 			break;
 	endswitch;
 }
@@ -356,4 +356,18 @@ function wlfw_number_widgets_by_class($instance ='', $this='', $args=''){
 		$instance[0]['before_widget'] = preg_replace('~(.*?class\=\")(.*?)(\".*)~',"$1$2 ".'widget_'.($current_count+1)."$3",$instance[0]['before_widget']);
 	}
 	return $instance;
+}
+
+// removes comments template from pages
+function wlfw_add_comments_template() {
+	if( get_option(SM_SITEOP_PREFIX.'disable_comments_pages') == 'true' && is_page()) 
+		return;
+	
+	if( get_option(SM_SITEOP_PREFIX.'disable_comments_posts') == 'true' && get_post_type() == 'post') 
+		return;
+		
+	if( get_option(SM_SITEOP_PREFIX.'disable_comments_all') == 'true')
+		return;
+		
+	add_action('wlfw_comments_template', 'comments_template');
 }

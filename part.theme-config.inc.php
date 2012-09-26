@@ -59,6 +59,9 @@ if (!is_admin()) {
 	add_action('build_theme_footer', 'get_template_part', 10, 2);
 	add_action('footer_enqueue', 'get_template_part', 10, 2);
 	add_action('footer_enqueue', 'wp_footer', 20);
+	
+	add_action('template_redirect', 'wlfw_add_comments_template');
+	
 }
 else {
 	global $errors;

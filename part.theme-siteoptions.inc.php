@@ -61,6 +61,9 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 		
 	$whiteLabelOptions->add_part($pageContent = new sm_section('page_content', array('title'=>'Page Content')) );
 		$pageContent->add_part($enable_featured_image = new sm_checkbox('featured_image_on_content', array('label'=>'Enable Featured Image', 'value'=>'true', 'classes'=>array('onOffSwitch') )));
+		$pageContent->add_part($disable_comments_pages = new sm_checkbox('disable_comments_pages', array('label'=>'Disable comments on pages', 'value'=>'true', 'classes'=>array('onOffSwitch') )));
+		$pageContent->add_part($disable_comments_posts = new sm_checkbox('disable_comments_posts', array('label'=>'Disable comments on posts', 'value'=>'true', 'classes'=>array('onOffSwitch') )));
+		$pageContent->add_part($disable_comments_all = new sm_checkbox('disable_comments_all', array('label'=>'Disable comments everywhere', 'value'=>'true', 'classes'=>array('onOffSwitch') )));
 	
 	$whiteLabelOptions->add_part($widgetOptions = new sm_section('widget_options', array('title'=>'Widget Options')) );
 		$widgetOptions->add_part($enable_shortcodes = new sm_checkbox('enable_shortcodes', array('label'=>'Enable Shortcodes', 'value'=>'true', 'classes'=>array('onOffSwitch') )));

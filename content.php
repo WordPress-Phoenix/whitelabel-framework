@@ -9,4 +9,4 @@
 <div class="entry-meta">
     <?php wl_posted_in(); ?>
 </div><!-- .entry-meta -->
-<?php comments_template( '', true ); ?>
+<?php do_action('wlfw_comments_template', '', true); ?>

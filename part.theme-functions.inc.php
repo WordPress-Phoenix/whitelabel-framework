@@ -371,3 +371,60 @@ function wlfw_add_comments_template() {
 		
 	add_action('wlfw_comments_template', 'comments_template');
 }
+
+//function: add_body_class
+//description: adds a class to the body tag
+//required parameters: class to add
+function wlfw_add_body_class($additionalClass) {
+	global $customBodyClasses;
+	if ($additionalClass != '') {
+		$customBodyClasses[] = $additionalClass;
+	}
+}
+
+//function: remove_body_class
+//description: removes a class from body tag
+//required parameters: class to remove
+function wlfw_remove_body_class($removeClass) {
+	global $removeBodyClasses;
+	if ($removeClass != '') {
+		$removeBodyClasses[] = $removeClass;
+	}
+}
+
+// add and remove custom classes for body tag
+// used with add_filter('body_class','wlfw_set_body_class');
+function wlfw_set_body_class($classes) {
+	global $customBodyClasses, $removeBodyClasses;
+	
+	// check to see if there are any custom classes to add. if there is add them
+	if ( isset($customBodyClasses) && count($customBodyClasses) > 0) {
+		foreach ($customBodyClasses as $key => $class)	{
+			// add class to body classes
+			$classes[] = $class;
+		}
+	}
+	
+	// check to see if there are any custom classes to delete if there is remove them from classes array
+	if ( isset($removeBodyClasses) && count($removeBodyClasses) > 0) {
+		foreach ($removeBodyClasses as $removeKey => $removeClass)	{
+			foreach ($classes as $classKey => $classValue) {
+				// remove class if match
+				if($classValue == $removeClass) {
+					unset($classes[$classKey]);
+				}
+			}
+		}
+	}
+	
+	// return the $classes array
+	return $classes;
+}
+
+// add style for IE specific body class
+function wlfw_set_body_class_for_ie($classes) {
+	if(preg_match('/(?i)msie ([1-8])/',$_SERVER['HTTP_USER_AGENT'], $ie_ver)) {
+		wlfw_add_body_class('ie'.$ie_ver[1]);
+	}
+	return $classes;
+}

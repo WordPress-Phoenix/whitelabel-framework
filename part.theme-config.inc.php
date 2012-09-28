@@ -33,6 +33,7 @@ add_theme_support( 'custom-background', array(
 );
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
+add_filter('body_class','wlfw_set_body_class');
 add_filter('wlfw_content_class', 'wlfw_get_content_class');
 
 //as required by wordpress.org
@@ -54,12 +55,12 @@ if (!is_admin()) {
 	add_action('build_theme_head', 'wp_head', 20);
 	add_action('build_theme_head', 'load_head_closing', 90);
 	add_action('append_meta_tags', 'wlfw_mobile_meta' );
+	add_action('body_class', 'wlfw_set_body_class_for_ie', 5);
 	add_action('body_enqueue', 'get_template_part', 10, 2);
 	add_action('build_theme_header', 'get_template_part', 10, 2);
 	add_action('build_theme_footer', 'get_template_part', 10, 2);
 	add_action('footer_enqueue', 'get_template_part', 10, 2);
 	add_action('footer_enqueue', 'wp_footer', 20);
-	
 	add_action('template_redirect', 'wlfw_add_comments_template');
 	
 }

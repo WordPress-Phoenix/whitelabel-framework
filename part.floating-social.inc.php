@@ -191,7 +191,11 @@ function wlfw_deterimine_floating_social_bar() { wlfw_inline_social_bar('', true
 <?php 
 	if(!$old_ie) echo '@media screen and (max-width: 1100px) {'; ?>
 	#floatingbuttonsWrapper { float:none!important; background:none; }
-	#floatingbuttons { background: -moz-linear-gradient(center top , #FFFFFF, #F9F9F9) repeat scroll 0 0 transparent; }
+	#floatingbuttons { 
+	background:#F9F9F9;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #F9F9F9));
+	background:-moz-linear-gradient(top, #fff, #F9F9F9);
+	}
 	#floatingbuttonsWrapper.container_16, .container_16 #floatingbuttons.grid_16 { width: inherit; }
 	
 	.container_16 #floatingbuttons.grid_16 { margin-bottom:20px; }

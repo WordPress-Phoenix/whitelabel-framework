@@ -19,3 +19,4 @@
 <?php echo apply_filters('page_container_div', '<div id="container-fluid">'); ?>
 <?php do_action('body_enqueue', 'part.body', 'entry.inc'); ?>
 <?php do_action('build_theme_header', 'part.header', 'inline.inc'); ?>
+<?php do_action('build_theme_header', 'part.header', 'breadcrumbs.inc'); ?>

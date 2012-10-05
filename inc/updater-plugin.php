@@ -26,12 +26,14 @@ function wlfw_append_theme_actions($actions, $theme = NULL) {
 <?php	
 		}
 	?>
-    <p id="wlfw_extended_options" style="display:none;">
-    <?php echo apply_filters('wlfw_append_theme_actions_content', wlfw_append_theme_actions_content()); ?>
-	</p>
+    <div id="wlfw_extended_options" style="display:none; clear:both;">
+    	<?php echo apply_filters('wlfw_append_theme_actions_content', wlfw_append_theme_actions_content()); ?>
+	</div>
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-		jQuery('#wlfw_extended_options').siblings('.action-links').find('p').replaceWith(jQuery('#wlfw_extended_options'));
+		//jQuery('#wlfw_extended_options').siblings('.action-links').find('p').replaceWith(jQuery('#wlfw_extended_options'));
+		jQuery('#wlfw_extended_options').siblings('.action-links').find('p').remove();
+		jQuery('#wlfw_extended_options').siblings('.action-links').append(jQuery('#wlfw_extended_options'));
 		jQuery('#wlfw_extended_options').show();
 	});
     </script>
@@ -39,12 +41,51 @@ function wlfw_append_theme_actions($actions, $theme = NULL) {
 	return $actions;	
 }
 
-function wlfw_append_theme_actions_content(){
+function wlfw_append_theme_actions_content($stylesheet = 'whitelabel-framework'){
+	global $WLFW_UPDATE_DATA;
+	if(!isset($WLFW_UPDATE_DATA)) $WLFW_UPDATE_DATA = wlfw_transient_update_themes_filter($WLFW_UPDATE_DATA);
+	
+	if(isset($WLFW_UPDATE_DATA->response[$stylesheet])) 
+		$theme = $WLFW_UPDATE_DATA->response[$stylesheet];
+	else
+		echo "Theme update utility error code: UP52";
+		
+	//if the theme is outdated, diplay the custom theme updater content
+	if(!isset($WLFW_UPDATE_DATA->up_to_date[$stylesheet])) {
+		$update_url = wp_nonce_url('update.php?action=upgrade-theme&amp;theme=' . urlencode($stylesheet), 'upgrade-theme_' . $stylesheet);
 	ob_start();
 ?>
-<strong>There is a new version of Whitelabel Framework available. <a href="<?php echo get_template_directory_uri().'/inc/localize-remote-content.php'; ?>?remote=<?php echo urlencode( 'http://github.com/WordPress-Phoenix/whitelabel-framework/issues?milestone=&page=1&state=closed'); ?>&TB_iframe=true&amp;width=80%&amp;height=506" class="thickbox" title="Whitelabel Framework">View version 1.4 details</a> or <a href="update.php?action=upgrade-theme&amp;theme=whitelabel-framework&amp;_wpnonce=f6e9acc04a" onclick="if ( confirm('Updating this theme will lose any customizations you have made. \'Cancel\' to stop, \'OK\' to update.') ) {return true;}return false;">update now</a>.</strong>
+<strong>There is a new version of Whitelabel Framework available now. <a href="<?php echo get_template_directory_uri().'/inc/localize-remote-content.php'; ?>?remote=<?php echo urlencode( 'http://github.com/WordPress-Phoenix/whitelabel-framework/issues?milestone=&page=1&state=closed'); ?>&TB_iframe=true&amp;width=80%&amp;height=506" class="thickbox" title="Whitelabel Framework">View version <?php echo $theme['new_version'] ?> details</a> or <a href="<?php echo $update_url; ?>" onclick="if ( confirm('<?php _e('Updating this theme will lose any customizations you have made (if you have not been using a child theme). \'Cancel\' to stop, \'OK\' to update.', 'wlfw'); ?>') ) {return true;}return false;">update now</a>.</strong> 
 <?php
 	return trim(ob_end_flush(), '1');
+	}//END -- if(isset($WLFW_UPDATE_DATA->response[$stylesheet]))
+	
+	//if the theme is up to date, display the custom rollback/beta version updater
+	else {
+		ob_start();
+		$other_version_url = sprintf('%s%s', wp_nonce_url( self_admin_url('update.php?action=upgrade-github-theme&theme=') . $stylesheet, 'upgrade-theme_' . $stylesheet), '&rollback=');
+		if(!empty($WLFW_UPDATE_DATA->response[$stylesheet]['beta'])) $beta = $WLFW_UPDATE_DATA->response[$stylesheet]['beta'];
+		if(!empty($beta)) $up2date = '<span style="color:red;">running beta version '.$beta.'</span>';
+		else $up2date = 'up to date with version '.$theme['new_version'];
+		
+?>
+<p>Current version is <?php echo $up2date; ?>. Try <a href="#" onclick="jQuery('#wlfw_versions').toggle();return false;">another version?</a></p>
+<div id="wlfw_versions" style="display:none; width: 100%;">
+	<select style="width: 60%;" 
+    	onchange="if(jQuery(this).val() != '') {
+        	jQuery(this).next().show(); 
+            jQuery(this).next().attr('href','<?php echo $other_version_url ?>'+jQuery(this).val()); 
+        } 
+        else jQuery(this).next().hide();
+        ">
+       	<option value="">Choose a Version...</option>
+        <option value="master">Beta</option>
+		<?php foreach(array_reverse($WLFW_UPDATE_DATA->up_to_date[$stylesheet]['rollback']) as $ver){echo'<option>'.$ver.'</option>';}?></select>
+        <a style="display: none;" class="button-primary" href="?" onclick="if( confirm('Are you sure you want to reinstall a new version of Whitelabel?') );else return false;">Install</a>
+</div>
+<?php
+		return trim(ob_end_flush(), '1');
+	}
 }
 
 function wlfw_transient_update_themes_filter($data){
@@ -62,7 +103,7 @@ function wlfw_transient_update_themes_filter($data){
 	$theme = $theme_data;
 	$github_username = 'WordPress-Phoenix';
 	$github_repo = 'whitelabel-framework';
-	$github_theme_uri = 'https://github.com/'.$github_username.'/'.$github_repo.'.git';
+	$github_theme_uri = 'https://github.com/'.$github_username.'/'.$github_repo;
 	$github_api_repo_uri =  'https://api.github.com/repos/'.$github_username.'/'.$github_repo;
 		
 	// Add Github Theme Updater to return $data and hook into admin
@@ -104,30 +145,34 @@ function wlfw_transient_update_themes_filter($data){
 		if(isset($tag->name)) $tags[] = $tag->name;
 	}
 	usort($tags, "version_compare");
-	
-	
-	// check for rollback
-	if(isset($_GET['rollback'])){
-		$data->response[$theme_key]['package'] = 
-			$github_theme_uri . '/zipball/' . urlencode($_GET['rollback']);
-	}
-	
-	
+		
 	// check and generate download link
-	$newest_tag = array_pop($tags);
+	$newest_tag = end(array_values($tags));
 	if(version_compare($theme->version,  $newest_tag, '>=')){
 		// up-to-date!
 		$data->up_to_date[$theme_key]['rollback'] = $tags;
-		return $data;
 	}
 	
+	// check for rollback
+	if(isset($_GET['rollback']))
+		$download_link = $data->response[$theme_key]['package'] = $github_theme_uri . '/zipball/' . urlencode($_GET['rollback']);
+	else
+		$download_link = $github_api_repo_uri . '/zipball/' . $newest_tag;
 	
-	// new update available, add to $data
-	$download_link = $github_api_repo_uri . '/zipball/' . $newest_tag;
+	// add newest update available to $data, 
 	$update = array();
 	$update['new_version'] = $newest_tag;
 	$update['url']         = $github_theme_uri;
 	$update['package']     = $download_link;
+
+	//check if using beta (GIT master) version
+	if(version_compare($newest_tag, $theme->version, '<')){
+		// up-to-date!
+		$update['beta'] = $theme->version;
+	}
+	else
+		$update['beta'] = false;
+
 	$data->response[$theme_key] = $update;
 	
 	$WLFW_UPDATE_DATA = $data;

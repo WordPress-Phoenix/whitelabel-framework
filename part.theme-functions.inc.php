@@ -428,3 +428,13 @@ function wlfw_set_body_class_for_ie($classes) {
 	}
 	return $classes;
 }
+
+// outputs primary menu
+function wlfw_display_nav() {
+	$primary_menu = wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary_nav', 'echo'=>false, 'items_wrap' => '<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d"><ul id="%1$s" class="%2$s">%3$s</ul></div>', 'fallback_cb' => 'wlfw_wp_list_top_pages' ) );
+	echo apply_filters('wlfw_primary_nav_output', $primary_menu);
+}
+function wlfw_wp_list_top_pages() {	
+	$wlfw_list_pages = wp_list_pages('title_li=&sort_column=menu_order&echo=0'); 
+	return '<div class="menu-header" data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d"><ul id="menu-primary" class="menu">'.$wlfw_list_pages.'</ul></div>';
+}

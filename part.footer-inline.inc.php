@@ -1,4 +1,4 @@
-<div id="bottomWrapper">
+<div id="bottomWrapper" data-theme="c" data-role="footer">
     <div id="footer" class="<?php wlfw_grid_row_class(16); ?>">
   	<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : ?>
         	<div class="<?php wlfw_grid_col_class(16); ?> inner">

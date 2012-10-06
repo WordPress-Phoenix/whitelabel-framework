@@ -4,15 +4,24 @@
  */
 ?>
 
-<div id="contentNarrow" class="gutter-right">
+<div id="contentNarrow" class="content-secondary gutter-right">
   <?php
 	/* When we call the dynamic_sidebar() function, it'll spit out
 	 * the widgets for that widget area. If it instead returns false,
 	 * then the sidebar simply doesn't exist, so we'll hard-code in
 	 * some default sidebar stuff just in case.
 	 */
-	 
-	if ( ! dynamic_sidebar( 'primary-page-widget-area' ) ) : ?>
+	do_action('wlfw_before_dynamic_sidebar');
+	if ( ! dynamic_sidebar( 'primary-page-widget-area' ) ) :
+    do_action('wlfw_before_empty_dynamic_sidebar', $primary_nav);
+	?>
+  
+  <?php endif; // end primary widget area ?>
+</div>
+
+<?php
+function wlfw_default_sidebar() {
+	?>
     <div class="widget-container widget_wlfw_menu" id="wlfw_menu">
     	<h3 class="widget-title">Learn More</h3>
     	<?php if(function_exists('get_wlfw_subpages_html')) echo get_wlfw_subpages_html(); ?>
@@ -27,5 +36,4 @@
       <p>It would be a good idea to check out the WordPress admin and add some "widgets" to your sidebar. You can find these widgets in the "Appearance" menu.</p>
     </div>
   </div>
-  <?php endif; // end primary widget area ?>
-</div>
+  <?php } ?>

@@ -12,6 +12,8 @@
  * and instead use the child theme's functions.php file. Otherwise, add any of custom 
  * functions below this section
  */
+ 
+if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 
 //setup global errors for use with admin notices
 //do not load on media page because core uses an array for errors for some reason...
@@ -69,8 +71,17 @@ function wlfw_include_core_files() {
 	// remove site options builder if its already being added elsewhere
 	if(class_exists('sm_options_container') ) 
 		unset($wlfw_parts['WHITELABEL_SITEOPTIONS_BUILDER']);
-
-	$wlfw_parts = array_merge(array('WHITELABEL_CONFIG' => array( 'slug' => 'part.theme', 'name' => 'config.inc' )), $wlfw_parts );
+		
+	if( get_option(SM_SITEOP_PREFIX.'grid_system') =='mobile' ) { 
+		$wlfw_mobile_parts = array(
+		'WHITELABEL_MOBILE_FUNCTIONS' => array( 'slug' => 'part.theme', 'name' => 'functions-mobile.inc' ),
+		'WHITELABEL_MOBILE_SITEOPTIONS' => array( 'slug' => 'part.theme', 'name' => 'mobile-siteoptions.inc' ),
+		);
+		
+		$wlfw_parts = array_merge($wlfw_parts, $wlfw_mobile_parts);
+	}
+			
+	$wlfw_parts = array_merge(array('WHITELABEL_CONFIG' => array( 'slug' => 'part.theme.config', 'name' => get_option(SM_SITEOP_PREFIX.'grid_system') )), $wlfw_parts );
 		
 	foreach($wlfw_parts as $constant => $template_part) {
 		if(defined($constant)) $value = constant($constant);

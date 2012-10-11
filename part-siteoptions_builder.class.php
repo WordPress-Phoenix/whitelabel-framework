@@ -161,6 +161,7 @@ class sm_options_page extends sm_options_container
 		#smOptionsNav li a { display:block; font-family:Georgia, Arial, serif; font-size: 13px; padding: 12px; text-decoration: none;}
 		#smOptions { background: #FFF; float: left; padding: 12px; width: 500px;
 		border-top-right-radius: 0.7em; border-bottom-right-radius: 0.7em; border-bottom-left-radius: 0.7em; }
+		#smOptions input { margin-right: 6px; }
 		#smOptionsContent .section { display: none; }
 		#smOptionsContent .section.active { display: block; }
 		

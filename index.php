@@ -7,10 +7,10 @@
 //LOADING header.php + actions
 get_header(); 
 ?>
-<div id="middleWrapper">
+<div id="middleWrapper" data-role="content">
     <div id="middleContainer" class="<?php wlfw_grid_row_class(16); ?>">
         
-        <div id="contentColWide" class="<?php wlfw_grid_col_class(11); ?> <?php echo get_post_format(); ?> <?php echo apply_filters('wlfw_content_class', ''); ?>">
+        <div id="contentColWide" class="<?php wlfw_grid_col_class(11); ?> <?php echo get_post_format(); ?> <?php echo apply_filters('wlfw_content_class', ''); ?> content-primary">
             <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 				<?php 
 					if($wp_query->found_posts < 1){ get_template_part( 'content', get_post_format() ); } 

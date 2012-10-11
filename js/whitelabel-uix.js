@@ -10,7 +10,21 @@ jQuery(document).ready(function($) {
 		jQuery(this).children('a').after('<a href="#" class="handle"></a>');
 	});
 	
-	jQuery("#menu-icon, a.handle").live("click", function(e){
+	jQuery("#menu-icon").live("click", function(e){
+		e.preventDefault();
+		if(jQuery(this).next('div').find('ul').first().hasClass('visible')) {
+			jQuery(this).next('div').find('ul').first().removeClass('visible').slideUp(300, function() {
+			 	jQuery(this).css('display', '');
+			});
+			jQuery(this).removeClass('active');
+		}
+		else {
+	  		jQuery(this).next('div').find('ul').first().addClass('visible').slideDown(300);
+			jQuery(this).addClass('active');
+		}
+	});
+	
+	jQuery("a.handle").live("click", function(e){
 		e.preventDefault();
 		if(jQuery(this).next('ul').hasClass('visible')) {
 			jQuery(this).next('ul').removeClass('visible').slideUp(300, function() {

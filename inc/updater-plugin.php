@@ -3,10 +3,9 @@
 Current Theme Addon: Theme Updater for Whitelabel Framework on GitHub
 Original Plugin Name: Theme Updater
 Original Plugin URI: https://github.com/UCF/Theme-Updater
-Description: A theme updater for GitHub hosted Wordpress themes.  This Wordpress plugin automatically checks GitHub for theme updates and enables automatic install.  For more information read <a href="https://github.com/UCF/Theme-Updater/blob/master/readme.markdown">plugin documentation</a>.
-Original Author: Douglas Beck
-Original Version: 1.3.4
+Description: Theme updater plugin to pull updates of the WLFW theme into wordpress. Now heavily modified, it barely resemebles the Theme Updater Plugin. By version 2.0 of WLFW we expect to completely modulize the updater making it usable by any theme or even used as a plugin.
 First Modified: 7/12/2012
+Last Modified: 10/15/2012
 */
 
 global $WLFW_UPDATE_DATA;
@@ -145,7 +144,7 @@ function wlfw_no_ssl_http_request_args($args, $url) {
 
 add_filter('theme_action_links', 'wlfw_append_theme_actions', 10, 2);
 function wlfw_append_theme_actions($actions, $theme = NULL) {
-	if($theme->template != 'whitelabel-framework') return $actions;
+	if($theme->stylesheet != 'whitelabel-framework') return $actions;
 	
 		if ( eregi("MSIE", getenv( "HTTP_USER_AGENT" ) ) || eregi("Internet Explorer", getenv("HTTP_USER_AGENT" ) ) ) {
 ?>		
@@ -159,7 +158,6 @@ function wlfw_append_theme_actions($actions, $theme = NULL) {
 	</div>
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-		//jQuery('#wlfw_extended_options').siblings('.action-links').find('p').replaceWith(jQuery('#wlfw_extended_options'));
 		jQuery('#wlfw_extended_options').siblings('.action-links').find('p').remove();
 		jQuery('#wlfw_extended_options').siblings('.action-links').append(jQuery('#wlfw_extended_options'));
 		jQuery('#wlfw_extended_options').show();

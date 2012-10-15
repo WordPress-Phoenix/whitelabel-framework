@@ -31,10 +31,16 @@ add_theme_support( 'custom-background', array(
 	'admin-head-callback'    => '',
 	'admin-preview-callback' => '')
 );
+
+//admin enhancements
+//add_filter('tiny_mce_before_init', 'wlfw_customize_tinyMCE_options');
+//add_filter('mce_buttons', 'add_font_selection_to_tinymce');
 add_editor_style('editor-style.css');
+
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');
 add_filter('wlfw_content_class', 'wlfw_get_content_class');
+
 
 //as required by wordpress.org
 if ( ! isset( $content_width ) ) $content_width = 960;
@@ -58,6 +64,7 @@ if (!is_admin()) {
 	add_action('body_class', 'wlfw_set_body_class_for_ie', 5);
 	add_action('body_enqueue', 'get_template_part', 10, 2);
 	add_action('build_theme_header', 'get_template_part', 10, 2);
+	add_action('build_theme_breadcrumbs', 'get_template_part', 10, 2);
 	add_action('wlfw_display_nav','wlfw_display_nav');
 	add_action('wlfw_before_empty_dynamic_sidebar', 'wlfw_default_sidebar');
 	add_action('build_theme_footer', 'get_template_part', 10, 2);

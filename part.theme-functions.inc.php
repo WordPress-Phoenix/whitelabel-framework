@@ -438,3 +438,56 @@ function wlfw_wp_list_top_pages() {
 	$wlfw_list_pages = wp_list_pages('title_li=&sort_column=menu_order&echo=0'); 
 	return '<div class="menu-header" data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d"><ul id="menu-primary" class="menu">'.$wlfw_list_pages.'</ul></div>';
 }
+
+//used with filter to add font selector on tinyMCE
+function add_font_selection_to_tinymce($buttons) {
+	array_push($buttons, 'fontselect');
+	array_push($buttons, 'fontsizeselect');
+	return $buttons;
+}
+
+
+if(!function_exists('wlfw_customize_tinyMCE_options')) { function wlfw_customize_tinyMCE_options($opts) {
+    
+	
+	// Google Web Fonts
+    $theme_advanced_fonts = 'Open Sans=\'Open Sans Condensed\', Verdana, Arial, Helvetica, sans-serif;';
+    $theme_advanced_fonts .= 'Bebas Neue=\'BebasNeueRegular\', Verdana, Geneva, sans-serif;';
+    // Default fonts for TinyMCE
+    $theme_advanced_fonts .= 'Andale Mono=Andale Mono, Times;';
+    $theme_advanced_fonts .= 'Arial=Arial, Helvetica, sans-serif;';
+    $theme_advanced_fonts .= 'Arial Black=Arial Black, Avant Garde;';
+    $theme_advanced_fonts .= 'Book Antiqua=Book Antiqua, Palatino;';
+    $theme_advanced_fonts .= 'Comic Sans MS=Comic Sans MS, sans-serif;';
+    $theme_advanced_fonts .= 'Courier New=Courier New, Courier;';
+    $theme_advanced_fonts .= 'Georgia=Georgia, Palatino;';
+    $theme_advanced_fonts .= 'Helvetica=Helvetica;';
+    $theme_advanced_fonts .= 'Impact=Impact, Chicago;';
+    $theme_advanced_fonts .= 'Symbol=Symbol;';
+    $theme_advanced_fonts .= 'Tahoma=Tahoma, Arial, Helvetica, sans-serif;';
+    $theme_advanced_fonts .= 'Terminal=Terminal, Monaco;';
+    $theme_advanced_fonts .= 'Times New Roman=Times New Roman, Times;';
+    $theme_advanced_fonts .= 'Trebuchet MS=Trebuchet MS, Geneva;';
+    $theme_advanced_fonts .= 'Verdana=Verdana, Geneva;';
+	
+    // Styles for the Google Web Fonts
+    $content_css = '';
+	$content_css .= 'http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700%2C300%2C300italic,';
+    $content_css .= get_template_directory_uri().'/appearance/webfontkits/bebas-neue/font-face.css';
+	//$content_css = 'http://fonts.googleapis.com/css?family=Aclonica,';
+    //$content_css .= 'http://fonts.googleapis.com/css?family=Michroma,';
+    //$content_css .= 'http://fonts.googleapis.com/css?family=Paytone+One';
+
+    // The 'mode' and 'editor_selector' options are for adding
+    // TinyMCE to any textarea with class="tinymce-textarea"
+	//$opts['mode'] = 'specific_textareas';
+	//$opts['editor_selector'] = 'tinymce-textarea';
+	$opts['theme_advanced_fonts'] = $theme_advanced_fonts;
+	$opts['content_css'] = $opts['content_css'].','.$content_css;
+	
+	//TODO
+	//TRY IMPORTING THE FONTS BY ECHOING THEM RIGHT HERE!
+	
+	//var_export($opts['content_css']);
+	return $opts;
+}}

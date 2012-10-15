@@ -13,7 +13,7 @@
 	 */
 	do_action('wlfw_before_dynamic_sidebar');
 	if ( ! dynamic_sidebar( 'primary-page-widget-area' ) ) :
-    do_action('wlfw_before_empty_dynamic_sidebar', $primary_nav);
+    	do_action('wlfw_before_empty_dynamic_sidebar', 'primary_nav');
 	?>
   
   <?php endif; // end primary widget area ?>
@@ -36,4 +36,4 @@ function wlfw_default_sidebar() {
       <p>It would be a good idea to check out the WordPress admin and add some "widgets" to your sidebar. You can find these widgets in the "Appearance" menu.</p>
     </div>
   </div>
-  <?php } ?>
+<?php } ?>

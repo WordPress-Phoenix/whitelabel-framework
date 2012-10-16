@@ -1,4 +1,4 @@
-<?php if( !is_page() && !is_home() ) {  ?>
+<?php if( !is_page() && !is_home() && !is_404() ) {  ?>
 <div id="breadCrumbs" class="<?php wlfw_grid_row_class(16); ?>">
 	<?php 
     if ( function_exists('yoast_breadcrumb') ) {

@@ -1,5 +1,6 @@
-<div id="bottomWrapper" data-theme="c" data-role="footer">
-    <div id="footer" class="<?php wlfw_grid_row_class(16); ?>">
+<div id="bottomWrapper">
+    <div id="footer" class="<?php wlfw_grid_row_class(16); ?> footer-docs" data-theme="c" data-role="footer">
+    <?php do_action('wlfw_before_footer_sidebar'); ?>
   	<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : ?>
         	<div class="<?php wlfw_grid_col_class(16); ?> inner">
 				<div class="<?php wlfw_grid_col_class(8); ?>"><?php bloginfo('name'); ?><br  />Copyright &copy; <?php echo date('Y'); ?></div>
@@ -13,6 +14,7 @@
                 <div class="clear"></div>
             </div>
     <?php endif; // logo-aside ?>
+    <?php do_action('wlfw_after_footer_sidebar'); ?>
     </div><!--/footer -->
     <div class="clear"></div>
 </div><!--/bottomWrapper -->

@@ -431,13 +431,23 @@ function wlfw_set_body_class_for_ie($classes) {
 
 // outputs primary menu
 function wlfw_display_nav() {
-	$primary_menu = wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary_nav', 'echo'=>false, 'items_wrap' => '<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d"><ul id="%1$s" class="%2$s">%3$s</ul></div>', 'fallback_cb' => 'wlfw_wp_list_top_pages' ) );
-	echo apply_filters('wlfw_primary_nav_output', $primary_menu);
+	
+	// only show first level of nav items on mobile layout
+	$depth = '0';
+	if( get_option(SM_SITEOP_PREFIX.'grid_system') == 'mobile' )
+		$depth = '1';
+	
+	$primary_menu = wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary_nav', 'depth'=>$depth, 'echo'=>false, 'items_wrap' => '<ul id="%1$s" class="%2$s" data-dividertheme="d" data-theme="c" data-role="listview">%3$s</ul>', 'fallback_cb' => 'wlfw_wp_list_top_pages' ) );
+	
+	$primary_menu = apply_filters('wlfw_primary_nav_output', $primary_menu);
+	echo '<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">'.PHP_EOL.$primary_menu.PHP_EOL.'</div>'.PHP_EOL;
 }
+
 function wlfw_wp_list_top_pages() {	
-	$wlfw_list_pages = wp_list_pages('title_li=&sort_column=menu_order&echo=0'); 
-	return '<div class="menu-header" data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d"><ul id="menu-primary" class="menu">'.$wlfw_list_pages.'</ul></div>';
+	$wlfw_list_pages = wp_list_pages('title_li=&sort_column=menu_order&echo=0&depth='.$depth); 
+	return '<ul id="menu-primary" class="menu" data-dividertheme="d" data-theme="c" data-role="listview">'.$wlfw_list_pages.'</ul>';
 }
+
 
 //used with filter to add font selector on tinyMCE
 function add_font_selection_to_tinymce($buttons) {

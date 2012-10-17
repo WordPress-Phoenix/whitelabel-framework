@@ -209,6 +209,21 @@ color: 					#fff;
 color: 					#fff;
 font-weight: bold;
 }
+
+/* wlfw additions */
+.logo {
+	padding:10px 0;
+	height:45px;
+	text-align:center;
+}
+.footer-docs p {
+  float: left;
+  font-size: 0.9em;
+  font-weight: normal;
+  margin-left: 15px;
+}
+
+
 /* docs site layout */
 @media all and (min-width: 650px){
 .jqm-home {

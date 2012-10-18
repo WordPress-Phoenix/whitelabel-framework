@@ -1,13 +1,18 @@
 <?php
-add_filter( 'page_container_div', function($title) { return '<div id="container-fluid" class="type-interior" data-role="page">'; } );
-add_action( 'wlfw_before_logo', function($title) { echo '<a data-icon="back" data-rel="back" data-iconpos="notext">Back</a>'; } );
-add_action( 'wlfw_after_logo', function($title) { echo ' <a href="#" id="bookmark" data-icon="star" data-iconpos="notext" class="ui-btn-right">Share</a>'; } );
+add_filter( 'page_container_div', 'm1' );
+function m1 ($title) { return '<div id="container-fluid" class="type-interior" data-role="page">'; }
+add_action( 'wlfw_before_logo', 'm2' );
+function m2($title) { echo '<a data-icon="back" data-rel="back" data-iconpos="notext">Back</a>'; }
+add_action( 'wlfw_after_logo', 'm3' );
+function m3($title) { echo ' <a href="#" id="bookmark" data-icon="star" data-iconpos="notext" class="ui-btn-right">Share</a>'; }
+
 add_action('after_logo_aside', 'get_template_part', 10, 2);
 add_action('wlfw_before_dynamic_sidebar', 'wlfw_display_nav');
 add_action('wlfw_before_dynamic_sidebar', 'wlfw_add_mobile_menu_header_to_nav_output');
 
 add_filter('wlfw_primary_nav_output', 'wlfw_add_mobile_menu_header_to_nav_output'); 
-add_filter('wlfw_add_mobile_menu_header', function($title) { return 'More Info'; } );
+add_filter('wlfw_add_mobile_menu_header', 'm4' );
+function m4($title) { return 'More Info'; }
 add_action('wlfw_after_footer_sidebar', 'wlfw_mobile_top_bttn');
 
 // how to make this only happen on front page (is_front_page doesnt work)

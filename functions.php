@@ -73,9 +73,11 @@ function wlfw_include_core_files() {
 		unset($wlfw_parts['WHITELABEL_SITEOPTIONS_BUILDER']);
 		
 	if( get_option(SM_SITEOP_PREFIX.'grid_system') =='mobile' ) { 
+
 		$wlfw_mobile_parts = array(
 		'WHITELABEL_MOBILE_FUNCTIONS' => array( 'slug' => 'part.theme', 'name' => 'functions-mobile.inc' ),
 		'WHITELABEL_MOBILE_SITEOPTIONS' => array( 'slug' => 'part.theme', 'name' => 'mobile-siteoptions.inc' ),
+		'WHITELABEL_MOBILE_LINK_FULLSITE_WIDGET' => array( 'slug' => 'part.widgets', 'name' => 'mobile-link-to-full-site.inc' ),
 		);
 		
 		$wlfw_parts = array_merge($wlfw_parts, $wlfw_mobile_parts);

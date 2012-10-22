@@ -4,6 +4,8 @@ Template Name: Mobile Front Page
 */
 //LOADING header.php + actions
 
+if(!function_exists('sm_get_nav_menu_title')) { function sm_get_nav_menu_title() { return; }}
+
 $desc = get_bloginfo('description');
 if( $homepage = intval(get_option('page_on_front')) ) {
 	$args['post_type'] = array('post', 'page');

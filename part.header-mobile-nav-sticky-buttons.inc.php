@@ -12,6 +12,11 @@ $menu_name = 'topbar';
 
 
 
+global $fbLink, $twitterLink; 
+$fbLink = get_option(SM_SITEOP_PREFIX.'company_facebook');
+$twitterLink = get_option(SM_SITEOP_PREFIX.'company_twitter');
+
+
 if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) && $locations[ $menu_name ] !=0 ) :
 
 	// menu object

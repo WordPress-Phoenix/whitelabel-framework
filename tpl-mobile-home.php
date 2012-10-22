@@ -11,7 +11,8 @@ if( $homepage = intval(get_option('page_on_front')) ) {
 	query_posts($args);
 }
 else $homepage = false;
-wp_head(); 
+remove_action('build_theme_header','get_template_part');
+get_header(); 
 ?>
 <div data-role="page" class="type-home">
     <div data-role="header">

@@ -28,12 +28,7 @@ $mobops = new sm_options_page(array('parent_id' => 'themes.php', 'page_title' =>
 		$mobops_utilities->add_part($fullsite_query = new sm_textfield('fullsite_query', array('label'=>'Full Site Query', 'description'=>'The url parameters like ?view=fullsite')));
 		$mobops_utilities->add_part($vcard_author = new sm_checkbox('vcard_author', array('label'=>'vCard Author Pages','description'=>'Turn on vCard author pages when you want author contact details to be easily shared just like a digital business card.', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
 		$mobops_utilities->add_part($auto_redirect = new sm_checkbox('auto_redirect', array('label'=>'404 Auto Redirect','description'=>'Automatically redirect vistors to page on full site if it exists', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
-	$mobops->add_part($mobops_404 = new sm_section('404', array('title'=>'404 Page')) );
-		$mobops_404->add_part($autoSearch = new sm_checkbox('autosearch', array('label'=>'Auto Search', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
-		$mobops_404->add_part($defaultHTML = new sm_textfield('autosearch_default_content_id', array('label'=>'Page ID of default content', 'description'=>'Dispalyed when auto search is turned off ')));
-		$mobops_404->add_part($maxResults = new sm_textfield('autosearch_max_results', array('label'=>'Max number of results returned')));
-		$mobops_404->add_part($resultsPerPage = new sm_textfield('autosearch_per_page', array('label'=>'Number of results per page')));
-		$mobops_404->add_part($paginate = new sm_checkbox('autosearch_paginate', array('label'=>'Paginate Results', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
+
 		
 $mobops->build();
 

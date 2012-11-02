@@ -302,6 +302,9 @@ function wlfw_grid_row_class($width = 16, $return=false ) {
 	// set row class based on grid system selected in theme options pannel
 	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) $row_class = 'grids';
 	else $row_class = 'container_'.$width;
+	
+	$row_class = apply_filters('wlfw_grid_row_class', $row_class, $width );
+	
 	// return or print
 	if($return) return $row_class;
 	echo $row_class;
@@ -312,6 +315,9 @@ function wlfw_grid_col_class($width = 16, $return=false ) {
 	// set col class based on grid system selected in theme options pannel
 	if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_SITEOP_PREFIX.'grid_system') == 'inuit' ) $col_class = 'grid_'.$width;
 	else $col_class = 'grid_'.$width;
+	
+	$col_class = apply_filters('wlfw_grid_col_class', $col_class, $width );
+	
 	// return or print
 	if($return) return $col_class;
 	echo $col_class;

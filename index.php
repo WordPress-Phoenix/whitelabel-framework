@@ -7,7 +7,7 @@
 //LOADING header.php + actions
 get_header(); 
 ?>
-<div id="middleWrapper" data-role="content">
+<div id="middleWrapper" class="<?php echo apply_filters( 'middle_wrapper_section_class', ''); ?>" data-role="content">
     <div id="middleContainer" class="<?php wlfw_grid_row_class(16); ?>">
         
         <div id="contentColWide" class="<?php wlfw_grid_col_class(11); ?> <?php echo get_post_format(); ?> <?php echo apply_filters('wlfw_content_class', ''); ?> content-primary">

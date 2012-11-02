@@ -1,4 +1,4 @@
-<div id="bottomWrapper">
+<div id="bottomWrapper"  class="<?php echo apply_filters( 'bottom_wrapper_section_class', ''); ?>">
     <div id="footer" class="<?php wlfw_grid_row_class(16); ?> footer-docs" data-theme="c" data-role="footer">
     <?php do_action('wlfw_before_footer_sidebar'); ?>
   	<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : ?>

@@ -1,5 +1,5 @@
 <?php $header_image = get_header_image(); ?>
-<div id="topWrapper">
+<div id="topWrapper" class="<?php echo apply_filters( 'top_wrapper_section_class', ''); ?>">
     <div id="header" class="<?php wlfw_grid_row_class(16); ?>" data-role="header" data-theme="b">
 		<?php do_action('wlfw_before_logo'); ?>
         <div class="<?php wlfw_grid_col_class(6); ?> logo"><a href="<?php echo site_url(); ?>"><?php if(empty($header_image)) { bloginfo('name'); } else{ ?><img class="clear" src="<?php echo $header_image; ?>" alt="<?php if(defined('HEADER_IMAGE_ALT')) echo HEADER_IMAGE_ALT; ?>" /><?php } ?></a></div>

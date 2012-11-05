@@ -97,7 +97,7 @@ function wlfw_widgets_init() {
 	'name' => __( 'Footer Sidebar', 'wlfw' ),
 	'id' => 'footer-sidebar',
 	'description' => __( 'Widgets in this area will be shown on the footer.' ),
-	'before_widget' => '<div id="%1$s" class="grid_4 widget %2$s">',
+	'before_widget' => '<div id="%1$s" class="'.wlfw_grid_col_class( apply_filters('widget_footer_column_size',4), true).' widget %2$s">',
 	'after_widget' => '</div>',
 	'before_title' => '<h4 class="widgettitle">',
 	'after_title' => '</h4>'

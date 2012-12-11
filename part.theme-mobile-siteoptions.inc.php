@@ -1,20 +1,9 @@
 <?php 
 //Get options using this example: get_option(SM_SITEOP_PREFIX.'my_field')
-//setup some variables used in the logic
-$websiteLogoArgs = array('label'=>'Website Logo');
-if((get_option('show_on_front')) != 'posts') {
-	$websiteLogoArgs['description'] = __('<a href="options-reading.php">Static homepage</a> is currently setup on your website. For a unique homepage logo use a featured image on <a href="post.php?post='.get_option('page_on_front').'&action=edit">this page.</a>', 'sm');
-}
-else {
-	$websiteLogoArgs['description'] = __('<a href="options-reading.php">Static homepage</a> must be set for a unique homepage logo to be set.', 'sm');
-}
-$websiteLogoArgs['description'] = $websiteLogoArgs['description'].' '.__('Logo size should be 36px tall by 150px-200px wide.', 'sm');
 
 // create admin page
 $mobops = new sm_options_page(array('parent_id' => 'themes.php', 'page_title' => 'Configure Mobile Theme Customizations', 'menu_title' => 'Mobile Options','id' => 'mobile-appearance-options'));
 	$mobops->add_part($mobops_brand = new sm_section('branding_options', array('title'=>'Brand It')) );
-		$mobops_brand->add_part($site_favicon = new sm_media_upload('website_favicon', array('label'=>'Favicon', 'description'=>'Website icon to be used for your website. Must be 16x16 or 32x32 and .ico format. Leaving this field blank will load the favicon.ico file from the themes folder or fallback to the generic favicon.ico file.')));
-		$mobops_brand->add_part($site_logo = new sm_media_upload('website_logo', $websiteLogoArgs));
 		$mobops_brand->add_part($site_primary_color = new sm_color_picker('site_primary_color', array('label'=>'Primary Color')));
 		$mobops_brand->add_part($site_secondary_color = new sm_color_picker('site_secondary_color', array('label'=>'Secondary Color')));
 		$mobops_brand->add_part($site_cta_color = new sm_color_picker('site_cta_color', array('label'=>'Call To Action Color')));

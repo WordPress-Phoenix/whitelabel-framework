@@ -27,10 +27,31 @@ add_theme_support('automatic-feed-links');
 add_theme_support( 'custom-background', array(
 	'default-color'          => '#FFF',
 	'default-image'          => '',
-	'wp-head-callback'       => '_custom_background_cb',
+	'wp-head-callback'       => 'mppro_custom_background',
 	'admin-head-callback'    => '',
 	'admin-preview-callback' => '')
 );
+function mppro_custom_background() {
+	$custom_bg_color=get_background_color();
+	$custom_bg_image=get_background_image();
+	
+	if(!empty($custom_bg_color) || !empty($custom_bg_image)) {
+		echo '<style type="text/css" id="custom-background-css">'.PHP_EOL;
+		echo '.ui-mobile .type-home .ui-content, .ui-mobile .ui-content { '.PHP_EOL;
+		if(!empty($custom_bg_color)) {
+			echo 'background-color:#'.$custom_bg_color.'!important;'.PHP_EOL;
+			echo 'background-image:none!important;'.PHP_EOL;
+		}
+		if(!empty($custom_bg_image)) {
+			echo 'background-image:url('.$custom_bg_image.')!important;'.PHP_EOL;
+			echo 'background-repeat: no-repeat; background-position: top center; background-attachment: scroll;'.PHP_EOL;
+		}
+		echo '}'.PHP_EOL;
+		echo '</style>'.PHP_EOL;
+	}
+}
+
+
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');

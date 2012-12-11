@@ -14,6 +14,11 @@ if( $homepage = intval(get_option('page_on_front')) ) {
 }
 else $homepage = false;
 remove_action('build_theme_header','get_template_part');
+
+remove_filter( 'page_container_div', 'm1' );
+add_filter( 'page_container_div', 'm1_home' );
+function m1_home ($title) { return '<div id="container-fluid" class="type-home" data-role="page">'; }
+
 get_header(); 
 ?>
 <div data-role="page" class="type-home">

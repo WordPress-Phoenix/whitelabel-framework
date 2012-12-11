@@ -507,3 +507,12 @@ if(!function_exists('wlfw_customize_tinyMCE_options')) { function wlfw_customize
 	//var_export($opts['content_css']);
 	return $opts;
 }}
+
+
+//allow the favicon to be set from the site options
+add_filter('favicon', 'filter__site_options_favicon', 10);
+function filter__site_options_favicon($original_favicon) {
+	$new_favicon = get_option(SM_SITEOP_PREFIX.'website_favicon');
+	if($new_favicon && !empty($new_favicon)) return $new_favicon;
+	else return $original_favicon;
+}

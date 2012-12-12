@@ -31,27 +31,46 @@ add_theme_support( 'custom-background', array(
 	'admin-head-callback'    => '',
 	'admin-preview-callback' => '')
 );
+
 function mppro_custom_background() {
-	$custom_bg_color=get_background_color();
-	$custom_bg_image=get_background_image();
-	
-	if(!empty($custom_bg_color) || !empty($custom_bg_image)) {
-		echo '<style type="text/css" id="custom-background-css">'.PHP_EOL;
-		echo '.ui-mobile .type-home .ui-content, .ui-mobile .ui-content { '.PHP_EOL;
-		if(!empty($custom_bg_color)) {
-			echo 'background-color:#'.$custom_bg_color.'!important;'.PHP_EOL;
-			echo 'background-image:none!important;'.PHP_EOL;
-		}
-		if(!empty($custom_bg_image)) {
-			echo 'background-image:url('.$custom_bg_image.')!important;'.PHP_EOL;
-			echo 'background-repeat: no-repeat; background-position: top center; background-attachment: scroll;'.PHP_EOL;
-		}
-		echo '}'.PHP_EOL;
-		echo '</style>'.PHP_EOL;
+	// $background is the saved custom image, or the default image.
+	$background = set_url_scheme( get_background_image() );
+
+	// $color is the saved custom color.
+	// A default has to be specified in style.css. It will not be printed here.
+	$color = get_theme_mod( 'background_color' );
+
+	if ( ! $background && ! $color )
+		return;
+
+	$style = $color ? "background-color: #$color;" : '';
+
+	if ( $background ) {
+		$image = " background-image: url('$background');";
+
+		$repeat = get_theme_mod( 'background_repeat', 'repeat' );
+		if ( ! in_array( $repeat, array( 'no-repeat', 'repeat-x', 'repeat-y', 'repeat' ) ) )
+			$repeat = 'repeat';
+		$repeat = " background-repeat: $repeat;";
+
+		$position = get_theme_mod( 'background_position_x', 'left' );
+		if ( ! in_array( $position, array( 'center', 'right', 'left' ) ) )
+			$position = 'left';
+		$position = " background-position: top $position;";
+
+		$attachment = get_theme_mod( 'background_attachment', 'scroll' );
+		if ( ! in_array( $attachment, array( 'fixed', 'scroll' ) ) )
+			$attachment = 'scroll';
+		$attachment = " background-attachment: $attachment;";
+
+		$style .= $image . $repeat . $position . $attachment;
 	}
+?>
+<style type="text/css" id="custom-background-css">
+body.custom-background { <?php echo trim( $style ); ?> }
+</style>
+<?php
 }
-
-
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');

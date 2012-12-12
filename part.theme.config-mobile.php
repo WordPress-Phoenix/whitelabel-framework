@@ -7,7 +7,8 @@ if(!defined('THEME_PREFIX')) define('THEME_PREFIX', 'WLFW_' );
 if(!defined('NO_HEADER_TEXT')) define('NO_HEADER_TEXT', TRUE );
 if(!defined('HEADER_TEXTCOLOR')) define('HEADER_TEXTCOLOR', '');
 if(!defined('HEADER_IMAGE_ALT')) define('HEADER_IMAGE_ALT', 'header banner image');
-
+if(!defined('HEADER_IMAGE_WIDTH')) define('HEADER_IMAGE_WIDTH', apply_filters( 'wlfw_header_image_width', 150 ));
+if(!defined('HEADER_IMAGE_HEIGHT')) define('HEADER_IMAGE_HEIGHT', apply_filters( 'wlfw_header_image_height', 39 ));
 
 //turning on all the theme options by default
 //simply set any of these to false to turn them off, 
@@ -75,8 +76,8 @@ add_theme_support( 'custom-header', array(
 	'default-image'          => '',
 	'random-default'         => false,
 	'width'                  => 0,
-	'height'                 => 0,
-	'flex-height'            => true,
+	'height'                 => 39,
+	'flex-height'            => false,
 	'flex-width'             => true,
 	'default-text-color'     => '',
 	'header-text'            => true,

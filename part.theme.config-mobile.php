@@ -7,8 +7,7 @@ if(!defined('THEME_PREFIX')) define('THEME_PREFIX', 'WLFW_' );
 if(!defined('NO_HEADER_TEXT')) define('NO_HEADER_TEXT', TRUE );
 if(!defined('HEADER_TEXTCOLOR')) define('HEADER_TEXTCOLOR', '');
 if(!defined('HEADER_IMAGE_ALT')) define('HEADER_IMAGE_ALT', 'header banner image');
-if(!defined('HEADER_IMAGE_WIDTH')) define('HEADER_IMAGE_WIDTH', apply_filters( 'wlfw_header_image_width', 580 ));
-if(!defined('HEADER_IMAGE_HEIGHT')) define('HEADER_IMAGE_HEIGHT', apply_filters( 'wlfw_header_image_height', 80 ));
+
 
 //turning on all the theme options by default
 //simply set any of these to false to turn them off, 
@@ -71,6 +70,38 @@ body.custom-background { <?php echo trim( $style ); ?> }
 </style>
 <?php
 }
+
+add_theme_support( 'custom-header', array(
+	'default-image'          => '',
+	'random-default'         => false,
+	'width'                  => 0,
+	'height'                 => 0,
+	'flex-height'            => true,
+	'flex-width'             => true,
+	'default-text-color'     => '',
+	'header-text'            => true,
+	'uploads'                => true,
+	'wp-head-callback'       => 'wlfw_header_style',
+	'admin-head-callback'    => 'wlfw_admin_header_style',
+	'admin-preview-callback' => 'wlfw_admin_header_image',
+));
+
+function wlfw_header_style() {}
+function wlfw_admin_header_style() {}
+function wlfw_admin_header_image() {
+	if(get_header_image()) {
+		echo '
+		<div class="'.wlfw_grid_col_class(10, true).' logo-sibling right">
+		  <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
+			<div class="clear"></div>
+		  </div>
+		</div>
+		<div style="clear:both;"></div>
+		';
+	}
+}
+
+
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');

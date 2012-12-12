@@ -78,6 +78,7 @@ margin-top: 0;
 border-bottom-right-radius: 0.6em;
 border-bottom-left-radius: 0.6em;
 }
+.logo .ui-link { color: #fff; line-height:42px; }
 .type-home .ui-content .ui-collapsible-content .ui-listview{margin:-16px; }/*Fix width on homepage - works on all pages */
 .type-home .ui-content .ui-collapsible-content .ui-listview { margin-top: 0px; } 
 h2 { margin:1.2em 0 .4em 0; }

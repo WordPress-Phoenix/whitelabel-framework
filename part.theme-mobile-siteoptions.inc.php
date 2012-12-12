@@ -10,8 +10,8 @@ $mobops = new sm_options_page(array('parent_id' => 'themes.php', 'page_title' =>
 	$mobops->add_part($mobops_company = new sm_section('company_info', array('title'=>'Company Info')) );
 		$mobops_company->add_part($company_phone = new sm_textfield('company_phone', array('label'=>'Phone Number', 'description'=>'Enables click to call mobile buttons.')));
 		$mobops_company->add_part($company_form = new sm_textfield('company_form', array('label'=>'Contact Form URL', 'description'=>'Enables request information button.')));
-		$mobops_company->add_part($company_twitter = new sm_textfield('company_twitter', array('label'=>'Twitter ID', 'description'=>'Example: for facebook.com/google enter "google."')));
-		$mobops_company->add_part($company_facebook = new sm_textfield('company_facebook', array('label'=>'Facebook Page', 'description'=>'Example: for twitter.com/google enter "google".')));
+		$mobops_company->add_part($company_twitter = new sm_textfield('company_twitter', array('label'=>'Twitter ID', 'description'=>'Example:  Enter "google" for facebook.com/google.')));
+		$mobops_company->add_part($company_facebook = new sm_textfield('company_facebook', array('label'=>'Facebook Page', 'description'=>'Example: Enter "google" for twitter.com/google.')));
 	$mobops->add_part($mobops_utilities = new sm_section('utilities', array('title'=>'Utilities')) );
 		$mobops_utilities->add_part($fullsite_url = new sm_textfield('fullsite_url', array('label'=>'Full Site URL', 'description'=>'The url to the full version of your website')));
 		$mobops_utilities->add_part($fullsite_query = new sm_textfield('fullsite_query', array('label'=>'Full Site Query', 'description'=>'The url parameters like ?view=fullsite')));

@@ -21,7 +21,6 @@ function m1_home ($title) { return '<div id="container-fluid" class="type-home" 
 
 get_header(); 
 ?>
-<div data-role="page" class="type-home">
     <div data-role="header">
         <?php do_action('wlfw_mobile_frontpage_sticky_buttons', 'part.header', 'mobile-nav-sticky-buttons.inc'); ?> 
     </div>
@@ -92,7 +91,4 @@ get_header();
 			<?php endif; ?>
 		</div>
 	</div>
-	<?php get_footer(); ?>	
-</div>
-</body>
-</html>
+	<?php get_footer(); ?>

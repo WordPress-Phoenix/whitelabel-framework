@@ -16,9 +16,9 @@ get_header();
 
 <div id="middleWrapper">
 
-    <div id="middleContainer" class="<?php wlfw_grid_row_class(12); ?>">
+    <div id="middleContainer" class="<?php wlfw_grid_row_class(16); ?>">
 
-        <div id="contentColWide" class="<?php wlfw_grid_col_class(12); ?>">
+        <div id="contentColWide" class="<?php wlfw_grid_col_class(16); ?>">
 
                 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 				<?php 

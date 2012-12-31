@@ -28,7 +28,7 @@ $whiteLabelOptions = new sm_options_page(array('theme_page' => TRUE, 'parent_id'
 		$texturize->add_part($texturize_comments = new sm_checkbox('texturize_comments', array('label'=>'Comments', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
 				
 	$whiteLabelOptions->add_part($scriptSrources = new sm_section('script_sources', array('title'=>'Script Sources')) );
-		$scriptSrources->add_part($jQuery = new sm_radio_buttons('jquery_source', array('Default (local but can be overridden by plugins)'=>'default', 'Local (cannot be overridden by plugins)'=>'local', 'Google Ajax API CDN'=>'http://ajax.googleapis.com/ajax/libs/jquery/'.$jquery_version.'/jquery.min.js', 'Microsoft CDN'=>'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-'.$jquery_version.'.min.js', 'jQuery CDN'=>'http://code.jquery.com/jquery-'.$jquery_version.'.min.js' )));
+		$scriptSrources->add_part($jQuery = new sm_radio_buttons('jquery_source', array('Default (local but can be overridden by plugins)'=>'default', 'Local (cannot be overridden by plugins)'=>'local', 'Google Ajax API CDN'=>'//ajax.googleapis.com/ajax/libs/jquery/'.$jquery_version.'/jquery.min.js', 'Microsoft CDN'=>'//ajax.aspnetcdn.com/ajax/jQuery/jquery-'.$jquery_version.'.min.js', 'jQuery CDN'=>'//code.jquery.com/jquery-'.$jquery_version.'.min.js' )));
 			$jQuery->label ='jQuery ('.$jquery_version.')';
 			$jQuery->default_value = 'default';
 			

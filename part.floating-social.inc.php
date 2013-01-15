@@ -13,7 +13,7 @@ function add_floating_social($args = array()) {
 	$share_this_script_src = 'http://w.sharethis.com/button/buttons.js';
 	if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443)
 		$share_this_script_src = 'https://ws.sharethis.com/button/buttons.js';
-	wp_enqueue_script('share-this', $share_this_script_src, array(), false, true);
+	wp_enqueue_script('share-this', $share_this_script_src, array(), '1.1.1', true);
 	//check for positioning (allow for inline social bars)
 	
 	$floating_social_auto = get_option(SM_SITEOP_PREFIX.'floating_social_embed');

@@ -1,6 +1,6 @@
 <title><?php wp_title(''); ?></title>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <?php do_action('append_meta_tags'); ?>
 <?php 
 $favicon_url = apply_filters('favicon', get_stylesheet_directory_uri().'/favicon.ico' );

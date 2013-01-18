@@ -7,8 +7,8 @@ if(!defined('THEME_PREFIX')) define('THEME_PREFIX', 'WLFW_' );
 if(!defined('NO_HEADER_TEXT')) define('NO_HEADER_TEXT', TRUE );
 if(!defined('HEADER_TEXTCOLOR')) define('HEADER_TEXTCOLOR', '');
 if(!defined('HEADER_IMAGE_ALT')) define('HEADER_IMAGE_ALT', 'header banner image');
-if(!defined('HEADER_IMAGE_WIDTH')) define('HEADER_IMAGE_WIDTH', apply_filters( 'wlfw_header_image_width', 580 ));
-if(!defined('HEADER_IMAGE_HEIGHT')) define('HEADER_IMAGE_HEIGHT', apply_filters( 'wlfw_header_image_height', 80 ));
+if(!defined('HEADER_IMAGE_WIDTH')) define('HEADER_IMAGE_WIDTH', apply_filters( 'wlfw_header_image_width', 150 ));
+if(!defined('HEADER_IMAGE_HEIGHT')) define('HEADER_IMAGE_HEIGHT', apply_filters( 'wlfw_header_image_height', 39 ));
 
 //turning on all the theme options by default
 //simply set any of these to false to turn them off, 
@@ -27,10 +27,82 @@ add_theme_support('automatic-feed-links');
 add_theme_support( 'custom-background', array(
 	'default-color'          => '#FFF',
 	'default-image'          => '',
-	'wp-head-callback'       => '_custom_background_cb',
+	'wp-head-callback'       => 'mppro_custom_background',
 	'admin-head-callback'    => '',
 	'admin-preview-callback' => '')
 );
+
+function mppro_custom_background() {
+	// $background is the saved custom image, or the default image.
+	$background = set_url_scheme( get_background_image() );
+
+	// $color is the saved custom color.
+	// A default has to be specified in style.css. It will not be printed here.
+	$color = get_theme_mod( 'background_color' );
+
+	if ( ! $background && ! $color )
+		return;
+
+	$style = $color ? "background-color: #$color;" : '';
+
+	if ( $background ) {
+		$image = " background-image: url('$background');";
+
+		$repeat = get_theme_mod( 'background_repeat', 'repeat' );
+		if ( ! in_array( $repeat, array( 'no-repeat', 'repeat-x', 'repeat-y', 'repeat' ) ) )
+			$repeat = 'repeat';
+		$repeat = " background-repeat: $repeat;";
+
+		$position = get_theme_mod( 'background_position_x', 'left' );
+		if ( ! in_array( $position, array( 'center', 'right', 'left' ) ) )
+			$position = 'left';
+		$position = " background-position: top $position;";
+
+		$attachment = get_theme_mod( 'background_attachment', 'scroll' );
+		if ( ! in_array( $attachment, array( 'fixed', 'scroll' ) ) )
+			$attachment = 'scroll';
+		$attachment = " background-attachment: $attachment;";
+
+		$style .= $image . $repeat . $position . $attachment;
+	}
+?>
+<style type="text/css" id="custom-background-css">
+body.custom-background { <?php echo trim( $style ); ?> }
+</style>
+<?php
+}
+
+add_theme_support( 'custom-header', array(
+	'default-image'          => '',
+	'random-default'         => false,
+	'width'                  => 0,
+	'height'                 => 39,
+	'flex-height'            => false,
+	'flex-width'             => true,
+	'default-text-color'     => '',
+	'header-text'            => true,
+	'uploads'                => true,
+	'wp-head-callback'       => 'wlfw_header_style',
+	'admin-head-callback'    => 'wlfw_admin_header_style',
+	'admin-preview-callback' => 'wlfw_admin_header_image',
+));
+
+function wlfw_header_style() {}
+function wlfw_admin_header_style() {}
+function wlfw_admin_header_image() {
+	if(get_header_image()) {
+		echo '
+		<div class="'.wlfw_grid_col_class(10, true).' logo-sibling right">
+		  <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
+			<div class="clear"></div>
+		  </div>
+		</div>
+		<div style="clear:both;"></div>
+		';
+	}
+}
+
+
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');

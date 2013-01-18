@@ -157,3 +157,8 @@ function processMobileForm($args) {
 function wlfw_mobile_top_bttn() {
 	echo '<a class="ui-btn-right" id="top">top</a>';
 }
+
+add_action('append_meta_tags', 'wlfw_add_viewport_meta');
+function wlfw_add_viewport_meta() {
+echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
+}

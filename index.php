@@ -13,8 +13,8 @@ get_header();
         <div id="contentColWide" class="<?php wlfw_grid_col_class(11); ?> <?php echo get_post_format(); ?> <?php echo apply_filters('wlfw_content_class', ''); ?> content-primary">
             <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 				<?php 
-					if($wp_query->found_posts < 1){ get_template_part( 'content', get_post_format() ); } 
-					else { get_template_part( 'loop', get_post_type() ); }
+					if($wp_query->found_posts > 1){ get_template_part( 'loop', get_post_type() ); } 
+					else { get_template_part( 'content', get_post_format() ); }
 				?>
             <?php endwhile; ?>
         <?php if(posts_nav_link()){} else wp_link_pages(); ?>

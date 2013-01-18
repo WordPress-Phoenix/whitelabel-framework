@@ -32,6 +32,36 @@ add_theme_support( 'custom-background', array(
 	'admin-preview-callback' => '')
 );
 
+add_theme_support( 'custom-header', array(
+	'default-image'          => '',
+	'random-default'         => false,
+	'width'                  => 0,
+	'height'                 => 0,
+	'flex-height'            => true,
+	'flex-width'             => true,
+	'default-text-color'     => '',
+	'header-text'            => true,
+	'uploads'                => true,
+	'wp-head-callback'       => 'wlfw_header_style',
+	'admin-head-callback'    => 'wlfw_admin_header_style',
+	'admin-preview-callback' => 'wlfw_admin_header_image',
+));
+
+function wlfw_header_style() {}
+function wlfw_admin_header_style() {}
+function wlfw_admin_header_image() {
+	if(get_header_image()) {
+		echo '
+		<div class="'.wlfw_grid_col_class(10, true).' logo-sibling right">
+		  <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
+			<div class="clear"></div>
+		  </div>
+		</div>
+		<div style="clear:both;"></div>
+		';
+	}
+}
+
 //admin enhancements
 //add_filter('tiny_mce_before_init', 'wlfw_customize_tinyMCE_options');
 //add_filter('mce_buttons', 'add_font_selection_to_tinymce');
@@ -40,6 +70,9 @@ add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');
 add_filter('wlfw_content_class', 'wlfw_get_content_class');
+
+//allow the favicon to be set from the site options
+add_filter('favicon', 'filter__site_options_favicon', 10);
 
 
 //as required by wordpress.org

@@ -10,7 +10,10 @@ if(preg_match('/(?i)msie [1-8]/',$_SERVER['HTTP_USER_AGENT'])) $old_ie = true;
 
 function add_floating_social($args = array()) {
 	global $floating_social_flag, $post_id, $post_meta;
-	wp_enqueue_script('share-this', 'http://w.sharethis.com/button/buttons.js', array(), false, true);
+	$share_this_script_src = 'http://w.sharethis.com/button/buttons.js';
+	if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443)
+		$share_this_script_src = 'https://ws.sharethis.com/button/buttons.js';
+	wp_enqueue_script('share-this', $share_this_script_src, array(), '1.1.1', true);
 	//check for positioning (allow for inline social bars)
 	
 	$floating_social_auto = get_option(SM_SITEOP_PREFIX.'floating_social_embed');

@@ -1,35 +1,4 @@
 <?php
-
-add_theme_support( 'custom-header', array(
-	'default-image'          => '',
-	'random-default'         => false,
-	'width'                  => 0,
-	'height'                 => 0,
-	'flex-height'            => false,
-	'flex-width'             => false,
-	'default-text-color'     => '',
-	'header-text'            => true,
-	'uploads'                => true,
-	'wp-head-callback'       => 'wlfw_header_style',
-	'admin-head-callback'    => 'wlfw_admin_header_style',
-	'admin-preview-callback' => 'wlfw_admin_header_image',
-));
-
-function wlfw_header_style() {}
-function wlfw_admin_header_style() {}
-function wlfw_admin_header_image() {
-	if(get_header_image()) {
-		echo '
-		<div class="'.wlfw_grid_col_class(10, true).' logo-sibling right">
-		  <div class="white"><img class="right clear" src="'.get_header_image().'" alt="'.HEADER_IMAGE_ALT.'">
-			<div class="clear"></div>
-		  </div>
-		</div>
-		<div style="clear:both;"></div>
-		';
-	}
-}
-
 //setup custom-menu feature
 if ( function_exists( 'register_nav_menus' ) ) {
 	register_nav_menus(

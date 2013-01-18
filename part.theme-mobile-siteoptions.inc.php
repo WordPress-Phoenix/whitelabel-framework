@@ -1,28 +1,17 @@
 <?php 
 //Get options using this example: get_option(SM_SITEOP_PREFIX.'my_field')
-//setup some variables used in the logic
-$websiteLogoArgs = array('label'=>'Website Logo');
-if((get_option('show_on_front')) != 'posts') {
-	$websiteLogoArgs['description'] = __('<a href="options-reading.php">Static homepage</a> is currently setup on your website. For a unique homepage logo use a featured image on <a href="post.php?post='.get_option('page_on_front').'&action=edit">this page.</a>', 'sm');
-}
-else {
-	$websiteLogoArgs['description'] = __('<a href="options-reading.php">Static homepage</a> must be set for a unique homepage logo to be set.', 'sm');
-}
-$websiteLogoArgs['description'] = $websiteLogoArgs['description'].' '.__('Logo size should be 36px tall by 150px-200px wide.', 'sm');
 
 // create admin page
 $mobops = new sm_options_page(array('parent_id' => 'themes.php', 'page_title' => 'Configure Mobile Theme Customizations', 'menu_title' => 'Mobile Options','id' => 'mobile-appearance-options'));
 	$mobops->add_part($mobops_brand = new sm_section('branding_options', array('title'=>'Brand It')) );
-		$mobops_brand->add_part($site_favicon = new sm_media_upload('website_favicon', array('label'=>'Favicon', 'description'=>'Website icon to be used for your website. Must be 16x16 or 32x32 and .ico format. Leaving this field blank will load the favicon.ico file from the themes folder or fallback to the generic favicon.ico file.')));
-		$mobops_brand->add_part($site_logo = new sm_media_upload('website_logo', $websiteLogoArgs));
 		$mobops_brand->add_part($site_primary_color = new sm_color_picker('site_primary_color', array('label'=>'Primary Color')));
 		$mobops_brand->add_part($site_secondary_color = new sm_color_picker('site_secondary_color', array('label'=>'Secondary Color')));
 		$mobops_brand->add_part($site_cta_color = new sm_color_picker('site_cta_color', array('label'=>'Call To Action Color')));
 	$mobops->add_part($mobops_company = new sm_section('company_info', array('title'=>'Company Info')) );
 		$mobops_company->add_part($company_phone = new sm_textfield('company_phone', array('label'=>'Phone Number', 'description'=>'Enables click to call mobile buttons.')));
 		$mobops_company->add_part($company_form = new sm_textfield('company_form', array('label'=>'Contact Form URL', 'description'=>'Enables request information button.')));
-		$mobops_company->add_part($company_twitter = new sm_textfield('company_twitter', array('label'=>'Twitter ID', 'description'=>'Example: for facebook.com/google enter "google."')));
-		$mobops_company->add_part($company_facebook = new sm_textfield('company_facebook', array('label'=>'Facebook Page', 'description'=>'Example: for twitter.com/google enter "google".')));
+		$mobops_company->add_part($company_twitter = new sm_textfield('company_twitter', array('label'=>'Twitter ID', 'description'=>'Example:  Enter "google" for facebook.com/google.')));
+		$mobops_company->add_part($company_facebook = new sm_textfield('company_facebook', array('label'=>'Facebook Page', 'description'=>'Example: Enter "google" for twitter.com/google.')));
 	$mobops->add_part($mobops_utilities = new sm_section('utilities', array('title'=>'Utilities')) );
 		$mobops_utilities->add_part($fullsite_url = new sm_textfield('fullsite_url', array('label'=>'Full Site URL', 'description'=>'The url to the full version of your website')));
 		$mobops_utilities->add_part($fullsite_query = new sm_textfield('fullsite_query', array('label'=>'Full Site Query', 'description'=>'The url parameters like ?view=fullsite')));

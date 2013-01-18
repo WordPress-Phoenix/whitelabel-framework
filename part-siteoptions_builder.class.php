@@ -6,14 +6,14 @@ else :
 <?php
 /*
 Official SiteOptions builder file
-Version 1.2.0
+Version 1.2.1
 */
 if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 define('SM_SITEOP_DEBUG', FALSE);
 
 //stop dbug calls from throwing errors when the sm-debug-bar plugin is not active
 if(!function_exists('dbug')){function dbug(){}}
-dbug('Version 1.2.0');
+dbug('Version 1.2.1');
 
 class sm_options_container
 {
@@ -138,7 +138,7 @@ class sm_options_page extends sm_options_container
 			if(defined('SM_SITEOP_DEBUG') && SM_SITEOP_DEBUG) echo $part->id.'[$part->echo_html()]->['.__CLASS__.'->echo_html()]<br />';
 			$part->echo_html();	
 		}
-		echo '<li><p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="submit"><input type="reset" value="Reset" class="button-primary" name="reset"></p>'
+		echo '<li><p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="submit" style="margin-right:10px;"><input type="reset" value="Reset" class="button-primary" name="reset"></p>'
 			.wp_nonce_field($this->id, '_wpnonce', true, false).'</li>'.'</ul></form></div>';
 		echo '<div class="clear"></div></div>';//end of #smOptionsContent
 		echo '</div>';//end of #smSiteOptions;

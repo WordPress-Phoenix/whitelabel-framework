@@ -184,11 +184,8 @@ function setup_scripts_and_styles_enqueue() {
 	wp_enqueue_style('reset');
 	
 	
-	//register nivo slider and jQuery-UI
-	wp_register_style('nivo', get_template_directory_uri().'/appearance/nivo-slider.css', '', THEME_VERSION);
+	//register and enqueue jQuery-UI
 	wp_register_style('jquery-ui', get_template_directory_uri().'/appearance/jquery-ui.css', '', THEME_VERSION);
-	
-	wp_enqueue_style('nivo');
 	wp_enqueue_style('jquery-ui');
 	
 }

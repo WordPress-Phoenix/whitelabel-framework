@@ -17,10 +17,10 @@ dbug('Version 1.2.1');
 
 class sm_options_container
 {
-    // property declaration
-    public $parts;			public $parent_id;
-	public $capability;		public $id;
-	public $notifications;	public $security_check;
+	// property declaration
+	public $parts;      public $parent_id;
+	public $capability;   public $id;
+	public $notifications;  public $security_check;
 	
 	public function __construct($i, $args = array()) {
 		$this->id = preg_replace('/_/','-',$i);
@@ -69,15 +69,15 @@ class sm_options_container
 
 class sm_options_page extends sm_options_container
 {
-    // property declaration
-	public $page_title;		public $menu_title;
-	public $libraries;		public $icon;
-	public $disable_styles;	public $theme_page;
+		// property declaration
+	public $page_title;   public $menu_title;
+	public $libraries;    public $icon;
+	public $disable_styles; public $theme_page;
 
-    // method declaration
-    public function __construct($args = array()) {
+		// method declaration
+		public function __construct($args = array()) {
 		$defaults = array(
-		    'parts' => array(),
+				'parts' => array(),
 			'parent_id' => 'options-general.php',
 			'page_title' => 'SM Site Options',
 			'menu_title' => 'SM Site Options',
@@ -92,7 +92,7 @@ class sm_options_page extends sm_options_container
 		parent::__construct($args['id']);
 		foreach($args as $name => $value)
 			$this->$name = $value;
-    }
+		}
 	
 	public function build() {
 		add_action('admin_menu', array($this, 'build_page'));
@@ -100,12 +100,12 @@ class sm_options_page extends sm_options_container
 		add_action('admin_print_styles', array($this, 'media_upload_styles'));
 		//TODO - add if statement to determine if media uploader scripts should be enqueued or not
 		if(isset($_POST['submit']) && $_POST['submit'] )
-			add_action('admin_init', array($this, 'save_options'));	
-	}	
+			add_action('admin_init', array($this, 'save_options')); 
+	} 
 	
 	public function build_page() {
 		if($this->theme_page) add_theme_page($this->page_title, $this->menu_title, $this->capability, $this->id, array($this, 'build_parts'));
-		else add_submenu_page( $this->parent_id, $this->page_title, $this->menu_title, $this->capability, $this->id, array($this, 'build_parts') );	
+		else add_submenu_page( $this->parent_id, $this->page_title, $this->menu_title, $this->capability, $this->id, array($this, 'build_parts') ); 
 	}
 	
 	public function build_parts() {
@@ -136,7 +136,7 @@ class sm_options_page extends sm_options_container
 		foreach($this->parts as $key => $part) {
 			if(((intval($key)+1) % 2) == 0) $part->classes[] = 'even';
 			if(defined('SM_SITEOP_DEBUG') && SM_SITEOP_DEBUG) echo $part->id.'[$part->echo_html()]->['.__CLASS__.'->echo_html()]<br />';
-			$part->echo_html();	
+			$part->echo_html(); 
 		}
 		echo '<li><p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="submit" style="margin-right:10px;"><input type="reset" value="Reset" class="button-primary" name="reset"></p>'
 			.wp_nonce_field($this->id, '_wpnonce', true, false).'</li>'.'</ul></form></div>';
@@ -176,7 +176,7 @@ class sm_options_page extends sm_options_container
 		label {  width:200px; display:block; float:left; }
 		label.option-label {  width:auto; display: inherit; float: none; }
 		/* On/Off Switch */
-		form a.switch { display:block; margin-left:200px; height:30px; width:70px; text-indent:-9999px;	background: url(http://lh3.googleusercontent.com/-knVz5thrqgw/Ts05srH_FbI/AAAAAAAAAB4/X1UaAz9Ejn0/s70/bg-checkbox.gif) no-repeat;
+		form a.switch { display:block; margin-left:200px; height:30px; width:70px; text-indent:-9999px; background: url(http://lh3.googleusercontent.com/-knVz5thrqgw/Ts05srH_FbI/AAAAAAAAAB4/X1UaAz9Ejn0/s70/bg-checkbox.gif) no-repeat;
 		} 
 		form .off { background-position: 0 0!important; }
 		form .on { background-position: 0 -31px!important; }
@@ -192,14 +192,14 @@ class sm_options_page extends sm_options_container
 			#smOptionsContent { width: 1104px;}
 			#smOptions { width:900px;}
 		}
-    </style>
+		</style>
 <script>
 	jQuery(document).ready(function() {
 		jQuery(' input:checkbox.onOffSwitch').each(function(i){
 			// add clas on if box is checked
-			if(jQuery(this).is(':checked'))	addclass = 'on';
+			if(jQuery(this).is(':checked')) addclass = 'on';
 			else addclass = '';
-			// create on/off link for switch grphic	
+			// create on/off link for switch grphic 
 			jQuery(this).before('<a href="#" id="button-'+jQuery(this).attr('id')+'" class="switch '+addclass+'"></a>');
 			// hide the check box
 			jQuery(this).hide();
@@ -229,25 +229,25 @@ class sm_options_page extends sm_options_container
 		
 		//prepare the media uploader tool
 		storeSendToEditor = window.send_to_editor;
-        newSendToEditor   = function(html) {
-                                    imgurl = jQuery('img',html).attr('src');
-                                    jQuery("#" + uploadID.name).val(imgurl);
-                                    tb_remove();
-                                    window.send_to_editor = storeSendToEditor;
+				newSendToEditor   = function(html) {
+																		imgurl = jQuery('img',html).attr('src');
+																		jQuery("#" + uploadID.name).val(imgurl);
+																		tb_remove();
+																		window.send_to_editor = storeSendToEditor;
 							};
 		
 	});
 	
 	function sm_option_media_uploader(id) {
-            window.send_to_editor = newSendToEditor;
-            uploadID = id;
-            formfield = jQuery('.upload').attr('name');
-            tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
-            return false;
+						window.send_to_editor = newSendToEditor;
+						uploadID = id;
+						formfield = jQuery('.upload').attr('name');
+						tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
+						return false;
 	}
 
 </script>
-        <?php
+				<?php
 	}
 	
 	public function media_upload_scripts() {
@@ -268,13 +268,13 @@ class sm_options_page extends sm_options_container
 }
 
 class sm_section extends sm_options_container {
-	public $wrapper;	public $type;
-	public $classes;	public $title;
+	public $wrapper;  public $type;
+	public $classes;  public $title;
 	
 	public function __construct($i, $args = array() ) {
 		parent::__construct($i);
 		$defaults = array(
-		    'wrapper' => array('<ul>','</ul><div class="hr-divider"></div>'),
+				'wrapper' => array('<ul>','</ul><div class="hr-divider"></div>'),
 			'type' => 'default',
 			'classes' => array('section', 'active'),
 			'title' => 'My Custom Section'
@@ -282,7 +282,7 @@ class sm_section extends sm_options_container {
 		$args = array_merge($defaults, $args);
 		foreach($args as $name => $value)
 			$this->$name = $value;
-    }
+		}
 	
 	private function get_classes($echo = false) {
 		$the_classes = '';
@@ -312,39 +312,39 @@ class sm_section extends sm_options_container {
 
 class sm_option
 {
-    // property declaration
-    public $id;				public $type;
-	public $label;			public $default_value;
-	public $classes;		public $rel;
-	public $atts;			public $width;
-	public $height;			public $length;
-	public $wrapper;		public $description;
+	// property declaration
+	public $id;       public $type;
+	public $label;      public $default_value;
+	public $classes;    public $rel;
+	public $atts;     public $width;
+	public $height;     public $length;
+	public $wrapper;    public $description;
 	
 	
 
-    // method declaration
-    public function __construct($i, $args = array() ) {
-		extract($args);
-		$this->id = $i;
-		$defaults = array(
-			'type' => 'text',
-			'label' => 'Option 1',
-			'default_value' => '',
-			'classes' => array('option'),
-			'rel' => '',
-			'atts' => array(),
-			'width' => '',
-			'height' => '',
-			'length' => '',
-			'wrapper' => array('<li>','</li>'),
-			'description' => '',
-			'atts' => array('disabled' => NULL)
-		);
-		$args = array_merge($defaults, $args);
-		
-		foreach($args as $name => $value)
-			$this->$name = $value;
-    }
+	// method declaration
+	public function __construct($i, $args = array() ) {
+	extract($args);
+	$this->id = $i;
+	$defaults = array(
+		'type' => 'text',
+		'label' => 'Option 1',
+		'default_value' => '',
+		'classes' => array('option'),
+		'rel' => '',
+		'atts' => array(),
+		'width' => '',
+		'height' => '',
+		'length' => '',
+		'wrapper' => array('<li>','</li>'),
+		'description' => '',
+		'atts' => array('disabled' => NULL)
+	);
+	$args = array_merge($defaults, $args);
+	
+	foreach($args as $name => $value)
+		$this->$name = $value;
+	}
 	
 	public function get_classes($echo = false) {
 		$the_classes = '';
@@ -357,14 +357,7 @@ class sm_option
 		return $the_classes;
 	}
 	
-	public function update_option() {
-		//delete_option('sm_option_');
-		//delete_option('sm_option_ground_to_user');
-		
-		//echo'<pre>';
-		//print_r($_POST);
-		//die();
-		
+	public function update_option() {	
 		if(!isset($_POST[$this->id])) $_POST[$this->id] = '';
 		
 		if($_POST[$this->id] == '') 
@@ -390,7 +383,63 @@ class sm_textfield extends sm_option
 	public function echo_html() {
 		$html = $this->get_html();
 		echo apply_filters('echo_html_option', $html);
-	}	
+	} 
+}
+
+class sm_passwordfield extends sm_option 
+{
+
+	public function __construct($i, $args = array()) {
+		parent::__construct($i, $args);
+		if(!defined('MYSECRETKEY')) define('MYSECRETKEY',sha1(basename(__FILE__),TRUE));
+	}
+	
+	public function get_html() {
+		$option_val = get_option(SM_SITEOP_PREFIX.$this->id);
+		$html = $this->wrapper[0];
+		$html .= "<label>$this->label</label>";
+		if($this->atts['disabled']) $disabled = 'disabled="disabled"'; else $disabled = '';
+		$html .= "<input id=\"$this->id\" name=\"$this->id\" type=\"password\" value=\"".get_option(SM_SITEOP_PREFIX.$this->id)."\" ".$disabled." />";
+		$html .= '<a href="#" onClick="jQuery(this).prev().val(null); return false;">[clear]</a>';
+		if($this->description) $html .= '<div class="description clear">'.$this->description.'</div>';
+		$html .= "<input style=\"display:none;\" id=\"prev_$this->id\" name=\"prev_$this->id\" type=\"text\" value=\"".get_option(SM_SITEOP_PREFIX.$this->id)."\" readonly=\"readonly\" />";
+		//$html .= "<div class=\"pwhidden\">".$this->unencrypted_pass(get_option(SM_SITEOP_PREFIX.$this->id))."</div>";
+		$html .= "<div class=\"clear\"></div>";
+		$html .= $this->wrapper[1];
+		return $html;
+	}
+	
+	public function echo_html() {
+		$html = $this->get_html();
+		echo apply_filters('echo_html_option', $html);
+	}
+
+	//you should only call this function when passing password to the third party service,
+	//never display this password on an unsecured form or you risk password theft
+	private function unencrypted_pass($encrypted_encoded) {
+		$encrypted_decoded = base64_decode($encrypted_encoded);
+		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, MYSECRETKEY, $encrypted_decoded, MCRYPT_MODE_ECB);
+	}
+
+	//lets override the default function to better secure the saved data 
+	public function update_option() {
+		if(!isset($_POST[$this->id])) $_POST[$this->id] = '';
+		//if the password was not changed (the encrypted values match) don't update anything
+		if($_POST[$this->id] === $_POST['prev_'.$this->id]) {
+			return false;
+		}
+		if($_POST[$this->id] == '') {
+			$updated = delete_option(SM_SITEOP_PREFIX.$this->id);
+		}
+		else {
+			$encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, MYSECRETKEY, $_POST[$this->id], MCRYPT_MODE_ECB);
+			//note base64 is required, not a part of any hack. Without it, storing the encryption
+			//into a wp_option value is most likely impossible, or at least very unreliable.
+			$encrypted_encoded = base64_encode($encrypted);
+			$updated = update_option(SM_SITEOP_PREFIX.$this->id, $encrypted_encoded);
+		}
+		return $updated;
+	}
 }
 
 
@@ -409,7 +458,7 @@ class sm_textarea extends sm_option
 	public function echo_html() {
 		$html = $this->get_html();
 		echo apply_filters('echo_html_option', $html);
-	}	
+	} 
 }
 
 class sm_dropdown extends sm_option 
@@ -418,7 +467,7 @@ class sm_dropdown extends sm_option
 	
 	public function __construct($i, $v) {
 		parent::__construct($i);
-		$this->values = ( !empty($v) ) ?  $v : array();	
+		$this->values = ( !empty($v) ) ?  $v : array(); 
 	}
 	
 	public function get_html() {
@@ -428,7 +477,7 @@ class sm_dropdown extends sm_option
 		$stored_value = get_option(SM_SITEOP_PREFIX.$this->id);
 		foreach($this->values as $key => $value) {
 			if($value == $stored_value) $selected = 'selected="selected"'; else $selected='';
-			$html .= "<option value=\"$value\" $selected>$value</option>";	
+			$html .= "<option value=\"$value\" $selected>$value</option>";  
 		}
 		$html .= '</select> Value: '.get_option(SM_SITEOP_PREFIX.$this->id);
 		$html .= "<div class=\"clear\"></div>";
@@ -451,12 +500,12 @@ class sm_checkbox extends sm_option
 	public function __construct($i, $args=array()) {
 		parent::__construct($i, $args);
 		$defaults = array(
-		    'value' => ''
+				'value' => ''
 		);
 		$args = array_merge($defaults, $args);
 		
 		foreach($args as $name => $value)
-			$this->$name = $value;		
+			$this->$name = $value;    
 	}
 	
 	public function get_html() {
@@ -483,7 +532,7 @@ class sm_radio_buttons extends sm_option
 	
 	public function __construct($i, $v) {
 		parent::__construct($i);
-		$this->values = ( !empty($v) ) ?  $v : array();	
+		$this->values = ( !empty($v) ) ?  $v : array(); 
 	}
 	
 	public function get_html() {
@@ -500,7 +549,7 @@ class sm_radio_buttons extends sm_option
 				
 			if($selectedVal == $value) { $checked=" checked=\"checked\""; } else { $checked=""; }
 			
-      		$html .= "<label class=\"option-label\"><input type=\"radio\" name=\"$this->id\" value=\"$value\" id=\"$this->id\" $checked /> $radioLabel</label>";
+					$html .= "<label class=\"option-label\"><input type=\"radio\" name=\"$this->id\" value=\"$value\" id=\"$this->id\" $checked /> $radioLabel</label>";
 			$html .= "<div class=\"clear\"></div>";
 		}
 		$html .= "</div>";
@@ -533,7 +582,7 @@ class sm_media_upload extends sm_option
 	public function echo_html() {
 		$html = $this->get_html();
 		echo apply_filters('echo_html_option', $html);
-	}	
+	} 
 }
 
 class sm_include_file extends sm_option
@@ -542,14 +591,14 @@ class sm_include_file extends sm_option
 	
 	public function __construct($i,$f,$v = array()) {
 		parent::__construct($i);
-		$this->values = ( !empty($v) ) ?  $v : array();	
-		$this->filename = ( !empty($f) ) ?  $f : 'set_the_filename.php';	
+		$this->values = ( !empty($v) ) ?  $v : array(); 
+		$this->filename = ( !empty($f) ) ?  $f : 'set_the_filename.php';  
 	}
 	public function get_html() {
 		return false;
 	}
 	public function echo_html() {
-		if(!empty($this->filename))	include_once($this->filename);
+		if(!empty($this->filename)) include_once($this->filename);
 	}
 }
 
@@ -577,7 +626,7 @@ class sm_color_picker extends sm_option
 				prev_palette.prev().removeClass("active");
 				var pos   = jQuery(this).offset();
 				var width = 0;//jQuery(this).width();
-				jQuery("#'.$this->id.'_palette").css({"position":"absolute", "left": (pos.left - 100 + width) + "px", "top":(pos.top - 100) + "px" });			
+				jQuery("#'.$this->id.'_palette").css({"position":"absolute", "left": (pos.left - 100 + width) + "px", "top":(pos.top - 100) + "px" });      
 				curr_palette.slideDown();
 			}
 			prev_palette = curr_palette;
@@ -592,7 +641,7 @@ class sm_color_picker extends sm_option
 	public function echo_html() {
 		$html = $this->get_html();
 		echo apply_filters('echo_html_option', $html);
-	}	
+	} 
 }
 
 endif;

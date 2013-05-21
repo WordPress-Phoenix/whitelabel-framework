@@ -11,6 +11,10 @@ Version 1.2.1
 if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 define('SM_SITEOP_DEBUG', FALSE);
 
+if(!function_exists('get_sm_option')) { function get_sm_option($s='') {
+	return get_option(SM_SITEOP_PREFIX.$s);
+}}
+
 //stop dbug calls from throwing errors when the sm-debug-bar plugin is not active
 if(!function_exists('dbug')){function dbug(){}}
 dbug('Version 1.2.1');

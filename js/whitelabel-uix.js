@@ -13,7 +13,6 @@ jQuery(document).ready(function($) {
 	jQuery("#menu-icon").on("click", function(e){
 		e.preventDefault();
 		if(jQuery(this).next('ul').hasClass('visible')) {
-			if(typeof(console) != "undefined") console.log('#menu-icon first if...');
 			jQuery(this).next('ul').removeClass('visible').slideUp(300, function() {
 			 	jQuery(this).css('display', '');
 			});

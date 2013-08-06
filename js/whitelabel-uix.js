@@ -14,7 +14,6 @@ jQuery(document).ready(function($) {
 		e.preventDefault();
 		if(jQuery(this).next('ul').hasClass('visible')) {
 			if(typeof(console) != "undefined") console.log('#menu-icon first if...');
-			//if(typeof(console) != "undefined") console.log();
 			jQuery(this).next('ul').removeClass('visible').slideUp(300, function() {
 			 	jQuery(this).css('display', '');
 			});
@@ -39,5 +38,4 @@ jQuery(document).ready(function($) {
 			jQuery(this).addClass('active');
 		}
 	});
-  if(typeof(console) != "undefined") console.log('whitelabel-uix loaded...'); 
 });

@@ -378,6 +378,12 @@ function wlfw_add_comments_template() {
 	add_action('wlfw_comments_template', 'comments_template');
 }
 
+// deals with content filters and switches
+function wlfw_apply_content_filters() {
+	if( get_option(SM_SITEOP_PREFIX.'disable_all_page_titles') == 'true' && is_page()) 
+		add_filter('wlfw_before_title_output', '__return_false');
+}
+
 //function: add_body_class
 //description: adds a class to the body tag
 //required parameters: class to add

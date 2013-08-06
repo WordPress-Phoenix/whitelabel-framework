@@ -88,6 +88,8 @@ if (!is_admin()) {
 	remove_action('wp_print_scripts', 'uds_billboard_scripts');
 	if(function_exists('uds_billboard_scripts')) add_action('wp_enqueue_scripts', 'uds_billboard_scripts', 10);
 	//begin queueing scripts
+	add_action('template_redirect', 'wlfw_add_comments_template');
+	add_action('template_redirect', 'wlfw_apply_content_filters');
 	add_action('wp_enqueue_scripts', 'setup_scripts_and_styles_enqueue', 20);
 	add_action('wp_print_styles', 'load_theme_stylesheet_last', 99);
 	add_action('build_theme_head', 'get_template_part', 10, 2);
@@ -103,8 +105,6 @@ if (!is_admin()) {
 	add_action('build_theme_footer', 'get_template_part', 10, 2);
 	add_action('footer_enqueue', 'get_template_part', 10, 2);
 	add_action('footer_enqueue', 'wp_footer', 20);
-	add_action('template_redirect', 'wlfw_add_comments_template');
-	
 }
 else {
 	global $errors;

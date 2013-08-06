@@ -12,7 +12,7 @@ if(!defined('SM_SITEOP_PREFIX')) define('SM_SITEOP_PREFIX', 'sm_option_');
 define('SM_SITEOP_DEBUG', FALSE);
 
 if(!function_exists('get_sm_option')) { function get_sm_option($s='') {
-	return get_option(SM_SITEOP_PREFIX.$s);
+	return get_site_option(SM_SITEOP_PREFIX.$s);
 }}
 
 //stop dbug calls from throwing errors when the sm-debug-bar plugin is not active
@@ -420,7 +420,7 @@ class sm_passwordfield extends sm_option
 
 	//you should only call this function when passing password to the third party service,
 	//never display this password on an unsecured form or you risk password theft
-	private function unencrypted_pass($encrypted_encoded) {
+	public function unencrypted_pass($encrypted_encoded) {
 		$encrypted_decoded = base64_decode($encrypted_encoded);
 		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, MYSECRETKEY, $encrypted_decoded, MCRYPT_MODE_ECB);
 	}

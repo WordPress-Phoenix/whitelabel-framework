@@ -14,7 +14,7 @@ $mobops = new sm_options_page(array('parent_id' => 'themes.php', 'page_title' =>
 		$mobops_company->add_part($company_facebook = new sm_textfield('company_facebook', array('label'=>'Facebook Page', 'description'=>'Example: Enter "google" for twitter.com/google.')));
 	$mobops->add_part($mobops_utilities = new sm_section('utilities', array('title'=>'Utilities')) );
 		$mobops_utilities->add_part($fullsite_url = new sm_textfield('fullsite_url', array('label'=>'Full Site URL', 'description'=>'The url to the full version of your website')));
-		$mobops_utilities->add_part($fullsite_query = new sm_textfield('fullsite_query', array('label'=>'Full Site Query', 'description'=>'The url parameters like ?view=fullsite')));
+		$mobops_utilities->add_part($fullsite_query = new sm_textfield('fullsite_query', array('label'=>'Full Site Query', 'description'=>'The url parameters like ?viewFullSite=true')));
 		$mobops_utilities->add_part($vcard_author = new sm_checkbox('vcard_author', array('label'=>'vCard Author Pages','description'=>'Turn on vCard author pages when you want author contact details to be easily shared just like a digital business card.', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
 		$mobops_utilities->add_part($auto_redirect = new sm_checkbox('auto_redirect', array('label'=>'404 Auto Redirect','description'=>'Automatically redirect vistors to page on full site if it exists', 'value'=>'true', 'classes'=>array('onOffSwitch'))));
 

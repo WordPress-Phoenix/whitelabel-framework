@@ -323,10 +323,16 @@ function wlfw_grid_col_class($width = 16, $return=false ) {
 	echo $col_class;
 }
 
-// returns class to add to content div (#contentColWide)
-function wlfw_get_content_class() {
+// returns class to add to content div (#middleWrapper)
+function default_middle_wrapper_section_class($origin) {
+	if(!isset($origin)) $origin = '';
 	if( $grid_system = get_option(SM_SITEOP_PREFIX.'sidebar_position') && get_option(SM_SITEOP_PREFIX.'sidebar_position') == 'left' )
-		return 'right';
+		return $origin.' sidebar-left';
+	return $origin.' sidebar-right';
+}
+
+// returns class to add to content div (#contentColWide) - none post format already in loop.php
+function default_wlfw_content_col_class() {
 	return '';
 }
 

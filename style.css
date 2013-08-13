@@ -221,6 +221,11 @@ blockquote p:after {
 
 /* Content
 ----------------------------------------------- */
+#middleWrapper.sidebar-left #contentColWide {
+	float: right;
+	display: block;
+}
+
 #middleContainer {
 	z-index:2;
 	position:relative;
@@ -232,6 +237,7 @@ blockquote p:after {
 #contentColWide h1 {
 	color:#D54E21;
 }
+
 #contentColWide #floatingbuttons .floatbutton {
   margin: 10px 20px;
 }
@@ -261,6 +267,14 @@ blockquote p:after {
 #middleSidebar ul ul {
 	margin-left: 10px;
 	margin-bottom: 6px;
+}
+
+#middleWrapper.sidebar-left #contentNarrow {
+	padding-right: 20px;
+}
+
+#middleWrapper.sidebar-right #contentNarrow {
+	padding-left: 20px;
 }
 
 .widget-container {

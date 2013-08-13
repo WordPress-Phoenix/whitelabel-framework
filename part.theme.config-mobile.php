@@ -106,7 +106,7 @@ function wlfw_admin_header_image() {
 add_editor_style('editor-style.css');
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');
-add_filter('wlfw_content_class', 'wlfw_get_content_class');
+add_filter('middle_wrapper_section_class', 'default_middle_wrapper_section_class');
 
 //as required by wordpress.org
 if ( ! isset( $content_width ) ) $content_width = 960;

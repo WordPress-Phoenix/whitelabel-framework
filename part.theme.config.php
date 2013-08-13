@@ -69,7 +69,8 @@ add_editor_style('editor-style.css');
 
 add_filter('use_default_gallery_style', '__return_false');
 add_filter('body_class','wlfw_set_body_class');
-add_filter('wlfw_content_class', 'wlfw_get_content_class');
+
+add_filter('middle_wrapper_section_class', 'default_middle_wrapper_section_class');
 
 //allow the favicon to be set from the site options
 add_filter('favicon', 'filter__site_options_favicon', 10);

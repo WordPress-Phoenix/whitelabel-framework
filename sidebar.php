@@ -4,7 +4,7 @@
  */
 ?>
 
-<div id="contentNarrow" class="content-secondary gutter-right">
+<div id="contentNarrow" class="content-secondary">
   <?php
 	/* When we call the dynamic_sidebar() function, it'll spit out
 	 * the widgets for that widget area. If it instead returns false,

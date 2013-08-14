@@ -19,6 +19,7 @@ if(!defined('WHITELABEL_CORE')) define('WHITELABEL_CORE', TRUE );
 if(!defined('WHITELABEL_WPBUILTINS')) define('WHITELABEL_WPBUILTINS', TRUE );
 if(!defined('WHITELABEL_FLOATING_SOCIAL')) define('WHITELABEL_FLOATING_SOCIAL', TRUE );
 
+
 //TODO: Create an activation function so it only runs 1 time
 update_option('wpm_o_user_id', 1); //turn off whitelabel plugin advertisement
 add_theme_support('post-thumbnails');
@@ -74,7 +75,7 @@ add_filter('middle_wrapper_section_class', 'default_middle_wrapper_section_class
 
 //allow the favicon to be set from the site options
 add_filter('favicon', 'filter__site_options_favicon', 10);
-
+add_filter( 'excerpt_more', 'wlfw_style_enabled_excerpt_more' );
 
 //as required by wordpress.org
 if ( ! isset( $content_width ) ) $content_width = 960;

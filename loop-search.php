@@ -36,13 +36,6 @@ global $wpdb, $searchTerms, $s;
 	function excerpt_length( $length ) { return 25; }
 	add_filter( 'excerpt_length', 'excerpt_length' ); 
 	
-	global $sm_more;
-	$sm_more = '<span class="elipsis">&hellip;</span>';
-	
-	// custom elipsis
-	function sm_auto_excerpt_more( $more ) { global $sm_more; return $sm_more; }
-	add_filter( 'excerpt_more', 'sm_auto_excerpt_more' );
-	
 	// paginate
 	if($args2['paginate']): 
 	?>

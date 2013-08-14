@@ -5,6 +5,13 @@ if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow==
 	include_once(dirname(__FILE__).'/inc/theme_upgrade.php'); 
 }
 
+//function: wlfw_style_enabled_excerpt_more
+//description: custom elipsis
+//optional parameters: none 
+function wlfw_style_enabled_excerpt_more( $more ) { 
+	return '<span class="elipsis">&hellip;</span>'; 
+}
+
 //function: wlfw_errors_in_footer_admin
 //description: used with admin_notices to display global errors
 //optional parameters: none  

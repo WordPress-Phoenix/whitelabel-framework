@@ -149,7 +149,7 @@ function setup_scripts_and_styles_enqueue() {
 	wp_register_script( 'jquery-pajinate' ,get_template_directory_uri(). '/js/jquery.pajinate.js', array('jquery'), THEME_VERSION);
 	wp_register_script( 'whitelabel-uix' ,get_template_directory_uri(). '/js/whitelabel-uix.js', array('jquery'), THEME_VERSION);
 	
-	//older version of UI scripts (core, resizeable, dragable, dialog) fixes IE Jump issue
+	//Use older version of UI scripts (core, resizeable, dragable, dialog) fixes IE Jump issue
 	wp_deregister_script( 'jquery-ui' );
 	wp_register_script( 'jquery-ui' ,get_template_directory_uri().'/js/jquery-ui-dialog.custom.min.js', array('jquery'), THEME_VERSION);
 	

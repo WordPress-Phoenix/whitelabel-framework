@@ -74,14 +74,14 @@ function detect_mobile_using_curl($service_url = 'detectmobilebrowsers.com', $ht
 	curl_setopt($ch, CURLOPT_VERBOSE, 0); // if you want more details, or for testing, change this to 1
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects 
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);// dis-allow redirects to comply with safe mode
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); // return into a variable 
 	curl_setopt($ch, CURLOPT_TIMEOUT, 20); // times out after 4s 
 	curl_setopt($ch, CURLOPT_POST, 1); // set POST method 
 	curl_setopt($ch, CURLOPT_POSTFIELDS, ''); // add POST fields 
 		
 	//echo $post_string; //use to debug the post by manually submitting it with a url
-	//run the whole process - you will get a respone in the $result which will have the result code from the lead router
+	//run the whole process - you will get a response in the $result which will have the result code from the lead router
 	$curlProcess = curl_exec($ch);
 	//echo '<pre>'.print_r($curlProcess, true);exit;
 	if(!$curlProcess) return array('error' => 'Server does not support cUrl. Please contact your server administrator or hosting provider.');

@@ -5,6 +5,76 @@ if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow==
 	include_once(dirname(__FILE__).'/inc/theme_upgrade.php'); 
 }
 
+//function: wlfw_posted_in
+//description: whitelabels default way of displaying taxonomy "entry-meta"
+//optional parameters: none
+function wlfw_posted_in() {
+    // Retrieves tag list of current post, separated by commas.
+    $tag_list = get_the_tag_list( '', ', ' );
+    if ( $tag_list ) {
+        $posted_in = __( '<span class="intro">This entry was posted in </span>%1$s and tagged %2$s.', 'wlfw' );
+    } elseif ( is_object_in_taxonomy( get_post_type(), 'category' ) ) {
+        $posted_in = __( '<span class="intro">This entry was posted in </span>%1$s.', 'wlfw' );
+    }
+    $posted_in .= ' <span class="permalink bookmark">'.__( 'Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'wlfw' ).'</span>';
+    // Prints the string, replacing the placeholders.
+    return sprintf(
+        $posted_in,
+        get_the_category_list( ', ' ),
+        $tag_list,
+        get_permalink(),
+        the_title_attribute( 'echo=0' )
+    );
+}
+
+
+//function: wlfw_post_taxonomies
+//description: pull in the default post meta details for blog posts
+//optional parameters: none
+function wlfw_post_taxonomies($post_specified = '') {
+    if(!empty($post_specified)) {
+        setup_postdata($post_specified);
+    }
+
+    //instead of rebuilding html function, using output buffer to get html into string
+    ob_start();
+    the_taxonomies();
+    $get_taxonomies_html = ob_get_clean();
+
+    //setup the post info html string
+    $post_taxonomies = '<p class="post-taxonomies">'.$get_taxonomies_html.'</p>
+        <div class="clear after-post-taxonomies"></div>';
+    wp_reset_postdata();
+    return $post_taxonomies;
+}
+
+//function: wlfw_post_info
+//description: pull in the default post meta details for blog posts
+//optional parameters: none
+function wlfw_post_info($post_specified = '') {
+    if(!empty($post_specified)) {
+        setup_postdata($post_specified);
+    }
+
+    //instead of rebuilding html function, using output buffer to get html into string
+    ob_start();
+    comments_number( '0 Comments', '1 Comment', '% Comments' );
+    $get_comments_number_html = ob_get_clean();
+
+    //setup the post info html string
+    $post_info = '
+        <div class="blog-thumbnail-info post-info-color">
+            <div class="blog-thumbnail-date">'.get_the_time('F jS Y').'</div>
+            <div class="blog-thumbnail-author">'.get_the_author().'</div>
+            <div class="blog-thumbnail-comment">
+                <a href="'.get_comments_link().'" title="Comment on '.get_the_title().'">'.$get_comments_number_html.'</a>
+            </div>
+        </div>
+        <div class="clear after-post-info"></div>';
+    wp_reset_postdata();
+    return $post_info;
+}
+
 //function: wlfw_get_looped_page_title
 //description: dynamic title for pages with loops like taxonomies, blog home, post categories and CPTs
 //optional parameters: none

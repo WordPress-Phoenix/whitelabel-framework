@@ -7,20 +7,24 @@ $maybe_redirect_mobile_devices = esc_url(get_option(SM_SITEOP_PREFIX.'redirect_m
 //make sure its not empty and not false (when option is not in the database)
 //turn off redirection based on URL of Mobile Website
 if(!is_admin() && !empty($maybe_redirect_mobile_devices) && $maybe_redirect_mobile_devices && (!isset($_COOKIE['mobile_viewfullsite']) || $_COOKIE['mobile_viewfullsite'] != true) ) {
+    //allow custom filters to be built to programmatically disable redirect
+    //return false to disable the redirect based on any logic (per page, post type, etc)
+    if(apply_filters('$maybe_redirect_mobile_devices',true)) {
 
-    // get url of mobile page and break down into parts
-    $mobile_redirect_url_parts = parse_url($maybe_redirect_mobile_devices);
+        // get url of mobile page and break down into parts
+        $mobile_redirect_url_parts = parse_url($maybe_redirect_mobile_devices);
 
-    // determine if the mobile redirection page is local or an external site
-    $local_redirect=false;
-    if( !isset($mobile_redirect_url_parts['host']) || stristr($mobile_redirect_url_parts['host'], $_SERVER['HTTP_HOST']) ) {
-        $local_redirect=true;
+        // determine if the mobile redirection page is local or an external site
+        $local_redirect=false;
+        if( !isset($mobile_redirect_url_parts['host']) || stristr($mobile_redirect_url_parts['host'], $_SERVER['HTTP_HOST']) ) {
+            $local_redirect=true;
+        }
+
+        // if redirection page is local and we are already on it or a subpage of it do not redirect
+        if($local_redirect && stristr( $_SERVER['REQUEST_URI'], $mobile_redirect_url_parts['path']));
+        // call redirect function
+        else redirect_mobile_devices(array('maybe_redirect_mobile_devices'=>$maybe_redirect_mobile_devices));
     }
-
-    // if redirection page is local and we are already on it or a subpage of it do not redirect
-    if($local_redirect && stristr( $_SERVER['REQUEST_URI'], $mobile_redirect_url_parts['path']));
-    // call redirect function
-    else redirect_mobile_devices(array('maybe_redirect_mobile_devices'=>$maybe_redirect_mobile_devices));
 }
 
 

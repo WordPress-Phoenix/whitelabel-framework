@@ -1,5 +1,4 @@
 <?php
-die('loop');
 /**
  * The loop that displays posts.
  *

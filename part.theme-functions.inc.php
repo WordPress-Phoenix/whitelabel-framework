@@ -63,14 +63,14 @@ function wlfw_post_info($post_specified = '') {
 
     //setup the post info html string
     $post_info = '
-        <div class="blog-thumbnail-info post-info-color">
-            <div class="blog-thumbnail-date">'.get_the_time('F jS Y').'</div>
-            <div class="blog-thumbnail-author">'.get_the_author().'</div>
-            <div class="blog-thumbnail-comment">
+        <div class="post-info">
+            <div class="post-date">'.get_the_time('F jS Y').'</div>
+            <div class="post-author">'.get_the_author().'</div>
+            <div class="post-comment-count">
                 <a href="'.get_comments_link().'" title="Comment on '.get_the_title().'">'.$get_comments_number_html.'</a>
             </div>
-        </div>
-        <div class="clear after-post-info"></div>';
+            <div class="clear after-post-info"></div>
+        </div>';
     wp_reset_postdata();
     return $post_info;
 }

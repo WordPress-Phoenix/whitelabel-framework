@@ -116,11 +116,10 @@ blockquote p:after {
 /* Nav
 ----------------------------------------------- */
 
-#breadCrumbs { 
-	margin-bottom:20px;
+#breadcrumbsWrapper {
+	padding: 10px 0;
 	font-family: 'BebasNeueRegular', Verdana, Geneva, sans-serif;
-	font-size:18px;
-	}
+}
 	
 /*
 .page #breadCrumbs, #breadCrumbs .crumbsStart { display:none; }
@@ -241,8 +240,15 @@ blockquote p:after {
 #contentColWide #floatingbuttons .floatbutton {
   margin: 10px 20px;
 }
+
 #contentColWide .floatbuttonEndCap {
 	display:block;
+}
+
+#contentColWide .wp-post-image {
+    display: inline;
+    float: right;
+    margin-left: 1.625em;
 }
 
 /*Multiple Post Lists Styles */

@@ -230,8 +230,7 @@ function wlfw_append_theme_actions_content($stylesheet = 'whitelabel-framework')
 }
 
 //NEW WAY TO ENABLE THEME VERSION SELECTOR IN WORDPRESS 3.8
-global $wp_version;
-if (version_compare($wp_version, '3.8', '>=')) {
+if (version_compare($GLOBALS['wp_version'], '3.8', '>=')) {
     //echo 'I am at least PHP version 3.8, my version: ' . $wp_version . "\n";
     add_filter('wp_prepare_themes_for_js', 'customize_theme_update_html');
 }

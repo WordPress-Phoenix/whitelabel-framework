@@ -72,7 +72,8 @@ function wlfw_transient_update_themes_filter($data){
 	usort($tags, "version_compare");
 
 	// check and generate download link
-	$newest_tag = end(array_values($tags));
+    $tag_vals = array_values($tags);
+    $newest_tag = end($tag_vals); // must use above intermediate variable for strict mode standards
 
 	// check for rollback
 	if(isset($_GET['rollback'])) {
@@ -142,12 +143,23 @@ function wlfw_no_ssl_http_request_args($args, $url) {
 	return $args;
 }
 
+//echo('File Loaded: '.__FILE__);
+
+add_filter( 'theme_row_meta', 'wlfw_append_theme_meta', 10, 4);
+function wlfw_append_theme_meta($theme_meta, $stylesheet, $theme, $status) {
+    wlfw_append_theme_actions(array(), $theme) ;
+}
+
 add_filter('theme_action_links', 'wlfw_append_theme_actions', 10, 2);
 function wlfw_append_theme_actions($actions, $theme = NULL) {
+    echo('Line Loaded: '.__LINE__);
+?>
+    <script>alert('theme_action_links loaded');</script>
+<?php
 	if($theme->stylesheet != 'whitelabel-framework') return $actions;
 	
 		if ( eregi("MSIE", getenv( "HTTP_USER_AGENT" ) ) || eregi("Internet Explorer", getenv("HTTP_USER_AGENT" ) ) ) {
-?>		
+?>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/buster.js" type="text/javascript"></script>
     <script>jQuery(function($){buster.wait("iframe");});</script>
 <?php	
@@ -168,6 +180,7 @@ function wlfw_append_theme_actions($actions, $theme = NULL) {
 }
 
 function wlfw_append_theme_actions_content($stylesheet = 'whitelabel-framework'){
+    //dbug('wlfw_append_theme_actions_content filter executed');
 	global $WLFW_UPDATE_DATA;
 	if(!isset($WLFW_UPDATE_DATA)) $WLFW_UPDATE_DATA = wlfw_transient_update_themes_filter($WLFW_UPDATE_DATA);
 	
@@ -183,9 +196,9 @@ function wlfw_append_theme_actions_content($stylesheet = 'whitelabel-framework')
 		$update_url = wp_nonce_url('update.php?action=upgrade-theme&amp;theme=' . urlencode($stylesheet), 'upgrade-theme_' . $stylesheet);
 	ob_start();
 ?>
-<strong>There is a new version of Whitelabel Framework available now. <a href="<?php echo get_template_directory_uri().'/inc/localize-remote-content.php'; ?>?remote=<?php echo urlencode( 'http://github.com/WordPress-Phoenix/whitelabel-framework/issues?milestone=&page=1&state=closed'); ?>&TB_iframe=true&amp;width=80%&amp;height=506" class="thickbox" title="Whitelabel Framework">View version <?php echo $theme['new_version'] ?> details</a> or <a href="<?php echo $update_url; ?>" onclick="if ( confirm('<?php _e('Updating this theme will lose any customizations you have made (if you have not been using a child theme). \'Cancel\' to stop, \'OK\' to update.', 'wlfw'); ?>') ) {return true;}return false;">update now</a>.</strong> 
+<strong>There is a new version of Whitelabel Framework available now (on Github!). <a href="<?php echo get_template_directory_uri().'/inc/localize-remote-content.php'; ?>?remote=<?php echo urlencode( 'http://github.com/WordPress-Phoenix/whitelabel-framework/issues?milestone=&page=1&state=closed'); ?>&TB_iframe=true&amp;width=80%&amp;height=506" class="thickbox" title="Whitelabel Framework">View version <?php echo $theme['new_version'] ?> details</a> or <a href="<?php echo $update_url; ?>" onclick="if ( confirm('<?php _e('Updating this theme will lose any customizations you have made (if you have not been using a child theme). \'Cancel\' to stop, \'OK\' to update.', 'wlfw'); ?>') ) {return true;}return false;">update now</a>.</strong>
 <?php
-	return trim(ob_end_flush(), '1');
+	return trim(ob_get_clean(), '1');
 	}//END -- if(isset($WLFW_UPDATE_DATA->response[$stylesheet]))
 	
 	//if the theme is up to date, display the custom rollback/beta version updater
@@ -212,6 +225,22 @@ function wlfw_append_theme_actions_content($stylesheet = 'whitelabel-framework')
         <a style="display: none;" class="button-primary" href="?" onclick="if( confirm('Are you sure you want to reinstall a new version of Whitelabel?') );else return false;">Install</a>
 </div>
 <?php
-		return trim(ob_end_flush(), '1');
+		return trim(ob_get_clean(), '1');
 	}
+}
+
+//NEW WAY TO ENABLE THEME VERSION SELECTOR IN WORDPRESS 3.8
+global $wp_version;
+if (version_compare($wp_version, '3.8', '>=')) {
+    //echo 'I am at least PHP version 3.8, my version: ' . $wp_version . "\n";
+    add_filter('wp_prepare_themes_for_js', 'customize_theme_update_html');
+}
+
+function customize_theme_update_html($prepared_themes) {
+    //var_export($prepared_themes['whitelabel-framework']);
+    if($prepared_themes['whitelabel-framework']['hasUpdate'] == 'true')
+        $prepared_themes['whitelabel-framework']['update'] = wlfw_append_theme_actions_content();
+    else
+        $prepared_themes['whitelabel-framework']['description'] .= wlfw_append_theme_actions_content();
+    return $prepared_themes;
 }

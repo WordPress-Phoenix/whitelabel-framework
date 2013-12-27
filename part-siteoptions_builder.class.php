@@ -572,6 +572,7 @@ class sm_radio_buttons extends sm_option
 class sm_media_upload extends sm_option 
 {
 	public function get_html() {
+        $disabled = '';
 		$html = $this->wrapper[0];
 		$html .= "<label>$this->label</label>";
 		if($this->atts['disabled']) $disabled = 'disabled="disabled"';

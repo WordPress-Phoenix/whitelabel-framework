@@ -9,6 +9,7 @@ if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow==
 //description: whitelabels default way of displaying taxonomy "entry-meta"
 //optional parameters: none
 function wlfw_posted_in() {
+    $posted_in = '';
     // Retrieves tag list of current post, separated by commas.
     $tag_list = get_the_tag_list( '', ', ' );
     if ( $tag_list ) {
@@ -79,8 +80,6 @@ function wlfw_post_info($post_specified = '') {
 //description: dynamic title for pages with loops like taxonomies, blog home, post categories and CPTs
 //optional parameters: none
 function wlfw_get_looped_page_title($wp_query) {
-    //echo '<pre>';var_export($wp_query); echo '</pre>';
-    //echo '<pre>';var_export(get_post_type_object(get_post_type())); echo '</pre>';
     //title will be empty on singles and where content pages load (since they create titles)
     $title = '';
     if(is_post_type_archive()) {
@@ -88,7 +87,7 @@ function wlfw_get_looped_page_title($wp_query) {
         $title = $cpto->labels->all_items;
     }
     if(is_category() || is_tag()) $title = single_cat_title('Currently browsing ', false);
-    if(is_home()) $title = get_the_title($wp_query->queried_object->ID);
+    if(is_home() && !empty($wp_query->queried_object->ID)) $title = get_the_title($wp_query->queried_object->ID);
 
     if(!empty($title)) $title = '<h1>'.$title.'</h1>';
     return apply_filters( 'wlfw_get_looped_page_title', $title);

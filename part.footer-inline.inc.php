@@ -3,8 +3,8 @@
     <?php do_action('wlfw_before_footer_sidebar'); ?>
   	<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : ?>
         	<div class="<?php wlfw_grid_col_class(16); ?> inner">
-				<div class="<?php wlfw_grid_col_class(8); ?>"><?php bloginfo('name'); ?><br  />Copyright &copy; <?php echo date('Y'); ?></div>
-                <div class="<?php wlfw_grid_col_class(8); ?>">
+				<div class="<?php wlfw_grid_col_class(8); ?>"><p><?php bloginfo('name'); ?></p><p>Copyright &copy; <?php echo date('Y'); ?></p></div>
+                <div class="<?php wlfw_grid_col_class(8); ?> text-right">
 				<?php
 				function wlfw_footer_gpl() { echo '<p>GPL-V2 License - WordPress.org Friendly</p>'; }
 				wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'footer_nav',  'fallback_cb' => 'wlfw_footer_gpl' ) );

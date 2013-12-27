@@ -434,8 +434,14 @@ function default_wlfw_content_col_class() {
 
 // returns jQuery version number used by WP core
 function wlfw_get_jquery_version($args = array()) {
-	global $wp_scripts;
-	$jquery_version = $wp_scripts->registered['jquery']->ver;
+    wp_enqueue_script( 'jquery' );
+    // Get jquery handle - WP 3.6 or newer changed the jQuery handle (once we're on 3.6+ we can remove this logic)
+    $jquery_handle = (version_compare($GLOBALS['wp_version'], '3.6-alpha1', '>=') ) ? 'jquery-core' : 'jquery';
+    // Get the WP built-in version
+    $wp_jquery_ver = $GLOBALS['wp_scripts']->registered[$jquery_handle]->ver;
+
+    // Just in case it doesn't work, add a fallback version
+    $jquery_version = ( $wp_jquery_ver == '' ) ? '1.8.3' : $wp_jquery_ver;
 
 	if (empty($args))
 		return $jquery_version;
@@ -443,10 +449,9 @@ function wlfw_get_jquery_version($args = array()) {
 	global $errors;
 
 	// show warning if you will be changing versions of jQuery
-  if( is_wp_error($errors) && stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), 'http') && !stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version) ) {
+    if( is_wp_error($errors) && stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), 'http') && !stristr(get_option(SM_SITEOP_PREFIX.'jquery_source'), $jquery_version) ) {
 		$errors->add('Warning', __(sprintf('You are currently using an older version of jQuery. Setting an option in the script sources tab will cause your site to start loading the most recent version ('.$jquery_version.')'), THEME_PREFIX));
 	}
-	
 	return $jquery_version;
 }
 

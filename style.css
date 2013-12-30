@@ -168,15 +168,10 @@ blockquote p:after {
 	display: block;
 	padding: 16px 26px;
 	text-decoration: none;
-	display:block;
-	line-height: 20px;
-	font-size: 20px;
 	color: #e6e6e6;
 	text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.33);
-	letter-spacing: 0.2px;
+	letter-spacing: 1px;
 	text-transform: uppercase;
-
-	
 }
 
 #nav_below_header a:hover, #nav_below_header li:hover, #nav_below_header .sub-menu {
@@ -213,13 +208,18 @@ blockquote p:after {
 	right: 200px;	
 }
 #nav_below_header .menu > li:last-child ul {
-	right: 0px;
+	right: 0;
 }
 #nav_below_header .menu a.handle { display:none; }
 
 
 /* Content
 ----------------------------------------------- */
+#middleWrapper img, #middleWrapper div, #middleWrapper p, #middleWrapper ul, #middleWrapper li, #middleWrapper a {
+    max-width: 100%;
+    height: auto;
+}
+
 #middleWrapper.sidebar-left #contentColWide {
 	float: right;
 	display: block;
@@ -288,7 +288,7 @@ blockquote p:after {
 }
 
 .widget-container #floatingbuttons .floatbutton {
-	margin: 10px 20px 10px 0px;
+	margin: 10px 20px 10px 0;
 }
 
 .widget-container #floatingbuttonsWrapper, .widget-container #floatingbuttons {
@@ -333,8 +333,7 @@ a.hover-show-image img:hover, a.hover-show-image:hover img {
 	margin-bottom:16px;
 }
 .post ol li, div.page ol li {
-	list-style: outside;
-	list-style-type: decimal;
+	list-style: outside decimal;
 	margin: 8px 0;
 	line-height: 1.1em;
 }
@@ -393,7 +392,7 @@ dl.gallery-item, dt.gallery-icon {
 }
 
 .attachment h1 {line-height: 1.1em;}
-.attachment .entry-meta { float: right; padding-top: 0px;}
+.attachment .entry-meta { float: right; padding-top: 0;}
 .attachment .meta-prep-entry-date { margin-top: -5px; }
 .attachment #nav-single {text-align: center;}
 .attachment .edit-link {line-height: 2em;}
@@ -408,7 +407,7 @@ dl.gallery-item, dt.gallery-icon {
 	background: url(appearance/images/backgrounds/trans-pixel-black-50-percent.png);
 	font-size: 80px;
 	position: absolute;
-	left: 0%;
+	left: 0;
 	top: 40%;
 	color: white;
 	width: 100%;

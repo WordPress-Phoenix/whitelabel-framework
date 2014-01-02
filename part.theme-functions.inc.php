@@ -89,7 +89,7 @@ function wlfw_get_looped_page_title($wp_query) {
     if(is_category() || is_tag()) $title = single_cat_title('Currently browsing ', false);
     if(is_home() && !empty($wp_query->queried_object->ID)) $title = get_the_title($wp_query->queried_object->ID);
 
-    if(!empty($title)) $title = '<h1>'.$title.'</h1>';
+    if(!empty($title)) $title = '<h1 class="loop title">'.$title.'</h1>';
     return apply_filters( 'wlfw_get_looped_page_title', $title);
 }
 

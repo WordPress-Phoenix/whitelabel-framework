@@ -18,11 +18,6 @@ add_action('wlfw_after_footer_sidebar', 'wlfw_mobile_top_bttn');
 // how to make this only happen on front page (is_front_page doesnt work)
 add_action('wlfw_mobile_frontpage_sticky_buttons', 'get_template_part', 10, 2);
 
-
-//add_filter('wlfw_before_title_output', 'wlfw_remove_page_title_h1s');
-
-
-
 //Define global options
 define('SM_MOBILE_FULLSITE_URL', get_option(SM_SITEOP_PREFIX.'fullsite_url'));
 define('SM_MOBILE_FULLSITE_QUERY', get_option(SM_SITEOP_PREFIX.'fullsite_query'));

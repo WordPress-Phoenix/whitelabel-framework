@@ -172,7 +172,9 @@ function load_head_closing() {
 	get_template_part('part.head', 'analytics.inc');
 }
 
-function load_theme_stylesheet_last() { 
+function load_theme_stylesheet_last() {
+    //preparing for jquery mobile update 1.4.0 which will require re-rolling a jquery mobile theme
+    //wp_enqueue_style('mobile-styles-jqm', get_template_directory_uri().'/appearance/jquery-mobile-themes/1.3.2/default.css', '', THEME_VERSION);
 	wp_enqueue_style('mobile-styles', get_template_directory_uri().'/appearance/mobile-style.css', '', THEME_VERSION);
 }
 
@@ -182,7 +184,7 @@ function setup_scripts_and_styles_enqueue() {
 	//disable all other stylesheets and scripts	
 	if(!is_admin()) {
 		wp_deregister_script( 'jquery' );
-		wp_enqueue_script( 'jquery', 'http://code.jquery.com/jquery-1.9.1.min.js', '');	
+		wp_enqueue_script( 'jquery', 'http://code.jquery.com/jquery-1.9.1.min.js', '');
 		wp_enqueue_script( 'jqm', 'http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js', array('jquery'));
 		wp_enqueue_script( 'jqm2', get_template_directory_uri().'/js/jqm-init.js', array('jquery'), THEME_VERSION);
 	}

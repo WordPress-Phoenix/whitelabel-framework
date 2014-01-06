@@ -62,7 +62,7 @@ function wlfw_include_core_files() {
 		'WHITELABEL_CORE' => array( 'slug' => 'part.theme', 'name' => 'functions.inc' ),
 		'WHITELABEL_WPBUILTINS' => array( 'slug' => 'part.theme', 'name' => 'wpbuiltins.inc' ),
 		'WHITELABEL_SHORTCODES' => array( 'slug' => 'part.theme', 'name' => 'shortcodes.inc' ),
-		'WHITELABEL_WIDGETS' => array( 'slug' => 'part.widgets.inc', 'name' => '' ),
+		'WHITELABEL_WIDGETS' => array( 'slug' => 'inc/widgets/part.widgets.inc', 'name' => '' ),
 		'WHITELABEL_FLOATING_SOCIAL' => array( 'slug' => 'part.floating', 'name' => 'social.inc' ),
 	);
 	
@@ -88,7 +88,7 @@ function wlfw_include_core_files() {
 	foreach($wlfw_parts as $constant => $template_part) {
 		if(defined($constant)) $value = constant($constant);
 		if(!defined($constant) || $value != false)
-		get_template_part($template_part['slug'], $template_part['name']);	
+		get_template_part($template_part['slug'], $template_part['name']);
 	}
 }
 add_action('after_setup_theme', 'wlfw_include_core_files');

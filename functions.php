@@ -29,14 +29,14 @@ else
 
 // load the theme updater core script
 // this checks for theme updates using the public GitHub repository
-if(is_admin() && file_exists(dirname(__FILE__).'/inc/updater-plugin.php')) 
-	include_once(dirname(__FILE__).'/inc/updater-plugin.php');
+if(is_admin() && file_exists(dirname(__FILE__).'/inc/admin/updater-plugin.php'))
+    include_once(dirname(__FILE__) . '/inc/admin/updater-plugin.php');
 	
 // load and activate the child theme generator. only if the URL is loaded with this GET action
 // the file thats included does a check to make sure user has proper permissions to create themes
 // ex: http://whitelabelframework.com/wp-admin/themes.php?action=wlfw-create-child-theme
-if(is_admin() && file_exists(dirname(__FILE__).'/inc/child-theme-oneclick.php') && !empty($_GET['action']) && $_GET['action'] == 'wlfw-create-child-theme') 
-	include_once(dirname(__FILE__).'/inc/child-theme-oneclick.php');
+if(is_admin() && file_exists(dirname(__FILE__).'/inc/admin/child-theme-oneclick.php') && !empty($_GET['action']) && $_GET['action'] == 'wlfw-create-child-theme')
+	include_once(dirname(__FILE__) . '/inc/admin/child-theme-oneclick.php');
 
 define('THEME_VERSION', $theme_data['Version']);
 

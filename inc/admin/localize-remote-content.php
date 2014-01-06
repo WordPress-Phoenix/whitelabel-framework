@@ -16,7 +16,7 @@ if ( eregi("MSIE", getenv( "HTTP_USER_AGENT" ) ) || eregi("Internet Explorer", g
 
 if(isset($_REQUEST['remote'])) {
 	$iframe_fix_script = "
-	<script type=\"text/javascript\">var prevent_bust = 0; window.onbeforeunload = function() { prevent_bust++ }; setInterval(function() {if (prevent_bust > 0) {prevent_bust -= 2;window.top.location = '".get_template_directory_uri()."/inc/localize-remote-content.php?remote=204'}}, 1); window.alert = function() {}; parent.tb_showIframe(); </script>".PHP_EOL;
+	<script type=\"text/javascript\">var prevent_bust = 0; window.onbeforeunload = function() { prevent_bust++ }; setInterval(function() {if (prevent_bust > 0) {prevent_bust -= 2;window.top.location = '".get_template_directory_uri()."/inc/admin/localize-remote-content.php?remote=204'}}, 1); window.alert = function() {}; parent.tb_showIframe(); </script>".PHP_EOL;
 	
 	//delete_transient( 'wlfw_wp_remote_get_response' );
 	//use transients to avoid calling to the site too often

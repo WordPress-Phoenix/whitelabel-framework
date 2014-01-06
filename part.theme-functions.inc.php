@@ -1,8 +1,8 @@
 <?php
 // include theme updater file
 global $pagenow;
-if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow=='update-core.php') && file_exists(dirname(__FILE__).'/inc/theme_upgrade.php') ) {
-	include_once(dirname(__FILE__).'/inc/theme_upgrade.php'); 
+if( is_admin() && ($pagenow=='index.php' || $pagenow=='themes.php' || $pagenow=='update-core.php') && file_exists(dirname(__FILE__).'/inc/admin/theme_upgrade.php') ) {
+	include_once(dirname(__FILE__) . '/inc/admin/theme_upgrade.php');
 }
 
 //function: wlfw_posted_in

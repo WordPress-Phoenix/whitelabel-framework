@@ -9,7 +9,7 @@
             <?php endif; // logo-aside ?>
         </div>
         <div class="clear after_logo_aside"></div>
-        <?php do_action('after_logo_aside', 'part.header', 'mobile-nav-sticky-buttons.inc'); ?>  
+        <?php do_action('after_logo_aside', 'inc/mobile/part.header', 'mobile-nav-sticky-buttons.inc'); ?>
         <div class="<?php wlfw_grid_col_class(16); ?>" id="nav_below_header">
             <?php do_action('wlfw_display_nav'); ?>
             <div class="clear after_nav"></div>

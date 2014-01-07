@@ -48,43 +48,45 @@ if(FALSE) { wp_head(); wp_footer(); }
 function wlfw_include_core_files() { 
 
 	$wlfw_parts = array(
-		'WHITELABEL_SITEOPTIONS_BUILDER' => array( 'slug' => 'part', 'name' => 'siteoptions_builder.class'),
+		'WHITELABEL_SITEOPTIONS_BUILDER' => array( 'slug' => 'inc/kernal/part', 'name' => 'siteoptions_builder.class'),
 		'WHITELABEL_SITEOPTIONS' => array( 'slug' => 'part.theme', 'name' => 'siteoptions.inc' ),
 		//mobile redirection tool
 		//you can use this utility to redirect mobile visitors to your mobile domain
 		//name by providing the redirection URL in the Appearance Customization menu
-		'WHITELABEL_MOBILE' => array( 'slug' => 'part.mobile', 'name' => 'redirect.devices.inc' ),
+		'WHITELABEL_REDIRECT_DEVICES' => array( 'slug' => 'inc/kernal/part', 'name' => 'redirect.mobile.devices.inc' ),
 		//build out the website based on the config options
 		//this section controls which styles and scripts are enqueued
 		//as well as all of the theme options as defined by WordPress core
 		
 		//allow core functions to be completely removed, or overwritten by child them template part
-		'WHITELABEL_CORE' => array( 'slug' => 'part.theme', 'name' => 'functions.inc' ),
-		'WHITELABEL_WPBUILTINS' => array( 'slug' => 'part.theme', 'name' => 'wpbuiltins.inc' ),
-		'WHITELABEL_SHORTCODES' => array( 'slug' => 'part.theme', 'name' => 'shortcodes.inc' ),
+		'WHITELABEL_CORE' => array( 'slug' => 'inc/kernal/part.theme', 'name' => 'functions.inc' ),
+		'WHITELABEL_WPBUILTINS' => array( 'slug' => 'inc/kernal/part.theme', 'name' => 'wpbuiltins.inc' ),
+		'WHITELABEL_SHORTCODES' => array( 'slug' => 'inc/kernal/part.theme', 'name' => 'shortcodes.inc' ),
 		'WHITELABEL_WIDGETS' => array( 'slug' => 'inc/widgets/part.widgets.inc', 'name' => '' ),
-		'WHITELABEL_FLOATING_SOCIAL' => array( 'slug' => 'part.floating', 'name' => 'social.inc' ),
+		'WHITELABEL_FLOATING_SOCIAL' => array( 'slug' => 'inc/snippets/part.floating', 'name' => 'social.inc' ),
 	);
-	
+
 	$wlfw_parts = apply_filters('wlfw_include_core_files', $wlfw_parts);
 	
 	// remove site options builder if its already being added elsewhere
 	if(class_exists('sm_options_container') ) 
 		unset($wlfw_parts['WHITELABEL_SITEOPTIONS_BUILDER']);
-		
-	if( get_option(SM_SITEOP_PREFIX.'grid_system') =='mobile' ) { 
 
+    //TODO: maybe move these to mobile config file? mobile widget being added there
+	if( get_option(SM_SITEOP_PREFIX.'grid_system') =='mobile' ) {
 		$wlfw_mobile_parts = array(
-		'WHITELABEL_MOBILE_FUNCTIONS' => array( 'slug' => 'part.theme', 'name' => 'functions-mobile.inc' ),
-		'WHITELABEL_MOBILE_SITEOPTIONS' => array( 'slug' => 'part.theme', 'name' => 'mobile-siteoptions.inc' ),
-		'WHITELABEL_MOBILE_LINK_FULLSITE_WIDGET' => array( 'slug' => 'part.widgets', 'name' => 'mobile-link-to-full-site.inc' ),
+		'WHITELABEL_MOBILE_FUNCTIONS' => array( 'slug' => 'inc/mobile/part.theme', 'name' => 'functions-mobile.inc' ),
+		'WHITELABEL_MOBILE_SITEOPTIONS' => array( 'slug' => 'inc/mobile/part.theme', 'name' => 'mobile-siteoptions.inc' ),
 		);
-		
+        //disable mobile redirection if mobile website layout is detected
+        //TODO: remove redirection from theme options when mobile layout detected
+		unset($wlfw_parts['WHITELABEL_REDIRECT_DEVICES']);
 		$wlfw_parts = array_merge($wlfw_parts, $wlfw_mobile_parts);
 	}
-			
-	$wlfw_parts = array_merge(array('WHITELABEL_CONFIG' => array( 'slug' => 'part.theme.config', 'name' => get_option(SM_SITEOP_PREFIX.'grid_system') )), $wlfw_parts );
-		
+
+    //setup the config file to load default config or config file for the layout chosen (if there is one)
+	$wlfw_parts = array_merge(array('WHITELABEL_CONFIG' => array( 'slug' => 'inc/part.theme.config', 'name' => get_option(SM_SITEOP_PREFIX.'grid_system') )), $wlfw_parts );
+
 	foreach($wlfw_parts as $constant => $template_part) {
 		if(defined($constant)) $value = constant($constant);
 		if(!defined($constant) || $value != false)

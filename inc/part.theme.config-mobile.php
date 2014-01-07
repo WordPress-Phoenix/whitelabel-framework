@@ -32,6 +32,11 @@ add_theme_support( 'custom-background', array(
 	'admin-preview-callback' => '')
 );
 
+//allow widgets to be completely removed, or overwritten by child them template part
+if(defined('WHITELABEL_WIDGETS_FULLSITELINK')) $whitelabelWidgetsFullsitelink = WHITELABEL_WIDGETS_FULLSITELINK;
+if(!defined('WHITELABEL_WIDGETS_FULLSITELINK') || $whitelabelWidgetsFloatingsocialFlag != false)
+    get_template_part('inc/widgets/part.widgets', 'mobile-link-to-full-site.inc');
+
 function mppro_custom_background() {
 	// $background is the saved custom image, or the default image.
 	$background = set_url_scheme( get_background_image() );

@@ -144,6 +144,9 @@ dl dd { border-top: 1px solid #999; }
 .logo-sibling .widget-container {
 	margin-bottom:0;
 }
+.logo-sibling .widget-container #searchform {
+    text-align: right;
+}
 	
 
 /* Nav

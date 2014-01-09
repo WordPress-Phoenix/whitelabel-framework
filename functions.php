@@ -49,7 +49,7 @@ function wlfw_include_core_files() {
 
 	$wlfw_parts = array(
 		'WHITELABEL_SITEOPTIONS_BUILDER' => array( 'slug' => 'inc/kernal/part', 'name' => 'siteoptions_builder.class'),
-		'WHITELABEL_SITEOPTIONS' => array( 'slug' => 'part.theme', 'name' => 'siteoptions.inc' ),
+		'WHITELABEL_SITEOPTIONS' => array( 'slug' => 'inc/kernal/part.theme', 'name' => 'siteoptions.inc' ),
 		//mobile redirection tool
 		//you can use this utility to redirect mobile visitors to your mobile domain
 		//name by providing the redirection URL in the Appearance Customization menu

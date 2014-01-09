@@ -2899,6 +2899,7 @@ p.intro strong {
     margin: 10px -15px 0;
     background: #fff;
     border-top: 1px solid #ccc;
+    width: 100%;
 }
 
 .type-home .ui-content {

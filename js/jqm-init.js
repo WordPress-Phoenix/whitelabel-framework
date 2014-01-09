@@ -7,28 +7,46 @@ function setDefaultTransition(){
 		else if( winwidth >= 650 ){	trans = "fade";	}
 		jQuery.mobile.defaultPageTransition = trans;
 	}
+
+//disable jquery hash linking garbage
+
+jQuery(document).on('pagecreate', function () {
+    jQuery.mobile.hashListeningEnabled = false;
+    jQuery.mobile.linkBindingEnabled = false;
+    jQuery.mobile.ajaxEnabled = false;
+    jQuery.mobile.allowCrossDomainPages = true;
+});
+
 //initial page methods and options
 jQuery(function($){
-		jQuery.mobile.ajaxEnabled = false;
-		jQuery.mobile.hashListeningEnabled = false;
 
-		/* This function fixes the issue created by jquerymobile, by allowing "hash anchor linking" otherwise known as "deep-linking"
-		 * it goes through all <a> tags and converts hrefs to "hash" attritubes and then uses the attribute to scroll to the location 
-	 	 * on the page. This will allow you to "keep you html content the same" instead of forcing you to change all your hyperlinks 
-	 	 * by class or doing crazy javascript overrides 
-	 	 */
-	 	jQuery('a').each(function(i){if(this.hash){jQuery(this).attr('hash',this.hash).removeAttr('href'); jQuery(this).bind('click', function() { if(jQuery(this).attr('hash') == '#top') $.mobile.silentScroll(0); else {scrollTarget = jQuery( jQuery(this).attr('hash') ).get(0).offsetTop; $.mobile.silentScroll(scrollTarget);} return false; }); } });
+    /* This function fixes the issue created by jquerymobile, by allowing "hash anchor linking" otherwise known as "deep-linking"
+     * it goes through all <a> tags and converts hrefs to "hash" attritubes and then uses the attribute to scroll to the location
+     * on the page. This will allow you to "keep your html content the same" instead of forcing you to change all your hyperlinks
+     * by class or doing crazy javascript overrides
+     */
 
-		setDefaultTransition();
-		jQuery( window ).bind( "throttledresize", setDefaultTransition );
-		jQuery('#top').on('click', function() {  $.mobile.silentScroll(0); return false; });
-		jQuery('#bookmark').on('click', function() {  jQuery('#menubox').toggle();jQuery('#stickyButtons').toggle();return false; });
-		jQuery('#bookmarkit').on('click', function() {  
-				var pageName=window.location.href;var nameArr =pageName.split("?");pageName=nameArr[0] + "?" + nameArr[1];
-				if (window.sidebar){window.sidebar.addPanel(document.title,pageName,"");} 
-				else if(document.all){ window.external.AddFavorite(pageName,document.title);} 
-				else if(navigator.userAgent.toLowerCase().indexOf('iphone')!=-1) {alert('please press the \'+\' button on your browser to bookmark this site.');} 
-				else if(navigator.userAgent.toLowerCase().indexOf('webkit')!=-1) {alert('please press ctrl + D to bookmark');} 
-				else {return true;}
-			 });
-	});
+    /*
+    console.group('linkmods');
+    jQuery('.page_item_has_children > a').each(function(i){
+    jQuery(this).attr('href');
+    console.log(this);
+    });
+    console.groupEnd();
+    */
+    jQuery('.content-primary a').each(function(i){if(this.hash){jQuery(this).attr('hash',this.hash).removeAttr('href'); jQuery(this).bind('click', function() { if(jQuery(this).attr('hash') == '#top') $.mobile.silentScroll(0); else {scrollTarget = jQuery( jQuery(this).attr('hash') ).get(0).offsetTop; $.mobile.silentScroll(scrollTarget);} return false; }); } });
+
+    setDefaultTransition();
+    jQuery( window ).bind( "throttledresize", setDefaultTransition );
+    jQuery('#top').on('click', function() {  $.mobile.silentScroll(0); return false; });
+    jQuery('#bookmark').on('click', function() {  jQuery('#menubox').toggle();jQuery('#stickyButtons').toggle();return false; });
+    jQuery('#bookmarkit').on('click', function() {
+        var pageName=window.location.href;var nameArr =pageName.split("?");pageName=nameArr[0] + "?" + nameArr[1];
+        if (window.sidebar){window.sidebar.addPanel(document.title,pageName,"");}
+        else if(document.all){ window.external.AddFavorite(pageName,document.title);}
+        else if(navigator.userAgent.toLowerCase().indexOf('iphone')!=-1) {alert('please press the \'+\' button on your browser to bookmark this site.');}
+        else if(navigator.userAgent.toLowerCase().indexOf('webkit')!=-1) {alert('please press ctrl + D to bookmark');}
+        else {return true;}
+    });
+
+});

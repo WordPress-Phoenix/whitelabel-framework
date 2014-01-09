@@ -179,7 +179,7 @@ function load_head_closing() {
 
 function load_theme_stylesheet_last() {
     //preparing for jquery mobile update 1.4.0 which will require re-rolling a jquery mobile theme
-    //wp_enqueue_style('mobile-styles-jqm', get_template_directory_uri().'/appearance/jquery-mobile-themes/1.3.2/default.css', '', THEME_VERSION);
+    //wp_enqueue_style('mobile-styles-jqm', get_template_directory_uri().'/appearance/jqm-themes/jqm-1.4.0-default/jqm-default.css', '', THEME_VERSION);
 	wp_enqueue_style('mobile-styles', get_template_directory_uri().'/appearance/mobile-style.css', '', THEME_VERSION);
 }
 

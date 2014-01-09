@@ -3233,6 +3233,6 @@ dd h4 {
     }
 }
 
-#printHeader, #printFooter {
+#printHeader, #printFooter, .ui-page {
     display: none;
 }

@@ -268,7 +268,11 @@ dl dd { border-top: 1px solid #999; }
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 }
 
-#middleWrapper img, #middleWrapper div, #middleWrapper p, #middleWrapper ul, #middleWrapper li, #middleWrapper a {
+#middleWrapper img, #middleWrapper p, #middleWrapper ul, #middleWrapper li, #middleWrapper a {
+    max-width: 100%;
+}
+
+.content-primary div, .content-secondary div {
     max-width: 100%;
 }
 
@@ -276,7 +280,7 @@ dl dd { border-top: 1px solid #999; }
     height: auto;
 }
 
-#middleWrapper.sidebar-left #contentColWide {
+.sidebar-left .content-primary {
 	float: right;
 	display: block;
 }

@@ -191,7 +191,7 @@ body{
 [class^="grid_"],
 .grids [class^="grid_"]{
 	width:auto;
-	float:none;
+	float:none !important;
 	margin:0;
 }
 

@@ -1,4 +1,7 @@
-<?php $header_image = get_header_image(); ?>
+<?php
+    do_action('build_above_theme_header', 'part.header.inline.before-topwrapper.inc');
+    $header_image = get_header_image();
+?>
 <div id="topWrapper" class="<?php echo apply_filters( 'top_wrapper_section_class', ''); ?>">
     <div id="header" class="<?php wlfw_grid_row_class(16); ?>" data-role="header" data-theme="b">
 		<?php do_action('wlfw_before_logo'); ?>
@@ -10,10 +13,7 @@
         </div>
         <div class="clear after_logo_aside"></div>
         <?php do_action('after_logo_aside', 'inc/mobile/part.header', 'mobile-nav-sticky-buttons.inc'); ?>
-        <div class="<?php wlfw_grid_col_class(16); ?>" id="nav_below_header">
-            <?php do_action('wlfw_display_nav'); ?>
-            <div class="clear after_nav"></div>
-        </div>
+        <?php do_action('build_theme_header_nav', 'part.header', 'navigation.inc'); ?>
     </div>
   
     <div id="printHeader" class="<?php wlfw_grid_row_class(16); ?> print">
@@ -22,3 +22,5 @@
     </div>
     <div class="clear after_print_header"></div>
 </div><!-- topWrapper -->
+<?php
+    do_action('build_below_theme_header', 'part.header.inline.after-topwrapper.inc');

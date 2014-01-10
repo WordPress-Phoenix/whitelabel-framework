@@ -97,6 +97,7 @@ if (!is_admin()) {
 	add_action('build_theme_head', 'get_template_part', 10, 2);
 	add_action('build_theme_head', 'wp_head', 20);
 	add_action('build_theme_head', 'load_head_closing', 90);
+    add_action('build_theme_header_nav', 'get_template_part', 10, 2);
 	add_action('append_meta_tags', 'wlfw_mobile_meta' );
 	add_action('body_class', 'wlfw_set_body_class_for_ie', 5);
 	add_action('body_enqueue', 'get_template_part', 10, 2);

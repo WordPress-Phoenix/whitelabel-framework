@@ -13,9 +13,4 @@ As the theme develops, we will take more and more from the plugins that we use o
 == TODO LIST FOR DEVELOPMENT GROUP ==
 
 *PLEASE CHECK ASSIGNMENTS BEFORE DEVELOPING, AND DON'T DEVELOP SOMETHING THAT ASSIGNED TO SOMEBODY ELSE ALREADY
-
-- create admin option for 'wlfw_featured_image_on_content'
-- create admin option for 'wlfw_featured_image_on_loop'
-- check efficiency of options stored and check if static vars should be set
-- upgrade wp-admin options for header logo, favicon, and logo-sibling
-- build dropdown menus for the primary navigation
+!! See issues on github

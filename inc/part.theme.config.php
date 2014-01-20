@@ -150,11 +150,6 @@ function setup_scripts_and_styles_enqueue() {
 	wp_register_script( 'jquery-pajinate' ,get_template_directory_uri(). '/js/jquery.pajinate.js', array('jquery'), THEME_VERSION);
 	wp_register_script( 'whitelabel-uix' ,get_template_directory_uri(). '/js/whitelabel-uix.js', array('jquery'), THEME_VERSION);
 	
-	//Use older version of UI scripts (core, resizeable, dragable, dialog) fixes IE Jump issue
-	wp_deregister_script( 'jquery-ui' );
-	wp_register_script( 'jquery-ui' ,get_template_directory_uri().'/js/jquery-ui-dialog.custom.min.js', array('jquery'), THEME_VERSION);
-	
-	
 	// load jQuery from external source 
 	if( $my_jquery = get_option(SM_SITEOP_PREFIX.'jquery_source')&& get_option(SM_SITEOP_PREFIX.'jquery_source') != 'default' && get_option(SM_SITEOP_PREFIX.'jquery_source') != 'local' )	{ 
 		wp_deregister_script( 'jquery' );
@@ -167,7 +162,7 @@ function setup_scripts_and_styles_enqueue() {
 	}
 	
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'jquery-ui', array('jquery') );
+	wp_enqueue_script( 'jquery-ui-dialog', array('jquery') );
 	wp_enqueue_script( 'whitelabel-uix', array('jquery') );
 	
 	//register the grid system

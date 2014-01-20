@@ -29,7 +29,7 @@ else
 
 // load the theme updater core script
 // this checks for theme updates using the public GitHub repository
-if(is_admin() && file_exists(dirname(__FILE__).'/inc/admin/updater-plugin.php'))
+if(is_admin() && !class_exists('GitHub_Theme_Updater') && file_exists(dirname(__FILE__).'/inc/admin/updater-plugin.php'))
     include_once(dirname(__FILE__) . '/inc/admin/updater-plugin.php');
 	
 // load and activate the child theme generator. only if the URL is loaded with this GET action

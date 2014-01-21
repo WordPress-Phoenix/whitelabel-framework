@@ -144,12 +144,13 @@ if(!function_exists('sm_topmost_parent')) { function sm_topmost_parent( $args = 
 
 //function: sm_disable_admin_bar (call before wp_head)
 //description: disables admin bar on a per page basis
-//optional parameters: none 
-if(!function_exists('sm_disable_admin_bar')) { function sm_disable_admin_bar( $args = array() ) {
-	add_filter( 'show_admin_bar', '__return_false' );
-	remove_action('wp_head', '_admin_bar_bump_cb'); 
-	wp_deregister_script('admin-bar');
-	wp_deregister_style('admin-bar');
+//optional parameters: none
+function sm_disable_admin_bar( $args = array() ) {wlfw_disable_admin_bar($args);}
+if(!function_exists('wlfw_disable_admin_bar')) { function wlfw_disable_admin_bar( $args = array() ) {
+    show_admin_bar( false );
+    remove_action('wp_head', '_admin_bar_bump_cb');
+    wp_dequeue_script('admin-bar');
+    wp_dequeue_style('admin-bar');
 }}
 
 //function: sm_remove_all_styles

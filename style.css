@@ -14,7 +14,7 @@ Description:        Whitelabel Framework is designed to be the ideal Parent Them
 You should not need to add any styles to this framwork css file, instead create a child theme css file and add your styles there.
 */
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic);
 @import url("appearance/webfontkits/bebas-neue/font-face.css");
 
 /* Typography

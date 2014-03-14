@@ -48,8 +48,12 @@ function redirect_mobile_devices($args = array()) {
     //optionally use a different service provider by setting variables, default is currently:
     extract($args);
     if(empty($_COOKIE['browser_type'])) {
-        $mobile_detector = detect_mobile_using_curl();
-        $_COOKIE['browser_type'] = detect_mobile_using_curl();
+        //$mobile_detector = detect_mobile_using_curl();
+        require_once(__DIR__.'/lib.mobiledetect.class.php');
+        $detect = new Mobile_Detect;
+        $deviceType =      ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+        $mobile_detector = ($detect->isMobile() ? ($detect->isTablet() ? true     : true   ) : false);
+        $_COOKIE['browser_type'] = $deviceType;
         setcookie('browser_type', $_COOKIE['mobile_viewfullsite'], 0);
     }
     else {
@@ -59,49 +63,14 @@ function redirect_mobile_devices($args = array()) {
     //redirect mobile device visitors to this URL
     $mobile_redirect_url = apply_filters('wlfw_mobile_redirect_url', $maybe_redirect_mobile_devices);
 
-    //on error, display the error
-    if(is_array($mobile_detector) && isset($mobile_detector['error'])) add_action('body_enqueue', create_function('', 'echo $mobile_detector["error"];'));
-
     //mobile browser is detected, redirect to mobile website using HTML meta tag
-    elseif($mobile_detector) {
+    if($mobile_detector) {
         echo( '<html><head><meta http-equiv="Refresh" content="1;url='.$mobile_redirect_url.'" /></head><body>Mobile Device Detected, redirecting you to the mobile website at '.$mobile_redirect_url.'.</body></html>' );
         exit;
     }
 
     //mobile browser was not detected message output when debug is requested using URL parameter
     elseif(isset($_GET['mobile_detector_debug'])) echo 'Mobile Device not detected';
-}
-
-
-function detect_mobile_using_curl($service_url = 'detectmobilebrowsers.com', $html_response_tag = 'h2', $not_mobile_result_string = 'no mobile') {
-
-    $wp_http_args = array(
-        'timeout'     => 10,
-        'redirection' => 5,
-        'httpversion' => '1.0',
-        'user-agent'  => $_SERVER['HTTP_USER_AGENT'],
-        'blocking'    => true,
-        'headers'     => array(),
-        'cookies'     => array(),
-        'body'        => null,
-        'compress'    => false,
-        'decompress'  => true,
-        'sslverify'   => true,
-        'stream'      => false,
-        'filename'    => null
-    );
-
-    //since version 2, using the wordpress http class instead of standard CURL
-    $curlProcess = wp_remote_retrieve_body( wp_remote_get('http://'.$service_url, array('timeout' => 120, 'user-agent'  => $_SERVER['HTTP_USER_AGENT'])) );
-    if(!$curlProcess) return array('error' => 'Server does not support cUrl. Please contact your server administrator or hosting provider.');
-
-    //parse out just the content needed to assess mobile devices and place in array
-    $content = getTextBetweenTags($html_response_tag, $curlProcess);
-    if(count($content) < 1)	return array('error' => 'HTML Tag &lt;'.$html_response_tag.'&gt; configured in mobile detector was not found in the <a href="'.$service_url.'">service providers</a> response. Please reconfigure the mobile detection function and try again.');
-
-    $content = $content[array_search('detected', $content)];
-    if(stristr($content, $not_mobile_result_string)) return false;
-    else return true;
 }
 
 function getTextBetweenTags($tag, $html, $strict=0)

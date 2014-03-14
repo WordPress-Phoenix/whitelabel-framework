@@ -656,3 +656,8 @@ div.spacer {
 
 /* admin bar adjustments */
 #wpadminbar { min-width:960px; }
+
+/* Google Maps - Fixes */
+.gm-style, .gm-style div, .gm-style img {
+    max-width: none;
+}

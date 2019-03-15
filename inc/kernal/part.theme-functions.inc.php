@@ -461,7 +461,7 @@ if( $grid_system = get_option(SM_SITEOP_PREFIX.'grid_system') && get_option(SM_S
 	echo '<meta content="width=device-width" name="viewport">';	
 }
 
-function wlfw_number_widgets_by_class($instance ='', $this='', $args=''){
+function wlfw_number_widgets_by_class($instance ='', $current='', $args=''){
 	global $sidebars_widgets;
 	$sidebars_widgets_flip = array_flip($sidebars_widgets[$instance[0]['id']]);
 	if(isset($instance[0]) && isset($instance[0]['widget_id'])) {
